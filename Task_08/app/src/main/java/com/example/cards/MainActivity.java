@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
             R.id.card_30, R.id.card_31, R.id.card_32,R.id.card_33
     };
 
+    private ImageButton previousImageButton;  // 이전에 눌린 이미지 버튼
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         int cardIndex = findButtonIndex(imageButton.getId());  // 카드 인덱스 얻어옴.
         Log.d(TAG, "Card: " + cardIndex);
 
+        if(previousImageButton == imageButton) {  // 이전에 눌린 버튼을 또 클릭한 경우
+            Log.d(TAG, "Same Image Button");
+            return;
+        }
+
+        previousImageButton = imageButton;
     }
 
     private int findButtonIndex(int id) {  // 카드 인텍스 리턴하는 함수.
