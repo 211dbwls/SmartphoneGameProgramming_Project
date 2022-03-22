@@ -1,7 +1,9 @@
 package com.example.cards;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnRestart(View view) {
         Log.d(TAG, "Restart");
+        askRetry();
+    }
+
+    private void askRetry() {  // Restart 알림창 띄우는 함수
+        new AlertDialog.Builder(this)
+                .setTitle("Restart?")
+                .setMessage("Do you really want to restart the game?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startGame();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .create()
+                .show();
     }
 
     public void onBtnCard(View view) {
