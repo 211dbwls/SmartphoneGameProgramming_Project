@@ -19,12 +19,29 @@ public class MainActivity extends AppCompatActivity {
             R.id.card_30, R.id.card_31, R.id.card_32,R.id.card_33
     };
 
+    private int[] resIds = new int[]{  // 카드 이미지 리소스
+            R.mipmap.card_as, R.mipmap.card_2c, R.mipmap.card_3d, R.mipmap.card_4h,
+            R.mipmap.card_5s, R.mipmap.card_jc, R.mipmap.card_qh, R.mipmap.card_kd,
+            R.mipmap.card_as, R.mipmap.card_2c, R.mipmap.card_3d, R.mipmap.card_4h,
+            R.mipmap.card_5s, R.mipmap.card_jc, R.mipmap.card_qh, R.mipmap.card_kd
+    };
+
     private ImageButton previousImageButton;  // 이전에 눌린 이미지 버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startGame();
+    }
+
+    private void startGame() {
+        for(int i = 0; i < BUTTON_IDS.length; i++) {  // 각 카드에 이미지 부여
+            ImageButton btn = findViewById(BUTTON_IDS[i]);
+            int resId = resIds[i];
+            btn.setTag(resId);  // 태그로 설정
+        }
     }
 
     public void onBtnRestart(View view) {
@@ -45,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Same Image Button");
             return;
         }
+
+        int resId = (Integer) imageButton.getTag();  // 태그로 이미지 리소스 가져옴
+        imageButton.setImageResource(resId);  // 이미지 변경
 
         previousImageButton = imageButton;
     }
