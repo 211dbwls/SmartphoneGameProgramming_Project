@@ -38,6 +38,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_01"
@@ -46,6 +47,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_02"
@@ -54,6 +56,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_03"
@@ -62,6 +65,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
     </LinearLayout>
 
@@ -77,6 +81,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_11"
@@ -85,6 +90,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_12"
@@ -93,6 +99,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_13"
@@ -101,6 +108,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
     </LinearLayout>
 
@@ -116,6 +124,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_21"
@@ -124,6 +133,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_22"
@@ -132,6 +142,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_23"
@@ -140,6 +151,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
     </LinearLayout>
 
@@ -155,6 +167,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_31"
@@ -163,6 +176,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_32"
@@ -171,6 +185,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
         <ImageButton
             android:id="@+id/card_33"
@@ -179,6 +194,7 @@
             android:layout_weight="1"
             android:src="@mipmap/card_blue_back"
             android:scaleType="fitCenter"
+            android:onClick="onBtnCard"
             />
     </LinearLayout>
 
