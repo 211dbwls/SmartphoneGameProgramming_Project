@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton previousImageButton;  // 이전에 눌린 이미지 버튼
 
+    private int flips;  // 카드 연 횟수
+    private TextView scoreTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        scoreTextView = findViewById(R.id.scoreTextView);
 
         startGame();
     }
@@ -94,16 +100,24 @@ public class MainActivity extends AppCompatActivity {
             else {  // 다른 이미지 카드를 선택한 경우
                 imageButton.setImageResource(resId);  // 현재 누른 카드 이미지 변경
                 previousImageButton.setImageResource(R.mipmap.card_blue_back);  // 이전에 누른 카드 이미지 변경
+                setScore(flips + 1);  // 횟수 증가
                 previousImageButton = imageButton;  // 이전에 누른 버튼 저장
             }
         }
         else {  // 이번에 클릭한 이미지 버튼이 없는 경우
             imageButton.setImageResource(resId);  // 현재 누른 카드 이미지 변경
+            setScore(flips + 1);  // 횟수 증가
             previousImageButton = imageButton;  // 이전에 누른 버튼 저장
         }
     }
 
-    private int findButtonIndex(int id) {  // 카드 인텍스 리턴하는 함수.
+    private void setScore(int score) {  // 카드 연 횟수 증가시키는 함수
+        flips = score;
+        String text = "Flips: " + flips;
+        scoreTextView.setText(text);
+    }
+
+    private int findButtonIndex(int id) {  // 카드 인텍스 리턴하는 함수
         for(int i = 0; i < BUTTON_IDS.length; ++i) {
             if(id == BUTTON_IDS[i]) {
                     return i;
