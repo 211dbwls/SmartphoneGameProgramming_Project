@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -45,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
+        Random r = new Random();
+        for(int i = 0; i < resIds.length; i++) {  // 카드 랜덤 배치
+            int t = r.nextInt(resIds.length);
+
+            int id = resIds[t];
+            resIds[t] = resIds[i];
+            resIds[i] = id;
+        }
+
         for(int i = 0; i < BUTTON_IDS.length; i++) {  // 각 카드에 이미지 부여
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             int resId = resIds[i];
