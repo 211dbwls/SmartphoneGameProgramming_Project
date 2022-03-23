@@ -48,8 +48,13 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < BUTTON_IDS.length; i++) {  // 각 카드에 이미지 부여
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             int resId = resIds[i];
+            btn.setVisibility(View.VISIBLE);  // 카드 보이도록
+            btn.setImageResource(R.mipmap.card_blue_back);  // 뒷면 이미지 보이도록
             btn.setTag(resId);  // 태그로 설정
         }
+
+        setScore(0);  // score 초기화
+        previousImageButton = null;  // 이전에 누른 버튼 null로 초기화
     }
 
     public void onBtnRestart(View view) {
