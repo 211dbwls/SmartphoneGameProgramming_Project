@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private int flips;  // 카드 연 횟수
     private TextView scoreTextView;
 
+    private int openCardCount;  // 열린 카드 확인용 변수
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
             resIds[t] = resIds[i];
             resIds[i] = id;
         }
+
+        openCardCount = BUTTON_IDS.length;  // 총 카드 개수 설정
 
         for(int i = 0; i < BUTTON_IDS.length; i++) {  // 각 카드에 이미지 부여
             ImageButton btn = findViewById(BUTTON_IDS[i]);
@@ -111,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
             if(previousResourceId == resId) {  // 같은 이미지 카드를 선택한 경우
                 imageButton.setVisibility(View.INVISIBLE);  // 현재 누른 카드 사라지도록
                 previousImageButton.setVisibility(View.INVISIBLE);  // 이전에 누른 카드 사라지도록
+                openCardCount -=  2;  // 열린 카드 수 마이너스
+                if (openCardCount == 0) {  // 모든 카드를 제거한 경우
+                    askRetry();  // 재시작
+                }
                 previousImageButton = null;  // 이전에 누른 버튼 null로 설정
             }
             else {  // 다른 이미지 카드를 선택한 경우
