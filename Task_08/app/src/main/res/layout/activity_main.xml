@@ -35,18 +35,22 @@
         <ImageButton
             android:id="@+id/card_00"
             style="@style/ImageButton"
+            android:background="@drawable/card_00"
             />
         <ImageButton
             android:id="@+id/card_01"
             style="@style/ImageButton"
+            android:background="@drawable/card_01"
             />
         <ImageButton
             android:id="@+id/card_02"
             style="@style/ImageButton"
+            android:background="@drawable/card_02"
             />
         <ImageButton
             android:id="@+id/card_03"
             style="@style/ImageButton"
+            android:background="@drawable/card_03"
             />
     </LinearLayout>
 
@@ -58,18 +62,22 @@
         <ImageButton
             android:id="@+id/card_10"
             style="@style/ImageButton"
+            android:background="@drawable/card_10"
             />
         <ImageButton
             android:id="@+id/card_11"
             style="@style/ImageButton"
+            android:background="@drawable/card_11"
             />
         <ImageButton
             android:id="@+id/card_12"
             style="@style/ImageButton"
+            android:background="@drawable/card_12"
             />
         <ImageButton
             android:id="@+id/card_13"
             style="@style/ImageButton"
+            android:background="@drawable/card_13"
             />
     </LinearLayout>
 
@@ -81,18 +89,22 @@
         <ImageButton
             android:id="@+id/card_20"
             style="@style/ImageButton"
+            android:background="@drawable/card_20"
             />
         <ImageButton
             android:id="@+id/card_21"
             style="@style/ImageButton"
+            android:background="@drawable/card_21"
             />
         <ImageButton
             android:id="@+id/card_22"
             style="@style/ImageButton"
+            android:background="@drawable/card_22"
             />
         <ImageButton
             android:id="@+id/card_23"
             style="@style/ImageButton"
+            android:background="@drawable/card_23"
             />
     </LinearLayout>
 
@@ -104,18 +116,22 @@
         <ImageButton
             android:id="@+id/card_30"
             style="@style/ImageButton"
+            android:background="@drawable/card_30"
             />
         <ImageButton
             android:id="@+id/card_31"
             style="@style/ImageButton"
+            android:background="@drawable/card_31"
             />
         <ImageButton
             android:id="@+id/card_32"
             style="@style/ImageButton"
+            android:background="@drawable/card_32"
             />
         <ImageButton
             android:id="@+id/card_33"
             style="@style/ImageButton"
+            android:background="@drawable/card_33"
             />
     </LinearLayout>
 

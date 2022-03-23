@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             int resId = resIds[i];
             btn.setVisibility(View.VISIBLE);  // 카드 보이도록
+            // btn.setSelected(false);
             btn.setImageResource(R.mipmap.card_blue_back);  // 뒷면 이미지 보이도록
             btn.setTag(resId);  // 태그로 설정
         }
@@ -79,15 +82,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void askRetry() {  // Restart 알림창 띄우는 함수
         new AlertDialog.Builder(this)
-                .setTitle("Restart?")
-                .setMessage("Do you really want to restart the game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.Restart)
+                .setMessage(R.string.restart_alert_msg)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         startGame();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .create()
                 .show();
     }
@@ -122,13 +125,16 @@ public class MainActivity extends AppCompatActivity {
                 previousImageButton = null;  // 이전에 누른 버튼 null로 설정
             }
             else {  // 다른 이미지 카드를 선택한 경우
+                // imageButton.setSelected(true);
                 imageButton.setImageResource(resId);  // 현재 누른 카드 이미지 변경
+                // previousImageButton.setSelected(false);
                 previousImageButton.setImageResource(R.mipmap.card_blue_back);  // 이전에 누른 카드 이미지 변경
                 setScore(flips + 1);  // 횟수 증가
                 previousImageButton = imageButton;  // 이전에 누른 버튼 저장
             }
         }
         else {  // 이번에 클릭한 이미지 버튼이 없는 경우
+            // imageButton.setSelected(true);
             imageButton.setImageResource(resId);  // 현재 누른 카드 이미지 변경
             setScore(flips + 1);  // 횟수 증가
             previousImageButton = imageButton;  // 이전에 누른 버튼 저장
@@ -137,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setScore(int score) {  // 카드 연 횟수 증가시키는 함수
         flips = score;
-        String text = "Flips: " + flips;
+        Resources res = getResources();
+        String format = res.getString(R.string.flips_fmt);
+        String text = String.format(format, score);
         scoreTextView.setText(text);
     }
 
