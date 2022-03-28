@@ -4,7 +4,7 @@
 # Project
 ## 1차 발표 : 5주차 수요일 (3/30)
 * 게임 컨셉
-  * 
+  * ![jellyking1](https://user-images.githubusercontent.com/65964035/160378481-ef404015-6eb3-4c21-a7ca-367a920f3559.png)
 * 개발 범위
   * 
 * 예상 게임 실행 흐름
