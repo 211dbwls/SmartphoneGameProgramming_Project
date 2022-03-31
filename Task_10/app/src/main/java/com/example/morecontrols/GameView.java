@@ -18,6 +18,7 @@ public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
     
     private Paint paint;
+    private Paint textPaint;
     private Bitmap soccerBitmap;
 
     public GameView(Context context) {
@@ -37,6 +38,10 @@ public class GameView extends View {
     private void initView() {
         paint = new Paint();
         paint.setColor(Color.parseColor("#FFE4E1"));
+
+        textPaint = new Paint();
+        textPaint.setColor(Color.parseColor("Blue"));
+        textPaint.setTextSize(50);
 
         Resources res = getResources();
         soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
@@ -72,5 +77,14 @@ public class GameView extends View {
         dst.bottom = cy + ballRadius;
 
         canvas.drawBitmap(soccerBitmap, src, dst, null);
+
+        /* 텍스트 그리기 */
+        String text = "Soccer";
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+        float tx = cx - bounds.width() / 2;
+        float ty = cy + height / 4;
+        
+        canvas.drawText(text, tx, ty, textPaint);
     }
 }
