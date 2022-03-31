@@ -21,4 +21,9 @@ public class MainActivity extends AppCompatActivity {
         CheckBox cb = (CheckBox) view;
         Log.d(TAG, "Checked: " + cb.isChecked());
     }
+
+    public void onBtnDoIt(View view) {
+        CheckBox cb = findViewById(R.id.checkbox);
+        Log.d(TAG, "onBtnDoIt(), Checked: " + cb.isChecked());
+    }
 }
