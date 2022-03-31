@@ -30,7 +30,7 @@ public class GameView extends View {
 
     private void initView() {
         paint = new Paint();
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.parseColor("#FFE4E1"));
     }
 
     @Override
