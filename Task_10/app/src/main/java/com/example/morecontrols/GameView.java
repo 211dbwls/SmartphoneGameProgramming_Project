@@ -88,12 +88,12 @@ public class GameView extends View {
         Rect bounds = new Rect();
         paint.getTextBounds(text, 0, text.length(), bounds);
         float tx = cx - bounds.width() / 2;
-        float ty = cy + height / 4;
+        float ty = cy + ballRadius;
 
         canvas.drawText(text, tx, ty, textPaint);
 
         /* 원 그리기 */
-        canvas.drawCircle(cx - width / 3, cy - height / 4, height / 10, circlePaint);
-        canvas.drawCircle(cx + width / 3, cy + height / 4, height / 10, circlePaint);
+        canvas.drawCircle(cx - width / 4, cy - height / 4, height / 10, circlePaint);
+        canvas.drawCircle(cx + width / 4, cy + height / 4, height / 10, circlePaint);
     }
 }
