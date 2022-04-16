@@ -7,6 +7,8 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import androidx.appcompat.app.ActionBar;
+
 import com.example.jellyking.R;
 import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.BoxCollidable;
@@ -41,6 +43,7 @@ public class MainGame {
 
     public void init() {
         gameObjects.clear();
+
 
         float fx = Metrics.width / 2;
         float fy = Metrics.height / 2;
