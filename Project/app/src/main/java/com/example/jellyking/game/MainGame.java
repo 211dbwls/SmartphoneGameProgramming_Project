@@ -10,7 +10,7 @@ import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.GameObject;
 import com.example.jellyking.framework.GameView;
 import com.example.jellyking.framework.Metrics;
-import com.example.jellyking.game.Block.Block;
+import com.example.jellyking.game.block.Block;
 
 import java.util.ArrayList;
 

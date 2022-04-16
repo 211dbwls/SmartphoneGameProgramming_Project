@@ -1,4 +1,4 @@
-package com.example.jellyking.game.Block;
+package com.example.jellyking.game.block;
 
 import android.graphics.Canvas;
 

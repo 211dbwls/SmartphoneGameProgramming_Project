@@ -1,13 +1,13 @@
-package com.example.jellyking.game.Block;
+package com.example.jellyking.game.block;
 
 import android.graphics.Canvas;
 
 import com.example.jellyking.R;
 import com.example.jellyking.framework.Sprite;
 
-public class BlockMove extends Sprite {
-    public BlockMove(float x, float y) {
-        super(x, y, R.dimen.block_radius, R.mipmap.block_2);
+public class BlockBroken extends Sprite {
+    public BlockBroken(float x, float y) {
+        super(x, y, R.dimen.block_radius, R.mipmap.block_broken);
     }
 
     public void draw(Canvas canvas) {
