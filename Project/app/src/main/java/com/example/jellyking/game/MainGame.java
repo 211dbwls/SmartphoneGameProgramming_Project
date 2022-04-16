@@ -20,7 +20,6 @@ public class MainGame {
     private static final String TAG = MainGame.class.getSimpleName();
 
     private static MainGame singleton;
-
     public static MainGame getInstance() {
         if (singleton == null) {
             singleton = new MainGame();
@@ -44,9 +43,9 @@ public class MainGame {
         gameObjects.clear();
 
         float fx = Metrics.width / 2;
-        // float fy = Metrics.height - Metrics.size(R.dimen.fighter_y_offset);  // y좌표 고정 위치 설정.
-        // fighter = new Fighter(fx, fy);
-        // gameObjects.add(fighter);
+        float fy = Metrics.height / 2;
+        jellyKing = new JellyKing(fx, fy);
+        gameObjects.add(jellyKing);   // player 추가.
 
         // gameObjects.add(new EnemyGenerator());
 

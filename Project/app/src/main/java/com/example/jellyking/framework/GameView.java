@@ -33,13 +33,14 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {  // 사이즈 변경.
         super.onSizeChanged(w, h, oldw, oldh);
+
         Metrics.width = w;
         Metrics.height = h;
 
-        if (!initialized) {
-            initView();
+        if (!initialized) {  // initialized == false일 경우
+            initView();  // 초기화.
             initialized = true;
             running = true;
             Choreographer.getInstance().postFrameCallback(this);
@@ -48,16 +49,16 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     @Override
     public void doFrame(long currentTimeNanos) {
-        if(!running){  // 게임 실행하지 않도록.
+        if(!running){  // running == false일 경우.
             Log.d(TAG, "Running is false on doFrame()");
-            return;
+            return;  // 게임 실행하지 않음
         }
 
-        long now = currentTimeNanos;
-        int elapsed = (int) (now - lastTimeNanos);
-        if (elapsed != 0) {
+        long now = currentTimeNanos;  // 현재 시간 저장.
+        int elapsed = (int) (now - lastTimeNanos);  // 흐른 시간.
+        if (elapsed != 0) {  // 흐른 시간이 있는 경우.
             framesPerSecond = 1_000_000_000 / elapsed;
-            lastTimeNanos = now;
+            lastTimeNanos = now;  // 지난 시간 저장.
             MainGame game = MainGame.getInstance();
             game.update(elapsed);
             invalidate();
