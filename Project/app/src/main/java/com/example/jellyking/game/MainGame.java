@@ -4,17 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import androidx.appcompat.app.ActionBar;
-
-import com.example.jellyking.R;
-import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.GameObject;
 import com.example.jellyking.framework.GameView;
 import com.example.jellyking.framework.Metrics;
+import com.example.jellyking.game.Block.Block;
 
 import java.util.ArrayList;
 
