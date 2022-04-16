@@ -7,7 +7,7 @@ import com.example.jellyking.framework.Sprite;
 
 public class BlockElectric extends Sprite {
     public BlockElectric(float x, float y) {
-        super(x, y, R.dimen.block_radius, R.mipmap.block_sharp);
+        super(x, y, R.dimen.block_radius, R.mipmap.block_electric);
     }
 
     public void draw(Canvas canvas) {
