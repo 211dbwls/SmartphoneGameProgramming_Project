@@ -31,7 +31,10 @@ public class MainGame {
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
 
-    private JellyKing jellyKing;  // player
+    /* gameObjects */
+    private JellyKing jellyKing;  // player.
+
+    private Block block;  // block.
 
     public float frameTime;
 
@@ -44,14 +47,17 @@ public class MainGame {
     public void init() {
         gameObjects.clear();
 
-
+        /* player(jellyKing) 추가 */
         float fx = Metrics.width / 2;
         float fy = Metrics.height / 2;
         jellyKing = new JellyKing(fx, fy);
-        gameObjects.add(jellyKing);   // player 추가.
+        gameObjects.add(jellyKing);
 
-        // gameObjects.add(new EnemyGenerator());
+        /* 블록 추가 */
+        block = new Block(50, 50);
+        gameObjects.add(block);
 
+        /* 충돌 상자 */
         collisionPaint = new Paint();
         collisionPaint.setStyle(Paint.Style.STROKE);
         collisionPaint.setColor(Color.RED);
