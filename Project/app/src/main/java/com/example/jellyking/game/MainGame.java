@@ -18,10 +18,10 @@ import com.example.jellyking.game.block.BlockMoveLR;
 import com.example.jellyking.game.block.BlockMoveUD;
 import com.example.jellyking.game.block.BlockStraightLeft;
 import com.example.jellyking.game.block.BlockStraightRight;
+import com.example.jellyking.game.enemy.EnemyDrop;
 import com.example.jellyking.game.enemy.EnemyFix;
 
-import com.example.jellyking.game.enemy.EnemyMoveLR;
-import com.example.jellyking.game.enemy.EnemyMoveUD;
+import com.example.jellyking.game.enemy.EnemyMove;
 import com.example.jellyking.game.item.ItemJumpInfinite;
 import com.example.jellyking.game.item.ItemJumpOne;
 
@@ -55,8 +55,8 @@ public class MainGame {
     private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.
 
     private EnemyFix enemyFix;  // enemyFix.
-    private EnemyMoveLR enemyMoveLR;  // enemyMoveLR.
-    private EnemyMoveUD enemyMoveUD;  // enemyMoveUD.
+    private EnemyDrop enemyDrop;  // enemyDrop.
+    private EnemyMove enemyMove;  // enemyMove.
 
     private ItemJumpOne itemJumpOne;  // itemJumpOne.
     private ItemJumpInfinite itemJumpInfinite;  // itemJumpInfinite.
@@ -78,7 +78,7 @@ public class MainGame {
         float stageX, stageY;
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 22; j++) {
-                switch (stage.stage3Info[i][j]) {
+                switch (stage.stage5Info[i][j]) {
                     case 21:  // Block
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
@@ -133,17 +133,17 @@ public class MainGame {
                         enemyFix = new EnemyFix(stageX, stageY);
                         gameObjects.add(enemyFix);
                         break;
-                    case 32:  // enemyMoveLR
+                    case 32:  // DropEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemyMoveLR = new EnemyMoveLR(stageX, stageY);
-                        gameObjects.add(enemyMoveLR);
+                        enemyDrop = new EnemyDrop(stageX, stageY);
+                        gameObjects.add(enemyDrop);
                         break;
-                    case 33:  // enemyMoveUD
+                    case 33:  // MoveEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemyMoveUD = new EnemyMoveUD(stageX, stageY);
-                        gameObjects.add(enemyMoveUD);
+                        enemyMove = new EnemyMove(stageX, stageY);
+                        gameObjects.add(enemyMove);
                         break;
                     case 41:  // itemJumpOne
                         stageX = Metrics.width / 26 * (3 + j);
