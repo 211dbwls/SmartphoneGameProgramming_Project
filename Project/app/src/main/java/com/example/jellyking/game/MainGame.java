@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.framework.BoxCollidable;
@@ -78,7 +79,7 @@ public class MainGame {
         float stageX, stageY;
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 22; j++) {
-                switch (stage.stage5Info[i][j]) {
+                switch (stage.stage1Info[i][j]) {
                     case 21:  // Block
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
@@ -186,12 +187,12 @@ public class MainGame {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 float x = event.getX();
-                /*if(x < Metrics.width / 2) {  //
+                if(x > Metrics.width / 2) {  // 오른쪽 터치
                     jellyKing.setMoveDirection(true);
                 }
-                else {
+                else {  // 왼쪽 터치
                     jellyKing.setMoveDirection(false);
-                }*/
+                }
                 return true;
         }
         return false;
