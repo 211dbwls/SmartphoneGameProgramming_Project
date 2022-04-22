@@ -14,7 +14,8 @@ import com.example.jellyking.game.block.Block;
 import com.example.jellyking.game.block.BlockBroken;
 import com.example.jellyking.game.block.BlockElectric;
 import com.example.jellyking.game.block.BlockJump;
-import com.example.jellyking.game.block.BlockMove;
+import com.example.jellyking.game.block.BlockMoveLR;
+import com.example.jellyking.game.block.BlockMoveUD;
 import com.example.jellyking.game.block.BlockStraightLeft;
 import com.example.jellyking.game.block.BlockStraightRight;
 import com.example.jellyking.game.enemy.EnemyFix;
@@ -48,7 +49,8 @@ public class MainGame {
     private BlockBroken blockBroken;  // blockBroken.
     private BlockElectric blockElectric;  // blockElectric.
     private BlockJump blockJump;  // blockJump.
-    private BlockMove blockMove;  // blockMove.
+    private BlockMoveLR blockMoveLR;  // blockMoveLR.
+    private BlockMoveUD blockMoveUD;  // blockMoveUD.
     private BlockStraightRight blockStraightRight;  // blockStraightRight.
     private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.
 
@@ -76,7 +78,7 @@ public class MainGame {
         float stageX, stageY;
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 22; j++) {
-                switch (stage.stage5Info[i][j]) {
+                switch (stage.stage3Info[i][j]) {
                     case 21:  // Block
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
@@ -101,11 +103,11 @@ public class MainGame {
                         blockJump = new BlockJump(stageX, stageY);
                         gameObjects.add(blockJump);
                         break;
-                    case 25:  // MoveBlock
+                    case 25:  // StraightLeftBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockMove = new BlockMove(stageX, stageY);
-                        gameObjects.add(blockMove);
+                        blockStraightLeft = new BlockStraightLeft(stageX, stageY);
+                        gameObjects.add(blockStraightLeft);
                         break;
                     case 26:  // StraightRightBlock
                         stageX = Metrics.width / 26 * (3 + j);
@@ -113,11 +115,17 @@ public class MainGame {
                         blockStraightRight = new BlockStraightRight(stageX, stageY);
                         gameObjects.add(blockStraightRight);
                         break;
-                    case 27:  // StraightLeftBlock
+                    case 27:  // MoveLRBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockStraightLeft = new BlockStraightLeft(stageX, stageY);
-                        gameObjects.add(blockStraightLeft);
+                        blockMoveLR = new BlockMoveLR(stageX, stageY);
+                        gameObjects.add(blockMoveLR);
+                        break;
+                    case 28:  // MoveUDBlock
+                        stageX = Metrics.width / 26 * (3 + j);
+                        stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
+                        blockMoveUD = new BlockMoveUD(stageX, stageY);
+                        gameObjects.add(blockMoveUD);
                         break;
                     case 31:  // FixEnemy
                         stageX = Metrics.width / 26 * (3 + j);

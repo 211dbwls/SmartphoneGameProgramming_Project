@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 import com.example.jellyking.R;
 import com.example.jellyking.framework.Sprite;
 
-public class BlockMove extends Sprite {
-    public BlockMove(float x, float y) {
-        super(x, y, R.dimen.block_radius, R.mipmap.block_2);
+public class BlockMoveLR extends Sprite {
+    public BlockMoveLR(float x, float y) {
+        super(x, y, R.dimen.block_radius, R.mipmap.block_3);
     }
 
     public void draw(Canvas canvas) {
