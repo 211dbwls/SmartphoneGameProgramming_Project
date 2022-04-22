@@ -7,7 +7,7 @@ import com.example.jellyking.framework.Sprite;
 
 public class BlockStraight extends Sprite {
     public BlockStraight(float x, float y) {
-        super(x, y, R.dimen.block_radius, R.mipmap.block_straight_left);
+        super(x, y, R.dimen.block_radius, R.mipmap.block_straight_right);
     }
 
     public void draw(Canvas canvas) {
