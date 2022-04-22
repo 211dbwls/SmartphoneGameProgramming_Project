@@ -185,10 +185,13 @@ public class MainGame {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
-                float y = event.getY();
-                // fighter.setTargetPosition(x, y);
+                /*if(x < Metrics.width / 2) {  //
+                    jellyKing.setMoveDirection(true);
+                }
+                else {
+                    jellyKing.setMoveDirection(false);
+                }*/
                 return true;
         }
         return false;
