@@ -53,6 +53,15 @@ public class StageInfo {
             {31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31}
     };
 
+        /*
+    10 : 아무것도 없음.
+    21 : Block | 22 : BrokenBlock | 23 : ElectricBlock | 24 : JumpBlock | 25 : MoveBlock | 26 : StraightRightBlock | 27 : StraightLeftBlock
+    31 : FixEnemy | 32 : MoveLREnemy | 33 : MoveUDEnemy
+    41 :JumpOneItem | 42 : JumpInfiniteItem
+    51 : Star
+    61 : StartPoint
+     */
+
     int[][] stage4Info = {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
