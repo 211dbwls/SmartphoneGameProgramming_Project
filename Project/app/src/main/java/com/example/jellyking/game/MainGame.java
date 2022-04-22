@@ -60,6 +60,8 @@ public class MainGame {
     private ItemJumpOne itemJumpOne;  // itemJumpOne.
     private ItemJumpInfinite itemJumpInfinite;  // itemJumpInfinite.
 
+    private Star star;  // star.
+
     public float frameTime;
 
     private Paint collisionPaint;
@@ -141,6 +143,12 @@ public class MainGame {
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         itemJumpInfinite = new ItemJumpInfinite(stageX, stageY);
                         gameObjects.add(itemJumpInfinite);
+                        break;
+                    case 51:  // Star
+                        stageX = Metrics.width / 26 * (3 + j);
+                        stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
+                        star = new Star(stageX, stageY);
+                        gameObjects.add(star);
                         break;
                     case 61:  // StartPoint
                         stageX = Metrics.width / 26 * (3 + j);

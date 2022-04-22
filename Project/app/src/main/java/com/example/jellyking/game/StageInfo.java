@@ -10,7 +10,7 @@ public class StageInfo {
     21 : Block | 22 : BrokenBlock | 23 : ElectricBlock | 24 : JumpBlock | 25 : MoveBlock | 26 : StraightBlock
     31 : FixEnemy | 32 : MoveLREnemy | 33 : MoveUDEnemy
     41 :JumpOneItem | 42 : JumpInfiniteItem
-    51 : Coin
+    51 : Star
     61 : StartPoint
      */
 
@@ -39,7 +39,7 @@ public class StageInfo {
             {26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 51, 21},
             {31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 21, 21, 21, 21, 21}
     };
-    
+
     int[][] stage3Info = {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 61, 10, 10, 10, 10, 10, 10, 10, 10, 41, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
