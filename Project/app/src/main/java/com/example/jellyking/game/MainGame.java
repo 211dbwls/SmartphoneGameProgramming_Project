@@ -187,11 +187,12 @@ public class MainGame {
         }
     }
 
-
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                jellyKing.touch = true;
+
                 float x = event.getX();
                 if(x > Metrics.width / 2) {  // 오른쪽 터치
                     jellyKing.setMoveDirection(true);
@@ -199,6 +200,9 @@ public class MainGame {
                 else {  // 왼쪽 터치
                     jellyKing.setMoveDirection(false);
                 }
+                return true;
+            case MotionEvent.ACTION_UP:
+                jellyKing.touch = false;
                 return true;
         }
         return false;

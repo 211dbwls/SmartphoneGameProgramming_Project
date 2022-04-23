@@ -2,7 +2,7 @@
 <resources>
     <dimen name="jellyking_radius">8dp</dimen>
     <dimen name="jellyking_jump_speed">50dp</dimen>
-    <dimen name="jellyking_move_speed">20dp</dimen>
+    <dimen name="jellyking_move_speed">30dp</dimen>
 
     <dimen name="block_radius">15dp</dimen>
 </resources>
