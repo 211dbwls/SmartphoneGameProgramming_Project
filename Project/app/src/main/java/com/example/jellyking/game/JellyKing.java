@@ -12,8 +12,8 @@ import com.example.jellyking.framework.Sprite;
 public class JellyKing extends Sprite implements BoxCollidable {
     private static final String TAG = JellyKing.class.getSimpleName();
 
-    private static final float MOVE_WIDTH_LIMIT_SHORT = 100.0f;
-    private static final float MOVE_WIDTH_LIMIT_LONG = 120.0f;
+    private static final float MOVE_WIDTH_LIMIT_SHORT = 150.0f;
+    private static final float MOVE_WIDTH_LIMIT_LONG = 250.0f;
 
     private float dx, dy;
 
