@@ -259,7 +259,8 @@ public class MainGame {
                     BlockElectric electricBlock = (BlockElectric) o2;
                     if (CollisionHelper.collides(electricBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : ElectricBlock");
-                        remove(jellyKing);
+                        // remove(jellyKing);
+                        // jellyKing Death
                         break;
                     }
                 }
