@@ -10,4 +10,6 @@
     <dimen name="fix_enemy_width">15dp</dimen>
     <dimen name="fix_enemy_height">10dp</dimen>
     <dimen name="enemy_radius">15dp</dimen>
+
+    <dimen name="star_radius">20dp</dimen>
 </resources>
