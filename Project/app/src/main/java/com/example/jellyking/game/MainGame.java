@@ -2,12 +2,14 @@ package com.example.jellyking.game;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.framework.BoxCollidable;
+import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
 import com.example.jellyking.framework.GameView;
 import com.example.jellyking.framework.Metrics;
@@ -77,13 +79,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage1StartPointX;
-        float y = stage.stage1StartPointY;
+        float x = stage.stage5StartPointX;
+        float y = stage.stage5StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage1Info;
+        int[][] stageNum = stage.stage5Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -230,7 +232,119 @@ public class MainGame {
     }
 
     private void checkCollision() {
+        for(GameObject o1 : gameObjects) {
+            if(!(o1 instanceof JellyKing)) {  // JellyKing이 아닌 경우 무시.
+                continue;
+            }
+            JellyKing jellyKing = (JellyKing) o1;
 
+            for(GameObject o2 : gameObjects) {
+                /* Block */
+                if(o2 instanceof Block) {  // Block인 경우
+                    Block block = (Block) o2;
+                    if (CollisionHelper.collides(block, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : Block");
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockBroken) {  // BrokenBlock인 경우
+                    BlockBroken brokenBlock = (BlockBroken) o2;
+                    if(CollisionHelper.collides(brokenBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : BrokenBlock");
+                        remove(brokenBlock);
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockElectric) {  // ElectricBlock인 경우
+                    BlockElectric electricBlock = (BlockElectric) o2;
+                    if (CollisionHelper.collides(electricBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : ElectricBlock");
+                        remove(jellyKing);
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockJump) {  // JumpBlock인 경우
+                    BlockJump jumpBlock = (BlockJump) o2;
+                    if (CollisionHelper.collides(jumpBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : JumpBlock");
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockStraightLeft) {  // StraightLeftBlock인 경우
+                    BlockStraightLeft straightLeftBlock = (BlockStraightLeft) o2;
+                    if (CollisionHelper.collides(straightLeftBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : StraightLeftBlock");
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockStraightRight) {  // StraightRightBlock인 경우
+                    BlockStraightRight straightRightBlock = (BlockStraightRight) o2;
+                    if (CollisionHelper.collides(straightRightBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : StraightRightBlock");
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockMoveLR) {  // MoveLRBlock인 경우
+                    BlockMoveLR moveLRBlock = (BlockMoveLR) o2;
+                    if (CollisionHelper.collides(moveLRBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : MoveLRBlock");
+                        break;
+                    }
+                }
+                else if(o2 instanceof BlockMoveUD) {  // MoveUDBlock인 경우
+                    BlockMoveUD moveUDBlock = (BlockMoveUD) o2;
+                    if (CollisionHelper.collides(moveUDBlock, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : MoveUDBlock");
+                        break;
+                    }
+                }
+                /* Enemy */
+                else if(o2 instanceof EnemyFix) {  // FixEnemy인 경우
+                    EnemyFix fixEnemy = (EnemyFix) o2;
+                    if (CollisionHelper.collides(fixEnemy, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : FixEnemy");
+                        break;
+                    }
+                }
+                else if(o2 instanceof EnemyDrop) {  // DropEnemy인 경우
+                    EnemyDrop dropEnemy = (EnemyDrop) o2;
+                    if (CollisionHelper.collides(dropEnemy, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : DropEnemy");
+                        break;
+                    }
+                }
+                else if(o2 instanceof EnemyMove) {  // MoveEnemy인 경우
+                    EnemyMove moveEnemy = (EnemyMove) o2;
+                    if (CollisionHelper.collides(moveEnemy, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : MoveEnemy");
+                        break;
+                    }
+                }
+                /* Item */
+                else if(o2 instanceof ItemJumpOne) {  // JumpOneItem인 경우
+                    ItemJumpOne jumpOneItem = (ItemJumpOne) o2;
+                    if (CollisionHelper.collides(jumpOneItem, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : JumpOneItem");
+                        break;
+                    }
+                }
+                else if(o2 instanceof ItemJumpInfinite) {  // JumpInfiniteItem인 경우
+                    ItemJumpInfinite jumpInfiniteItem = (ItemJumpInfinite) o2;
+                    if (CollisionHelper.collides(jumpInfiniteItem, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : JumpInfiniteItem");
+                        break;
+                    }
+                }
+                /* Star */
+                else if(o2 instanceof Star) {  // Star인 경우
+                    Star star = (Star) o2;
+                    if (CollisionHelper.collides(star, jellyKing)) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : Star");
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void add(GameObject gameObject) {
