@@ -29,7 +29,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
     private float touchTime = 0.0f;
     boolean touch = false;
 
-    protected RectF boundingBox = new RectF();  // 충돌 상자
+    protected RectF boundingBox = new RectF();  // boundingBox
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -107,7 +107,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
         jumpHeight += dy;
         moveWidth += dx;
 
-        /* 충돌 상자 */
+        /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.jellyking_radius);
         boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
     }
