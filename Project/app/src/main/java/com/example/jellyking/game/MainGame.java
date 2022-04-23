@@ -75,8 +75,14 @@ public class MainGame {
     public void init() {
         gameObjects.clear();
 
+        /* Player */
+        float x = stage.stage1StartPointX;
+        float y = stage.stage1StartPointY;
+        jellyKing = new JellyKing(x, y);
+        gameObjects.add(jellyKing);
+
         /* Stage */
-        int[][] stageNum = stage.stage2Info;
+        int[][] stageNum = stage.stage1Info;
         setStage(stageNum);
 
         /* 충돌 상자 */
@@ -173,12 +179,6 @@ public class MainGame {
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         star = new Star(stageX, stageY);
                         gameObjects.add(star);
-                        break;
-                    case 61:  // StartPoint
-                        stageX = Metrics.width / 26 * (3 + j);
-                        stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        jellyKing = new JellyKing(stageX, stageY);
-                        gameObjects.add(jellyKing);
                         break;
                     default:
                         break;
