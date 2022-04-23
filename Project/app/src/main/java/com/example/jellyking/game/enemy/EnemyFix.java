@@ -13,7 +13,6 @@ public class EnemyFix extends Sprite implements BoxCollidable {
 
     public EnemyFix(float x, float y) {
         super(x, y, R.dimen.fix_enemy_width, R.dimen.fix_enemy_height, R.mipmap.enemy_fix_1);
-        // super(x, y, R.dimen.block_radius, R.mipmap.enemy_fix_1);
     }
 
     public void draw(Canvas canvas) {

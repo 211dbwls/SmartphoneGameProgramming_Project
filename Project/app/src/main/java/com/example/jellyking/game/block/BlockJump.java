@@ -22,7 +22,8 @@ public class BlockJump extends Sprite implements BoxCollidable {
     public void update() {
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
-        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
+        float heightRadius = Metrics.size(R.dimen.jump_block_height_radius);
+        boundingBox.set(x - widthRadius, y - heightRadius, x + widthRadius, y + widthRadius);
     }
 
     @Override
