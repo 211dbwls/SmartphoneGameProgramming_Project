@@ -147,7 +147,7 @@ public class MainGame {
                         break;
                     case 31:  // FixEnemy
                         stageX = Metrics.width / 26 * (3 + j);
-                        stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
+                        stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i) + 18;
                         enemyFix = new EnemyFix(stageX, stageY);
                         gameObjects.add(enemyFix);
                         break;

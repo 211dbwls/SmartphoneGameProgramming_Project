@@ -11,7 +11,7 @@ import com.example.jellyking.framework.Metrics;
 public class Sprite implements GameObject {
     protected Bitmap bitmap;
     protected RectF dstRect = new RectF();
-    protected float x, y, radius;
+    protected float x, y, radius, width, height;
 
     public Sprite(float x, float y, int radiusDimenResId, int bitmapResId) {
         this.x = x;
@@ -26,6 +26,15 @@ public class Sprite implements GameObject {
         this.y = y;
         this.radius = w / 2;
         dstRect.set(x - w / 2, y - h / 2, x + w / 2, y + h / 2);
+        bitmap = BitmapPool.get(bitmapResId);
+    }
+
+    public Sprite(float x, float y, int widthRadiusDimenResId, int heightRadiusDimenResId, int bitmapResId) {
+        this.x = x;
+        this.y = y;
+        this.width = Metrics.size(widthRadiusDimenResId);
+        this.height = Metrics.size(heightRadiusDimenResId);
+        dstRect.set(x - width, y - height, x + width, y + height);
         bitmap = BitmapPool.get(bitmapResId);
     }
 
