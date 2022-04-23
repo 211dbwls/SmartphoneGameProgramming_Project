@@ -76,10 +76,20 @@ public class MainGame {
         gameObjects.clear();
 
         /* Stage */
+        int[][] stageNum = stage.stage2Info;
+        setStage(stageNum);
+
+        /* 충돌 상자 */
+        collisionPaint = new Paint();
+        collisionPaint.setStyle(Paint.Style.STROKE);
+        collisionPaint.setColor(Color.RED);
+    }
+
+    public void setStage(int[][] stageNum) {
         float stageX, stageY;
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 22; j++) {
-                switch (stage.stage1Info[i][j]) {
+                switch (stageNum[i][j]) {
                     case 21:  // Block
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
@@ -175,12 +185,8 @@ public class MainGame {
                 }
             }
         }
-
-        /* 충돌 상자 */
-        collisionPaint = new Paint();
-        collisionPaint.setStyle(Paint.Style.STROKE);
-        collisionPaint.setColor(Color.RED);
     }
+
 
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
