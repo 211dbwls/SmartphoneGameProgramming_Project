@@ -5,10 +5,11 @@ import android.graphics.RectF;
 import android.util.Log;
 
 import com.example.jellyking.R;
+import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.framework.Sprite;
 
-public class JellyKing extends Sprite {
+public class JellyKing extends Sprite implements BoxCollidable {
     private static final String TAG = JellyKing.class.getSimpleName();
 
     private static final float MOVE_WIDTH_LIMIT_SHORT = 100.0f;
@@ -27,6 +28,8 @@ public class JellyKing extends Sprite {
 
     private float touchTime = 0.0f;
     boolean touch = false;
+
+    protected RectF boundingBox = new RectF();  // 충돌 상자
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -99,8 +102,14 @@ public class JellyKing extends Sprite {
         }
 
         dstRect.offset(dx, dy);
+        x += dx;
+        y += dy;
         jumpHeight += dy;
         moveWidth += dx;
+
+        /* 충돌 상자 */
+        float widthRadius = Metrics.size(R.dimen.jellyking_radius);
+        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
     }
 
     public void setMoveDirection(boolean right) {
@@ -116,5 +125,10 @@ public class JellyKing extends Sprite {
             moveRight = false;
             moveWidth = moveWidthLimit;
         }
+    }
+
+    @Override
+    public RectF getBoundingRect() {
+        return boundingBox;
     }
 }

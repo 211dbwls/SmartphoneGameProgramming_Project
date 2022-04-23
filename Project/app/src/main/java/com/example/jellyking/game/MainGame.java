@@ -44,8 +44,6 @@ public class MainGame {
     /* gameObjects */
     private JellyKing jellyKing;  // player.
 
-    StageInfo stage = new StageInfo();
-
     private Block block;  // block.
     private BlockBroken blockBroken;  // blockBroken.
     private BlockElectric blockElectric;  // blockElectric.
@@ -64,8 +62,11 @@ public class MainGame {
 
     private Star star;  // star.
 
+    StageInfo stage = new StageInfo();
+
     public float frameTime;
 
+    /* CollisionPaint */
     private Paint collisionPaint;
 
     public static void clear() {
@@ -85,7 +86,7 @@ public class MainGame {
         int[][] stageNum = stage.stage1Info;
         setStage(stageNum);
 
-        /* 충돌 상자 */
+        /* CollisionPaint */
         collisionPaint = new Paint();
         collisionPaint.setStyle(Paint.Style.STROKE);
         collisionPaint.setColor(Color.RED);
