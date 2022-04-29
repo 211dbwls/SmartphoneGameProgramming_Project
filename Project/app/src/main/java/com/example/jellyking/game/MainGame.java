@@ -328,16 +328,16 @@ public class MainGame {
                         Log.d(TAG, "Collision : StraightRightBlock");
                         break;
                     }
-                }
+                }*/
                 else if(o2 instanceof BlockMoveLR) {  // MoveLRBlock인 경우
                     BlockMoveLR moveLRBlock = (BlockMoveLR) o2;
-                    if (CollisionHelper.collides(moveLRBlock, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(moveLRBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveLRBlock");
                         jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
                 }
-                else if(o2 instanceof BlockMoveUD) {  // MoveUDBlock인 경우
+                /*else if(o2 instanceof BlockMoveUD) {  // MoveUDBlock인 경우
                     BlockMoveUD moveUDBlock = (BlockMoveUD) o2;
                     if (CollisionHelper.collides(moveUDBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveUDBlock");
