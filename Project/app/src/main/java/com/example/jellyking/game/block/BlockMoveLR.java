@@ -22,7 +22,7 @@ public class BlockMoveLR extends Sprite implements BoxCollidable {
     public void update() {
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
-        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
+        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y);
     }
 
     @Override

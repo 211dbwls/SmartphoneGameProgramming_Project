@@ -12,8 +12,8 @@ import com.example.jellyking.framework.Sprite;
 public class JellyKing extends Sprite implements BoxCollidable {
     private static final String TAG = JellyKing.class.getSimpleName();
 
-    private static final float MOVE_WIDTH_LIMIT_SHORT = 150.0f;
-    private static final float MOVE_WIDTH_LIMIT_LONG = 250.0f;
+    private static final float MOVE_WIDTH_LIMIT_SHORT = 200.0f;
+    private static final float MOVE_WIDTH_LIMIT_LONG = 400.0f;
 
     private float dx, dy;
 
@@ -29,7 +29,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     private float touchTime = 0.0f;
     boolean touch = false;
 
-    protected RectF boundingBox = new RectF();  // boundingBox
+    protected RectF boundingBoxHead = new RectF();  // boundingBox
+    protected RectF boundingBoxFoot = new RectF();  // boundingBox
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -103,7 +104,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.jellyking_radius);
-        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
+        // boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
+        boundingBoxFoot.set(x - widthRadius, y, x + widthRadius, y + widthRadius);
     }
 
     public void setMoveDirection(boolean right) {
@@ -123,6 +125,6 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     @Override
     public RectF getBoundingRect() {
-        return boundingBox;
+        return boundingBoxFoot;
     }
 }
