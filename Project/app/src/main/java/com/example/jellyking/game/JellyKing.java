@@ -66,12 +66,17 @@ public class JellyKing extends Sprite implements BoxCollidable {
         }
 
         /* 직진 블록 */
-        if(collisionStraightLeftBlock == true) {
-            if(dx >= 0) {
+        if(collisionStraightLeftBlock == true) {  // 왼쪽으로 직진하는 블록과 충돌했을 경우
+            if(dx >= 0) {  // 왼쪽으로 이동
                 dx = -dx;
             }
-            dy = collisionStraightLeftBlockY - y;
+            dy = collisionStraightLeftBlockY - y;  // 충돌 위치로 y 고정
+
+            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightLeftBlock = false;
+            }
         }
+
 
         /* 점프 */
         if(jumpUp == true) {  // 위로 이동 중인 경우
