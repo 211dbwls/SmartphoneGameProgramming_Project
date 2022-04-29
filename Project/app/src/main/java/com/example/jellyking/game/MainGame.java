@@ -79,13 +79,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage5StartPointX;
-        float y = stage.stage5StartPointY;
+        float x = stage.stage1StartPointX;
+        float y = stage.stage1StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage5Info;
+        int[][] stageNum = stage.stage1Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -244,6 +244,7 @@ public class MainGame {
                     Block block = (Block) o2;
                     if (CollisionHelper.collides(block, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : Block");
+                        jellyKing.jumpUp = true;   // 계속 점프하도록
                         break;
                     }
                 }

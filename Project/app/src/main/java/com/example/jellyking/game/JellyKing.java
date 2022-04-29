@@ -55,17 +55,12 @@ public class JellyKing extends Sprite implements BoxCollidable {
             touchTime = 0;
         }
 
-        /* 계속 점프 */
-        if(jumpUp == false) {  // 아래로 이동 중인 경우
-            if (jumpHeight > jumpHeightLimit) {  // 아래에 닿았을 경우
-                jumpUp = true;  // 위로 이동하도록
-            }
-            if(dy < 0) {
-                dy = -dy;
-            }
-        }
-        else {  // 위로 이동 중인 경우
-            if (jumpHeight < 0) {  // 위에 닿았을 경우
+        /* 점프 */
+        if(jumpUp == true) {  // 위로 이동 중인 경우
+            // Log.d(TAG, "jumpHeight: " + jumpHeight + " dy:" +  dy);
+            jumpHeight += dy;
+            if (jumpHeight > jumpHeightLimit) {  // 위에 닿았을 경우
+                jumpHeight = 0;
                 jumpUp = false;  // 아래로 이동하도록
             }
             if(dy > 0) {
@@ -104,7 +99,6 @@ public class JellyKing extends Sprite implements BoxCollidable {
         dstRect.offset(dx, dy);
         x += dx;
         y += dy;
-        jumpHeight += dy;
         moveWidth += dx;
 
         /* boundingBox */
