@@ -244,7 +244,7 @@ public class MainGame {
                     Block block = (Block) o2;
                     if (CollisionHelper.collides(block, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : Block");
-                        jellyKing.jumpUp = true;   // 계속 점프하도록
+                        jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
                 }
@@ -252,7 +252,7 @@ public class MainGame {
                     BlockBroken brokenBlock = (BlockBroken) o2;
                     if(CollisionHelper.collides(brokenBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : BrokenBlock");
-                        jellyKing.jumpUp = true;   // 한 번 점프하도록
+                        jellyKing.jumpUp = true;   // 점프하도록
                         remove(brokenBlock);
                         break;
                     }
@@ -291,6 +291,7 @@ public class MainGame {
                     BlockMoveLR moveLRBlock = (BlockMoveLR) o2;
                     if (CollisionHelper.collides(moveLRBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveLRBlock");
+                        jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
                 }
@@ -298,6 +299,7 @@ public class MainGame {
                     BlockMoveUD moveUDBlock = (BlockMoveUD) o2;
                     if (CollisionHelper.collides(moveUDBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveUDBlock");
+                        jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
                 }
