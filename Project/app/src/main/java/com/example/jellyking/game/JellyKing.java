@@ -30,6 +30,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     boolean collisionStraightLeftBlock = false;
     float collisionStraightLeftBlockY;
+    boolean collisionStraightRightBlock = false;
+    float collisionStraightRightBlockY;
 
     private float touchTime = 0.0f;
     boolean touch = false;
@@ -74,6 +76,13 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
             if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
                 collisionStraightLeftBlock = false;
+            }
+        }
+        if(collisionStraightRightBlock == true) {  // 오른쪽으로 직진하는 블록과 충돌했을 경우
+            dy = collisionStraightRightBlockY - y;  // 충돌 위치로 y 고정
+
+            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightRightBlock = false;
             }
         }
 
@@ -127,7 +136,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
                 }
             }
         }
-        else if(touch == false && collisionStraightLeftBlock == false){  // 터치하지 않았을 경우
+        else if(touch == false && collisionStraightLeftBlock == false && collisionStraightRightBlock == false){  // 터치하지 않았을 경우
             dx = 0;  // 이동하지 않음
         }
 

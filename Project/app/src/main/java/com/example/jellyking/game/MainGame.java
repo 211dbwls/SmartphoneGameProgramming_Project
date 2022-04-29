@@ -326,13 +326,15 @@ public class MainGame {
                         break;
                     }
                 }
-                /*else if(o2 instanceof BlockStraightRight) {  // StraightRightBlock인 경우
+                else if(o2 instanceof BlockStraightRight) {  // StraightRightBlock인 경우
                     BlockStraightRight straightRightBlock = (BlockStraightRight) o2;
-                    if (CollisionHelper.collides(straightRightBlock, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(straightRightBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : StraightRightBlock");
+                        jellyKing.collisionStraightRightBlock = true;  // 오른쪽으로 이동하도록
+                        jellyKing.collisionStraightRightBlockY = straightRightBlock.y;
                         break;
                     }
-                }*/
+                }
                 else if(o2 instanceof BlockMoveLR) {  // MoveLRBlock인 경우
                     BlockMoveLR moveLRBlock = (BlockMoveLR) o2;
                     if (CollisionHelper.collides(moveLRBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우

@@ -9,10 +9,13 @@ import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.framework.Sprite;
 
 public class BlockStraightRight extends Sprite implements BoxCollidable {
-    protected RectF boundingBox = new RectF();  // boundingBox
+    protected RectF boundingBoxHead = new RectF();  // boundingBox
+
+    public float y;
 
     public BlockStraightRight(float x, float y) {
         super(x, y, R.dimen.block_radius, R.mipmap.block_straight_right);
+        this.y = y;
     }
 
     public void draw(Canvas canvas) {
@@ -22,17 +25,17 @@ public class BlockStraightRight extends Sprite implements BoxCollidable {
     public void update() {
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
-        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
+        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
     }
 
     @Override
     public RectF getBoundingRect() {
-        return boundingBox;
+        return null;
     }
 
     @Override
     public RectF getBoundingRectHead() {
-        return null;
+        return boundingBoxHead;
     }
 
     @Override
