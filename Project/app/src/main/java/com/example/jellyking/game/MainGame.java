@@ -80,13 +80,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage1StartPointX;
-        float y = stage.stage1StartPointY;
+        float x = stage.stage5StartPointX;
+        float y = stage.stage5StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage1Info;
+        int[][] stageNum = stage.stage5Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -299,16 +299,16 @@ public class MainGame {
                         break;
                     }
                 }
-                /*else if(o2 instanceof BlockElectric) {  // ElectricBlock인 경우
+                else if(o2 instanceof BlockElectric) {  // ElectricBlock인 경우
                     BlockElectric electricBlock = (BlockElectric) o2;
-                    if (CollisionHelper.collides(electricBlock, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(electricBlock.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : ElectricBlock");
-                        // remove(jellyKing);
+                        remove(jellyKing);
                         // jellyKing Death
                         break;
                     }
                 }
-                else if(o2 instanceof BlockJump) {  // JumpBlock인 경우
+                /*else if(o2 instanceof BlockJump) {  // JumpBlock인 경우
                     BlockJump jumpBlock = (BlockJump) o2;
                     if (CollisionHelper.collides(jumpBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : JumpBlock");

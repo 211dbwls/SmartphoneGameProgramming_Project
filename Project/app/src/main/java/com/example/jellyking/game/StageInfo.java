@@ -75,6 +75,8 @@ public class StageInfo {
 
     float stage5StartPointX = Metrics.width / 26 * (3 + 13);  // 1664.0
     float stage5StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 7 / 2);  // 669.0
+    // float stage5StartPointX = Metrics.width / 26 * (3 + 3);  // 1664.0
+    // float stage5StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 669.0
     int[][] stage5Info = {
             {10, 10, 23, 10, 23, 10, 23, 10, 23, 10, 10, 10, 10, 22, 22, 22, 22, 22, 10, 10, 10, 10},
             {10, 10, 23, 10, 23, 10, 23, 10, 23, 10, 10, 10, 10, 25, 23, 23, 23, 23, 10, 10, 10, 10},

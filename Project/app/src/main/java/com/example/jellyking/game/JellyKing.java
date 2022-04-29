@@ -121,7 +121,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.jellyking_radius);
-        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius);
+        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius);
         boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
         boundingBoxFoot.set(x - widthRadius, y + widthRadius / 2, x + widthRadius, y + widthRadius);
         boundingBoxLeft.set(x - widthRadius, y - widthRadius / 2, x - widthRadius / 2, y + widthRadius / 2);
