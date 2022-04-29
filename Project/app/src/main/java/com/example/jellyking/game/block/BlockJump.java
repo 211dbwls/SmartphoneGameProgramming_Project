@@ -9,7 +9,7 @@ import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.framework.Sprite;
 
 public class BlockJump extends Sprite implements BoxCollidable {
-    protected RectF boundingBox = new RectF();  // boundingBox
+    protected RectF boundingBoxHead = new RectF();  // boundingBox
 
     public BlockJump(float x, float y) {
         super(x, y, R.dimen.block_radius, R.mipmap.block_jump_2);
@@ -23,17 +23,17 @@ public class BlockJump extends Sprite implements BoxCollidable {
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
         float heightRadius = Metrics.size(R.dimen.jump_block_height_radius);
-        boundingBox.set(x - widthRadius, y - heightRadius, x + widthRadius, y + widthRadius);
+        boundingBoxHead.set(x - widthRadius, y - heightRadius, x + widthRadius, y - heightRadius / 2);
     }
 
     @Override
     public RectF getBoundingRect() {
-        return boundingBox;
+        return null;
     }
 
     @Override
     public RectF getBoundingRectHead() {
-        return null;
+        return boundingBoxHead;
     }
 
     @Override

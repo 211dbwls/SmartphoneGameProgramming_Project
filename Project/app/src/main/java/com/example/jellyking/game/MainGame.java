@@ -80,13 +80,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage4StartPointX;
-        float y = stage.stage4StartPointY;
+        float x = stage.stage3StartPointX;
+        float y = stage.stage3StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage4Info;
+        int[][] stageNum = stage.stage3Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -310,13 +310,14 @@ public class MainGame {
                         break;
                     }
                 }
-                /*else if(o2 instanceof BlockJump) {  // JumpBlock인 경우
+                else if(o2 instanceof BlockJump) {  // JumpBlock인 경우
                     BlockJump jumpBlock = (BlockJump) o2;
-                    if (CollisionHelper.collides(jumpBlock, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(jumpBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : JumpBlock");
+                        jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
-                }*/
+                }
                 else if(o2 instanceof BlockStraightLeft) {  // StraightLeftBlock인 경우
                     BlockStraightLeft straightLeftBlock = (BlockStraightLeft) o2;
                     if (CollisionHelper.collides(straightLeftBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
