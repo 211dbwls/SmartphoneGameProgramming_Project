@@ -314,6 +314,7 @@ public class MainGame {
                     BlockJump jumpBlock = (BlockJump) o2;
                     if (CollisionHelper.collides(jumpBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : JumpBlock");
+                        jellyKing.collisionJumpBlock = true;
                         jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }

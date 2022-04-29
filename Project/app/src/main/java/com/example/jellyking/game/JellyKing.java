@@ -15,10 +15,13 @@ public class JellyKing extends Sprite implements BoxCollidable {
     private static final float MOVE_WIDTH_LIMIT_SHORT = 200.0f;
     private static final float MOVE_WIDTH_LIMIT_LONG = 400.0f;
 
+    private static final float JUMP_HEIGHT_LIMIT_SHORT = 70.0f;
+    private static final float JUMP_HEIGHT_LIMIT_LONG = 140.0f;
+
     private float dx, dy;
 
     private float jumpHeight = 0.0f;
-    private float jumpHeightLimit = 70.0f;
+    private float jumpHeightLimit = JUMP_HEIGHT_LIMIT_SHORT;
     boolean jumpUp = false;
 
     private float moveWidth = 0.0f;
@@ -27,6 +30,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     boolean moveRight;
 
     boolean collisionBlock = false;
+
+    boolean collisionJumpBlock = false;
 
     boolean collisionStraightLeftBlock = false;
     float collisionStraightLeftBlockY;
@@ -86,6 +91,14 @@ public class JellyKing extends Sprite implements BoxCollidable {
             }
         }
 
+        /* 점프 블록 */
+        if(collisionJumpBlock == true) {
+            jumpHeightLimit = JUMP_HEIGHT_LIMIT_LONG;
+            collisionJumpBlock = false;
+        }
+        else if(collisionJumpBlock == false && jumpUp == false){
+            jumpHeightLimit = JUMP_HEIGHT_LIMIT_SHORT;
+        }
 
         /* 점프 */
         if(jumpUp == true) {  // 위로 이동 중인 경우
