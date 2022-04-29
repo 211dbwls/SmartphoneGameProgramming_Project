@@ -265,17 +265,16 @@ public class MainGame {
                     if(CollisionHelper.collides(block.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
                         Log.d(TAG, "Collision : Block(Foot)");
                         jellyKing.jumpUp = false;  // 떨어지도록
-                        // jellyKing.collisionRight = 0;
                         break;
                     }
                     if(CollisionHelper.collides(block.getBoundingRectLeft(), jellyKing.getBoundingRectRight())) {
                         Log.d(TAG, "Collision : Block(Left)");
-                        jellyKing.setMoveDirection(false, true);
+                        jellyKing.setMoveDirection(false, true);  // 반대 방향으로 튕기도록
                         break;
                     }
                     if(CollisionHelper.collides(block.getBoundingRectRight(), jellyKing.getBoundingRectLeft())) {
                         Log.d(TAG, "Collision : Block(Right)");
-                        jellyKing.setMoveDirection(true, false);
+                        jellyKing.setMoveDirection(true, false);  // 반대 방향으로 튕기도록
                         break;
                     }
                     if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {
@@ -284,16 +283,23 @@ public class MainGame {
                         break;
                     }
                 }
-                /*else if(o2 instanceof BlockBroken) {  // BrokenBlock인 경우
+                else if(o2 instanceof BlockBroken) {  // BrokenBlock인 경우
                     BlockBroken brokenBlock = (BlockBroken) o2;
-                    if(CollisionHelper.collides(brokenBlock, jellyKing)) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : BrokenBlock");
+                    if(CollisionHelper.collides(brokenBlock.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
+                        Log.d(TAG, "Collision : BrokenBlock(Foot)");
+                        jellyKing.jumpUp = false;   // 떨어지도록
+                        break;
+                    }
+                    if(CollisionHelper.collides(brokenBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())
+                            || CollisionHelper.collides(brokenBlock.getBoundingRectHead(), jellyKing.getBoundingRectLeft())
+                            || CollisionHelper.collides(brokenBlock.getBoundingRectHead(), jellyKing.getBoundingRectRight()) ) {
+                        Log.d(TAG, "Collision : BrokenBlock(Head)");
                         jellyKing.jumpUp = true;   // 점프하도록
                         remove(brokenBlock);
                         break;
                     }
                 }
-                else if(o2 instanceof BlockElectric) {  // ElectricBlock인 경우
+                /*else if(o2 instanceof BlockElectric) {  // ElectricBlock인 경우
                     BlockElectric electricBlock = (BlockElectric) o2;
                     if (CollisionHelper.collides(electricBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : ElectricBlock");

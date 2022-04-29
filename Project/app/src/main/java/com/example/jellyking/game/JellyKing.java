@@ -31,7 +31,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     private float touchTime = 0.0f;
     boolean touch = false;
 
-    protected RectF boundingBoxHead = new RectF();  // boundingBox
+    protected RectF boundingBox = new RectF();  // boundingBox
+    protected RectF boundingBoxHead = new RectF();
     protected RectF boundingBoxFoot = new RectF();
     protected RectF boundingBoxLeft = new RectF();
     protected RectF boundingBoxRight = new RectF();
@@ -120,6 +121,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.jellyking_radius);
+        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius);
         boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
         boundingBoxFoot.set(x - widthRadius, y + widthRadius / 2, x + widthRadius, y + widthRadius);
         boundingBoxLeft.set(x - widthRadius, y - widthRadius / 2, x - widthRadius / 2, y + widthRadius / 2);
@@ -144,7 +146,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     @Override
     public RectF getBoundingRect() {
-        return null;
+        return boundingBox;
     }
 
     @Override
