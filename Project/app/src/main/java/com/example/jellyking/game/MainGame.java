@@ -80,13 +80,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage3StartPointX;
-        float y = stage.stage3StartPointY;
+        float x = stage.stage5StartPointX;
+        float y = stage.stage5StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage3Info;
+        int[][] stageNum = stage.stage5Info;
         setStage(stageNum);
 
         /* CollisionPaint */
