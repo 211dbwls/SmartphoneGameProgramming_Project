@@ -29,4 +29,24 @@ public class BlockStraightRight extends Sprite implements BoxCollidable {
     public RectF getBoundingRect() {
         return boundingBox;
     }
+
+    @Override
+    public RectF getBoundingRectHead() {
+        return null;
+    }
+
+    @Override
+    public RectF getBoundingRectFoot() {
+        return null;
+    }
+
+    @Override
+    public RectF getBoundingRectLeft() {
+        return null;
+    }
+
+    @Override
+    public RectF getBoundingRectRight() {
+        return null;
+    }
 }

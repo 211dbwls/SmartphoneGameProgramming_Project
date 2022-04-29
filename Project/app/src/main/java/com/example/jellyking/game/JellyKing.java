@@ -26,11 +26,15 @@ public class JellyKing extends Sprite implements BoxCollidable {
     boolean move = false;
     boolean moveRight;
 
+    boolean collisionBlock = false;
+
     private float touchTime = 0.0f;
     boolean touch = false;
 
     protected RectF boundingBoxHead = new RectF();  // boundingBox
-    protected RectF boundingBoxFoot = new RectF();  // boundingBox
+    protected RectF boundingBoxFoot = new RectF();
+    protected RectF boundingBoxLeft = new RectF();
+    protected RectF boundingBoxRight = new RectF();
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -85,10 +89,22 @@ public class JellyKing extends Sprite implements BoxCollidable {
                 if (moveRight == true) {  // 오른쪽으로 이동하는 경우
                     if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
                         move = false;  // 이동 멈춤.
+                        if(collisionBlock == true) {
+                            dx = Metrics.size(R.dimen.jellyking_move_speed);
+                            moveRight = true;
+                            moveWidth = 0.0f;
+                            collisionBlock = false;
+                        }
                     }
                 } else {  // 왼쪽으로 이동하는 경우
                     if (moveWidth < 0) {  // 이동 거리를 도달했을 경우
                         move = false;
+                        if(collisionBlock == true) {
+                            dx = -(Metrics.size(R.dimen.jellyking_move_speed));
+                            moveRight = false;
+                            moveWidth = moveWidthLimit;
+                            collisionBlock = false;
+                        }
                     }
                 }
             }
@@ -104,12 +120,15 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.jellyking_radius);
-        // boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);
-        boundingBoxFoot.set(x - widthRadius, y, x + widthRadius, y + widthRadius);
+        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
+        boundingBoxFoot.set(x - widthRadius, y + widthRadius / 2, x + widthRadius, y + widthRadius);
+        boundingBoxLeft.set(x - widthRadius, y - widthRadius / 2, x - widthRadius / 2, y + widthRadius / 2);
+        boundingBoxRight.set(x + widthRadius / 2, y - widthRadius / 2, x + widthRadius, y + widthRadius / 2);
     }
 
-    public void setMoveDirection(boolean right) {
+    public void setMoveDirection(boolean right, boolean collision) {
         move = true;
+        collisionBlock = collision;
 
         if(right == true) {  // 오른쪽 터치를 했을 경우
             dx = Metrics.size(R.dimen.jellyking_move_speed);
@@ -125,6 +144,26 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     @Override
     public RectF getBoundingRect() {
+        return null;
+    }
+
+    @Override
+    public RectF getBoundingRectHead() {
+        return boundingBoxHead;
+    }
+
+    @Override
+    public RectF getBoundingRectFoot() {
         return boundingBoxFoot;
+    }
+
+    @Override
+    public RectF getBoundingRectLeft() {
+        return boundingBoxLeft;
+    }
+
+    @Override
+    public RectF getBoundingRectRight() {
+        return boundingBoxRight;
     }
 }

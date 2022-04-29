@@ -3,10 +3,7 @@ package com.example.jellyking.framework;
 import android.graphics.RectF;
 
 public class CollisionHelper {
-    public static boolean collides(BoxCollidable o1, BoxCollidable o2) {
-        RectF r1 = o1.getBoundingRect();
-        RectF r2 = o2.getBoundingRect();
-
+    public static boolean collides(RectF r1, RectF r2) {
         if(r1.left > r2.right) {
             return false;
         }

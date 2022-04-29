@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.jellyking.R;
 import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
@@ -198,10 +199,10 @@ public class MainGame {
 
                 float x = event.getX();
                 if(x > Metrics.width / 2) {  // 오른쪽 터치
-                    jellyKing.setMoveDirection(true);
+                    jellyKing.setMoveDirection(true, false);
                 }
                 else {  // 왼쪽 터치
-                    jellyKing.setMoveDirection(false);
+                    jellyKing.setMoveDirection(false, false);
                 }
                 return true;
             case MotionEvent.ACTION_UP:
@@ -217,7 +218,26 @@ public class MainGame {
 
             if(gobj instanceof BoxCollidable) {  // 바운딩 박스 그리기.
                 RectF box = ((BoxCollidable) gobj).getBoundingRect();
-                canvas.drawRect(box, collisionPaint);
+                RectF boxHead = ((BoxCollidable) gobj).getBoundingRectHead();
+                RectF boxFoot = ((BoxCollidable) gobj).getBoundingRectFoot();
+                RectF boxLeft = ((BoxCollidable) gobj).getBoundingRectLeft();
+                RectF boxRight = ((BoxCollidable) gobj).getBoundingRectRight();
+
+                if(box != null) {
+                    canvas.drawRect(box, collisionPaint);
+                }
+                if(boxHead != null) {
+                    canvas.drawRect(boxHead, collisionPaint);
+                }
+                if(boxFoot != null) {
+                    canvas.drawRect(boxFoot, collisionPaint);
+                }
+                if(boxLeft != null) {
+                    canvas.drawRect(boxLeft, collisionPaint);
+                }
+                if(boxRight != null) {
+                    canvas.drawRect(boxRight, collisionPaint);
+                }
             }
         }
     }
@@ -242,13 +262,29 @@ public class MainGame {
                 /* Block */
                 if(o2 instanceof Block) {  // Block인 경우
                     Block block = (Block) o2;
-                    if (CollisionHelper.collides(block, jellyKing)) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : Block");
+                    if(CollisionHelper.collides(block.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
+                        Log.d(TAG, "Collision : Block(Foot)");
+                        jellyKing.jumpUp = false;  // 떨어지도록
+                        // jellyKing.collisionRight = 0;
+                        break;
+                    }
+                    if(CollisionHelper.collides(block.getBoundingRectLeft(), jellyKing.getBoundingRectRight())) {
+                        Log.d(TAG, "Collision : Block(Left)");
+                        jellyKing.setMoveDirection(false, true);
+                        break;
+                    }
+                    if(CollisionHelper.collides(block.getBoundingRectRight(), jellyKing.getBoundingRectLeft())) {
+                        Log.d(TAG, "Collision : Block(Right)");
+                        jellyKing.setMoveDirection(true, false);
+                        break;
+                    }
+                    if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {
+                        Log.d(TAG, "Collision : Block(Head)");
                         jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
                 }
-                else if(o2 instanceof BlockBroken) {  // BrokenBlock인 경우
+                /*else if(o2 instanceof BlockBroken) {  // BrokenBlock인 경우
                     BlockBroken brokenBlock = (BlockBroken) o2;
                     if(CollisionHelper.collides(brokenBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : BrokenBlock");
@@ -302,9 +338,9 @@ public class MainGame {
                         jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
-                }
+                }*/
                 /* Enemy */
-                else if(o2 instanceof EnemyFix) {  // FixEnemy인 경우
+                /*else if(o2 instanceof EnemyFix) {  // FixEnemy인 경우
                     EnemyFix fixEnemy = (EnemyFix) o2;
                     if (CollisionHelper.collides(fixEnemy, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : FixEnemy");
@@ -324,9 +360,9 @@ public class MainGame {
                         Log.d(TAG, "Collision : MoveEnemy");
                         break;
                     }
-                }
+                }*/
                 /* Item */
-                else if(o2 instanceof ItemJumpOne) {  // JumpOneItem인 경우
+                /*else if(o2 instanceof ItemJumpOne) {  // JumpOneItem인 경우
                     ItemJumpOne jumpOneItem = (ItemJumpOne) o2;
                     if (CollisionHelper.collides(jumpOneItem, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : JumpOneItem");
@@ -339,15 +375,15 @@ public class MainGame {
                         Log.d(TAG, "Collision : JumpInfiniteItem");
                         break;
                     }
-                }
+                }*/
                 /* Star */
-                else if(o2 instanceof Star) {  // Star인 경우
+                /*else if(o2 instanceof Star) {  // Star인 경우
                     Star star = (Star) o2;
                     if (CollisionHelper.collides(star, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : Star");
                         break;
                     }
-                }
+                }*/
             }
         }
     }
