@@ -28,6 +28,9 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     boolean collisionBlock = false;
 
+    boolean collisionStraightLeftBlock = false;
+    float collisionStraightLeftBlockY;
+
     private float touchTime = 0.0f;
     boolean touch = false;
 
@@ -48,6 +51,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
     public void update() {
         float frameTime = MainGame.getInstance().frameTime;
 
+        dx = Metrics.size(R.dimen.jellyking_move_speed);
         dy = Metrics.size(R.dimen.jellyking_jump_speed);
 
         float dx = this.dx * frameTime;
@@ -59,6 +63,14 @@ public class JellyKing extends Sprite implements BoxCollidable {
         }
         else {  // 터치가 끝났을 경우
             touchTime = 0;
+        }
+
+        /* 직진 블록 */
+        if(collisionStraightLeftBlock == true) {
+            if(dx >= 0) {
+                dx = -dx;
+            }
+            dy = collisionStraightLeftBlockY - y;
         }
 
         /* 점프 */
@@ -110,7 +122,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
                 }
             }
         }
-        else {  // 터치하지 않았을 경우
+        else if(touch == false && collisionStraightLeftBlock == false){  // 터치하지 않았을 경우
             dx = 0;  // 이동하지 않음
         }
 

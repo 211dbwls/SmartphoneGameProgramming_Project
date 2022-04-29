@@ -80,13 +80,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage5StartPointX;
-        float y = stage.stage5StartPointY;
+        float x = stage.stage4StartPointX;
+        float y = stage.stage4StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage5Info;
+        int[][] stageNum = stage.stage4Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -199,9 +199,11 @@ public class MainGame {
 
                 float x = event.getX();
                 if(x > Metrics.width / 2) {  // 오른쪽 터치
+                    jellyKing.collisionStraightLeftBlock = false;
                     jellyKing.setMoveDirection(true, false);
                 }
                 else {  // 왼쪽 터치
+                    jellyKing.collisionStraightLeftBlock = false;
                     jellyKing.setMoveDirection(false, false);
                 }
                 return true;
@@ -314,15 +316,17 @@ public class MainGame {
                         Log.d(TAG, "Collision : JumpBlock");
                         break;
                     }
-                }
+                }*/
                 else if(o2 instanceof BlockStraightLeft) {  // StraightLeftBlock인 경우
                     BlockStraightLeft straightLeftBlock = (BlockStraightLeft) o2;
-                    if (CollisionHelper.collides(straightLeftBlock, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(straightLeftBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : StraightLeftBlock");
+                        jellyKing.collisionStraightLeftBlock = true;  // 왼쪽으로 이동하도록
+                        jellyKing.collisionStraightLeftBlockY = straightLeftBlock.y;
                         break;
                     }
                 }
-                else if(o2 instanceof BlockStraightRight) {  // StraightRightBlock인 경우
+                /*else if(o2 instanceof BlockStraightRight) {  // StraightRightBlock인 경우
                     BlockStraightRight straightRightBlock = (BlockStraightRight) o2;
                     if (CollisionHelper.collides(straightRightBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : StraightRightBlock");
