@@ -13,7 +13,7 @@ import com.example.jellyking.game.MainGame;
 public class BlockMoveUD extends Sprite implements BoxCollidable {
     private static final String TAG = BlockMoveUD.class.getSimpleName();
 
-    protected RectF boundingBox = new RectF();  // boundingBox
+    protected RectF boundingBoxHead = new RectF();  // boundingBox
 
     private float dy;
 
@@ -57,17 +57,17 @@ public class BlockMoveUD extends Sprite implements BoxCollidable {
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
-        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y);
+        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
     }
 
     @Override
     public RectF getBoundingRect() {
-        return boundingBox;
+        return null;
     }
 
     @Override
     public RectF getBoundingRectHead() {
-        return null;
+        return boundingBoxHead;
     }
 
     @Override

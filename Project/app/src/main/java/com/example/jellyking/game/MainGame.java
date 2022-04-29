@@ -337,14 +337,14 @@ public class MainGame {
                         break;
                     }
                 }
-                /*else if(o2 instanceof BlockMoveUD) {  // MoveUDBlock인 경우
+                else if(o2 instanceof BlockMoveUD) {  // MoveUDBlock인 경우
                     BlockMoveUD moveUDBlock = (BlockMoveUD) o2;
-                    if (CollisionHelper.collides(moveUDBlock, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(moveUDBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveUDBlock");
                         jellyKing.jumpUp = true;   // 점프하도록
                         break;
                     }
-                }*/
+                }
                 /* Enemy */
                 /*else if(o2 instanceof EnemyFix) {  // FixEnemy인 경우
                     EnemyFix fixEnemy = (EnemyFix) o2;
