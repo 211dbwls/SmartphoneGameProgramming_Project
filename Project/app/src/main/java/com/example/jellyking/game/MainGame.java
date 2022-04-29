@@ -252,6 +252,7 @@ public class MainGame {
                     BlockBroken brokenBlock = (BlockBroken) o2;
                     if(CollisionHelper.collides(brokenBlock, jellyKing)) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : BrokenBlock");
+                        jellyKing.jumpUp = true;   // 한 번 점프하도록
                         remove(brokenBlock);
                         break;
                     }
