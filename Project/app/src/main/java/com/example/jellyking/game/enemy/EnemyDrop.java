@@ -12,16 +12,22 @@ import com.example.jellyking.framework.Sprite;
 import com.example.jellyking.game.MainGame;
 
 public class EnemyDrop extends Sprite implements BoxCollidable {
+    private static final String TAG = EnemyDrop.class.getSimpleName();
+
     protected RectF boundingBox = new RectF();  // boundingBox
+
+    private float startY;
 
     private float elapsedTimeForChangeImg;
     private float changeImgInterval = 1.0f / 2;
 
     private float dy;
+    private float limitY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 8);;
 
     public EnemyDrop(float x, float y) {
         super(x, y, R.dimen.enemy_radius, R.mipmap.enemy_drop_1);
 
+        startY = y;
         changeImgInterval = Metrics.floatValue(R.dimen.enemy_change_interval);
     }
 
@@ -46,6 +52,10 @@ public class EnemyDrop extends Sprite implements BoxCollidable {
         dy = Metrics.size(R.dimen.drop_enemy_speed);
 
         float dy = this.dy * frameTime;
+
+        if(y > limitY) {
+            MainGame.getInstance().remove(this);
+        }
 
         dstRect.offset(0, dy);
         y += dy;

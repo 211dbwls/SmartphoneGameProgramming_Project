@@ -1,5 +1,7 @@
 package com.example.jellyking.game;
 
+import android.util.Log;
+
 import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.game.block.Block;
 
