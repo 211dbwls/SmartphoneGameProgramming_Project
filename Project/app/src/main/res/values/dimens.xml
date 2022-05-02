@@ -5,7 +5,10 @@
     <dimen name="jellyking_move_speed">30dp</dimen>
 
     <dimen name="block_radius">15dp</dimen>
+
     <dimen name="jump_block_height_radius">6dp</dimen>
+    <item name="jump_block_change_interval" type="dimen" format="float">0.2</item>
+
     <dimen name="move_lr_block_width_radius">60dp</dimen>
     <dimen name="move_lr_block_height_radius">15dp</dimen>
     <dimen name="move_lr_block_speed">30dp</dimen>

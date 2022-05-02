@@ -86,7 +86,7 @@ public class MainGame {
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage5Info;
+        int[][] stageNum = stage.stage3Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -316,6 +316,7 @@ public class MainGame {
                         Log.d(TAG, "Collision : JumpBlock");
                         jellyKing.collisionJumpBlock = true;
                         jellyKing.jumpUp = true;   // 점프하도록
+                        jumpBlock.collision = true;
                         break;
                     }
                 }
