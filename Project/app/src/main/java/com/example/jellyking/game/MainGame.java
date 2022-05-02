@@ -86,7 +86,7 @@ public class MainGame {
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage3Info;
+        int[][] stageNum = stage.stage5Info;
         setStage(stageNum);
 
         /* CollisionPaint */

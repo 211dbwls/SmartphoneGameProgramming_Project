@@ -18,7 +18,7 @@ public class BlockMoveLR extends Sprite implements BoxCollidable {
 
     private float dx;
     private float startX;
-    private float moveWidthLimit = Metrics.height / 13 * 3 + (Metrics.height / 13 * 16);
+    private float moveWidthLimit = Metrics.width / 26 * (3 + 16);
     boolean moveRight = true;
 
     public BlockMoveLR(float x, float y) {

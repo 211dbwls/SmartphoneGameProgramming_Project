@@ -16,13 +16,14 @@ public class BlockMoveUD extends Sprite implements BoxCollidable {
     protected RectF boundingBoxHead = new RectF();  // boundingBox
 
     private float dy;
-
-    private float moveHeight = 0.0f;
-    private float moveHeightLimit = -730.0f;
+    private float startY;
+    private float moveHeightLimit = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
     boolean moveUp = true;
 
     public BlockMoveUD(float x, float y) {
         super(x, y, R.dimen.block_radius, R.mipmap.block_1);
+
+        startY = y;
     }
 
     public void draw(Canvas canvas) {
@@ -37,7 +38,7 @@ public class BlockMoveUD extends Sprite implements BoxCollidable {
         float dy = this.dy * frameTime;
 
         if(moveUp == true) {  // 위로 이동하는 경우
-            if(moveHeight < moveHeightLimit) {  // 이동 거리 완주한 경우
+            if(y < moveHeightLimit) {  // 이동 거리 완주한 경우
                 moveUp = false;
             }
             if(dy > 0) {
@@ -45,15 +46,13 @@ public class BlockMoveUD extends Sprite implements BoxCollidable {
             }
         }
         else {
-            if(moveHeight > 0) {  // 이동 거리 완주한 경우
+            if(y > startY) {  // 이동 거리 완주한 경우
                 moveUp = true;
             }
         }
 
-        Log.d(TAG, "moveUp: " + moveUp + " moveHeight: " + moveHeight + " dy: " + dy);
         dstRect.offset(0, dy);
         y += dy;
-        moveHeight += dy;
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
