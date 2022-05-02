@@ -22,7 +22,7 @@ public class EnemyDrop extends Sprite implements BoxCollidable {
     private float changeImgInterval = 1.0f / 2;
 
     private float dy;
-    private float limitY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 8);;
+    private float limitY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 8);
 
     public EnemyDrop(float x, float y) {
         super(x, y, R.dimen.enemy_radius, R.mipmap.enemy_drop_1);

@@ -18,6 +18,8 @@
 
     <dimen name="drop_enemy_speed">60dp</dimen>
 
+    <dimen name="move_enemy_speed">60dp</dimen>
+
     <dimen name="star_radius">20dp</dimen>
 
 </resources>
