@@ -17,13 +17,14 @@ public class BlockMoveLR extends Sprite implements BoxCollidable {
     protected RectF boundingBoxHead = new RectF();  // boundingBox
 
     private float dx;
-
-    private float moveWidth = 0.0f;
-    private float moveWidthLimit = 970.0f;
+    private float startX;
+    private float moveWidthLimit = Metrics.height / 13 * 3 + (Metrics.height / 13 * 16);
     boolean moveRight = true;
 
     public BlockMoveLR(float x, float y) {
         super(x, y, R.dimen.move_lr_block_width_radius, R.dimen.move_lr_block_height_radius, R.mipmap.block_3);
+
+        startX = x;
     }
 
     public void draw(Canvas canvas) {
@@ -38,12 +39,12 @@ public class BlockMoveLR extends Sprite implements BoxCollidable {
         float dx = this.dx * frameTime;
 
         if(moveRight == true) {  // 오른쪽으로 이동하는 경우
-            if(moveWidth > moveWidthLimit) {  // 이동 거리 완주한 경우
+            if(x > moveWidthLimit) {  // 이동 거리 완주한 경우
                 moveRight = false;
             }
         }
         else {
-            if(moveWidth < 0) {  // 이동 거리 완주한 경우
+            if(x < startX) {  // 이동 거리 완주한 경우
                 moveRight = true;
             }
             if(dx > 0) {
@@ -51,10 +52,8 @@ public class BlockMoveLR extends Sprite implements BoxCollidable {
             }
         }
 
-        Log.d(TAG, "moveRight: " + moveRight + " moveWidth: " + moveWidth + " dx: " + dx);
         dstRect.offset(dx, 0);
         x += dx;
-        moveWidth += dx;
 
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.move_lr_block_width_radius);
