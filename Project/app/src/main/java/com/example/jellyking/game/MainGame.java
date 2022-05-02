@@ -26,6 +26,7 @@ import com.example.jellyking.game.enemy.EnemyDrop;
 import com.example.jellyking.game.enemy.EnemyFix;
 
 import com.example.jellyking.game.enemy.EnemyMove;
+import com.example.jellyking.game.enemy.EnemyMoveLR;
 import com.example.jellyking.game.item.ItemJumpInfinite;
 import com.example.jellyking.game.item.ItemJumpOne;
 
@@ -59,6 +60,7 @@ public class MainGame {
     private EnemyFix enemyFix;  // enemyFix.
     private EnemyDrop enemyDrop;  // enemyDrop.
     private EnemyMove enemyMove;  // enemyMove.
+    private EnemyMoveLR enemyMoveLR;  // enemyMoveLR.
 
     private ItemJumpOne itemJumpOne;  // itemJumpOne.
     private ItemJumpInfinite itemJumpInfinite;  // itemJumpInfinite.
@@ -80,13 +82,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage3StartPointX;
-        float y = stage.stage3StartPointY;
+        float x = stage.stage1StartPointX;
+        float y = stage.stage1StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage3Info;
+        int[][] stageNum = stage.stage1Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -165,6 +167,12 @@ public class MainGame {
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         enemyMove = new EnemyMove(stageX, stageY);
                         gameObjects.add(enemyMove);
+                        break;
+                    case 34:  // MoveLREnemy
+                        stageX = Metrics.width / 26 * (3 + j);
+                        stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
+                        enemyMoveLR = new EnemyMoveLR(stageX, stageY);
+                        gameObjects.add(enemyMoveLR);
                         break;
                     case 41:  // itemJumpOne
                         stageX = Metrics.width / 26 * (3 + j);
@@ -375,6 +383,19 @@ public class MainGame {
                     EnemyMove moveEnemy = (EnemyMove) o2;
                     if (CollisionHelper.collides(moveEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveEnemy");
+                        jellyKing.death();
+                        break;
+                    }
+                }
+                else if(o2 instanceof EnemyMoveLR) {  // MoveLREnemy인 경우
+                    EnemyMoveLR moveLREnemy = (EnemyMoveLR) o2;
+                    if (CollisionHelper.collides(moveLREnemy.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : MoveLREnemy(Head)");
+                        moveLREnemy.death();
+                        break;
+                    }
+                    if (CollisionHelper.collides(moveLREnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                        Log.d(TAG, "Collision : MoveLREnemy");
                         jellyKing.death();
                         break;
                     }
