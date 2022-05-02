@@ -136,7 +136,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
                             collisionBlock = false;
                         }
                     }
-                } else {  // 왼쪽으로 이동하는 경우
+                }
+                else {  // 왼쪽으로 이동하는 경우
                     if (moveWidth < 0) {  // 이동 거리를 도달했을 경우
                         move = false;
                         if(collisionBlock == true) {
@@ -145,6 +146,9 @@ public class JellyKing extends Sprite implements BoxCollidable {
                             moveWidth = moveWidthLimit;
                             collisionBlock = false;
                         }
+                    }
+                    if(dx > 0) {
+                        dx = -dx;
                     }
                 }
             }
@@ -171,16 +175,16 @@ public class JellyKing extends Sprite implements BoxCollidable {
         move = true;
         collisionBlock = collision;
 
-        if(right == true) {  // 오른쪽 터치를 했을 경우
-            dx = Metrics.size(R.dimen.jellyking_move_speed);
-            moveRight = true;
-            moveWidth = 0.0f;
-        }
-        else {  // 왼쪽 터치를 했을 경우
-            dx = -(Metrics.size(R.dimen.jellyking_move_speed));
-            moveRight = false;
-            moveWidth = moveWidthLimit;
-        }
+       if (right == true && collision == false) {  // 오른쪽 터치를 했을 경우
+           dx = Metrics.size(R.dimen.jellyking_move_speed);
+           moveRight = true;
+           moveWidth = 0.0f;
+       }
+       else if(right == false && collision == false){  // 왼쪽 터치를 했을 경우
+           dx = -(Metrics.size(R.dimen.jellyking_move_speed));
+           moveRight = false;
+           moveWidth = moveWidthLimit;
+       }
     }
 
     @Override

@@ -40,11 +40,9 @@ public class EnemyFix extends Sprite implements BoxCollidable {
         if(elapsedTimeForChangeImg >= changeImgInterval) {
             bitmap = BitmapPool.get(R.mipmap.enemy_fix_2);
             elapsedTimeForChangeImg -= changeImgInterval;
-            Log.d(TAG, "2");
         }
         else {
             bitmap = BitmapPool.get(R.mipmap.enemy_fix_1);
-            Log.d(TAG, "1");
         }
 
         /* boundingBox */
