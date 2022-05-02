@@ -2,13 +2,11 @@ package com.example.jellyking.game;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.jellyking.R;
 import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
@@ -22,11 +20,7 @@ import com.example.jellyking.game.block.BlockMoveLR;
 import com.example.jellyking.game.block.BlockMoveUD;
 import com.example.jellyking.game.block.BlockStraightLeft;
 import com.example.jellyking.game.block.BlockStraightRight;
-import com.example.jellyking.game.enemy.EnemyDrop;
-import com.example.jellyking.game.enemy.EnemyFix;
 
-import com.example.jellyking.game.enemy.EnemyMove;
-import com.example.jellyking.game.enemy.EnemyMoveLR;
 import com.example.jellyking.game.item.ItemJumpInfinite;
 import com.example.jellyking.game.item.ItemJumpOne;
 
@@ -57,10 +51,11 @@ public class MainGame {
     private BlockStraightRight blockStraightRight;  // blockStraightRight.
     private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.
 
-    private EnemyFix enemyFix;  // enemyFix.
-    private EnemyDrop enemyDrop;  // enemyDrop.
-    private EnemyMove enemyMove;  // enemyMove.
-    private EnemyMoveLR enemyMoveLR;  // enemyMoveLR.
+    //private EnemyFix enemyFix;  // enemyFix.
+    //private EnemyDrop enemyDrop;  // enemyDrop.
+    //private EnemyMove enemyMove;  // enemyMove.
+    //private EnemyMoveLR enemyMoveLR;  // enemyMoveLR.
+    private Enemies enemies;
 
     private ItemJumpOne itemJumpOne;  // itemJumpOne.
     private ItemJumpInfinite itemJumpInfinite;  // itemJumpInfinite.
@@ -153,26 +148,26 @@ public class MainGame {
                     case 31:  // FixEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i) + 18;
-                        enemyFix = new EnemyFix(stageX, stageY);
-                        gameObjects.add(enemyFix);
+                        enemies = new Enemies(stageX, stageY, 1, 2, 0, 1);
+                        gameObjects.add(enemies);
                         break;
                     case 32:  // DropEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemyDrop = new EnemyDrop(stageX, stageY);
-                        gameObjects.add(enemyDrop);
+                        enemies = new Enemies(stageX, stageY, 0, 0, 3, 2);
+                        gameObjects.add(enemies);
                         break;
                     case 33:  // MoveEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemyMove = new EnemyMove(stageX, stageY);
-                        gameObjects.add(enemyMove);
+                        enemies = new Enemies(stageX, stageY, 0, 0, 5, 3);
+                        gameObjects.add(enemies);
                         break;
                     case 34:  // MoveLREnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemyMoveLR = new EnemyMoveLR(stageX, stageY);
-                        gameObjects.add(enemyMoveLR);
+                        enemies = new Enemies(stageX, stageY, 0, 0, 6, 4);
+                        gameObjects.add(enemies);
                         break;
                     case 41:  // itemJumpOne
                         stageX = Metrics.width / 26 * (3 + j);
@@ -363,41 +358,29 @@ public class MainGame {
                     }
                 }
                 /* Enemy */
-                else if(o2 instanceof EnemyFix) {  // FixEnemy인 경우
-                    EnemyFix fixEnemy = (EnemyFix) o2;
-                    if (CollisionHelper.collides(fixEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : FixEnemy");
-                        jellyKing.death();
-                        break;
-                    }
-                }
-                else if(o2 instanceof EnemyDrop) {  // DropEnemy인 경우
-                    EnemyDrop dropEnemy = (EnemyDrop) o2;
-                    if (CollisionHelper.collides(dropEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : DropEnemy");
-                        jellyKing.death();
-                        break;
-                    }
-                }
-                else if(o2 instanceof EnemyMove) {  // MoveEnemy인 경우
-                    EnemyMove moveEnemy = (EnemyMove) o2;
-                    if (CollisionHelper.collides(moveEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : MoveEnemy");
-                        jellyKing.death();
-                        break;
-                    }
-                }
-                else if(o2 instanceof EnemyMoveLR) {  // MoveLREnemy인 경우
-                    EnemyMoveLR moveLREnemy = (EnemyMoveLR) o2;
-                    if (CollisionHelper.collides(moveLREnemy.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : MoveLREnemy(Head)");
-                        moveLREnemy.death();
-                        break;
-                    }
-                    if (CollisionHelper.collides(moveLREnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : MoveLREnemy");
-                        jellyKing.death();
-                        break;
+                else if(o2 instanceof Enemies) {  // Enemy인 경우
+                    Enemies enemies = (Enemies) o2;
+                    switch (enemies.enemyType) {
+                        case 1:  // FixEnemy
+                        case 2:  // DropEnemy
+                        case 3:  // MoveUDEnemy
+                            if (CollisionHelper.collides(enemies.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : Enemy(FixEnemy, DropEnemy, MoveUDEnemy)");
+                                jellyKing.death();
+                                break;
+                            }
+                        case 4:  // MoveLREnemy
+                            if (CollisionHelper.collides(enemies.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : MoveLREnemy(Head)");
+                                enemies.death();
+                                break;
+                            }
+                            if (CollisionHelper.collides(enemies.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : MoveLREnemy");
+                                jellyKing.death();
+                                break;
+                            }
+                            break;
                     }
                 }
                 /* Item */
