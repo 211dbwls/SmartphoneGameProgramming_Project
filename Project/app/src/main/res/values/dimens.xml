@@ -15,4 +15,6 @@
 
     <dimen name="star_radius">20dp</dimen>
     <dimen name="move_lr_block_speed">30dp</dimen>
+
+    <item name="fix_enemy_change_interval" type="dimen" format="float">0.2</item>
 </resources>
