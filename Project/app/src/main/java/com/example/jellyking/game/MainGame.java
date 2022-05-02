@@ -370,13 +370,14 @@ public class MainGame {
                         break;
                     }
                 }
-                /*else if(o2 instanceof EnemyMove) {  // MoveEnemy인 경우
+                else if(o2 instanceof EnemyMove) {  // MoveEnemy인 경우
                     EnemyMove moveEnemy = (EnemyMove) o2;
-                    if (CollisionHelper.collides(moveEnemy, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(moveEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveEnemy");
+                        // jellyking.death();
                         break;
                     }
-                }*/
+                }
                 /* Item */
                 /*else if(o2 instanceof ItemJumpOne) {  // JumpOneItem인 경우
                     ItemJumpOne jumpOneItem = (ItemJumpOne) o2;
