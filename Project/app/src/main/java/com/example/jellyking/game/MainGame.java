@@ -80,13 +80,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage2StartPointX;
-        float y = stage.stage2StartPointY;
+        float x = stage.stage4StartPointX;
+        float y = stage.stage4StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage2Info;
+        int[][] stageNum = stage.stage4Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -358,6 +358,7 @@ public class MainGame {
                     EnemyFix fixEnemy = (EnemyFix) o2;
                     if (CollisionHelper.collides(fixEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : FixEnemy");
+                        // jellyking.death();
                         break;
                     }
                 }

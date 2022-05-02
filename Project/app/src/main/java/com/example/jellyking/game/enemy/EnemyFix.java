@@ -26,7 +26,7 @@ public class EnemyFix extends Sprite implements BoxCollidable {
     public EnemyFix(float x, float y) {
         super(x, y, R.dimen.fix_enemy_width, R.dimen.fix_enemy_height, R.mipmap.enemy_fix_1);
 
-        changeImgInterval = Metrics.floatValue(R.dimen.fix_enemy_change_interval);
+        changeImgInterval = Metrics.floatValue(R.dimen.enemy_change_interval);
     }
 
     public void draw(Canvas canvas) {

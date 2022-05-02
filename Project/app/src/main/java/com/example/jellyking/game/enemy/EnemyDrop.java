@@ -2,17 +2,27 @@ package com.example.jellyking.game.enemy;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.example.jellyking.R;
+import com.example.jellyking.framework.BitmapPool;
 import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.framework.Sprite;
+import com.example.jellyking.game.MainGame;
 
 public class EnemyDrop extends Sprite implements BoxCollidable {
     protected RectF boundingBox = new RectF();  // boundingBox
 
+    private float elapsedTimeForChangeImg;
+    private float changeImgInterval = 1.0f / 2;
+
+    private float dy;
+
     public EnemyDrop(float x, float y) {
         super(x, y, R.dimen.enemy_radius, R.mipmap.enemy_drop_1);
+
+        changeImgInterval = Metrics.floatValue(R.dimen.enemy_change_interval);
     }
 
     public void draw(Canvas canvas) {
@@ -20,6 +30,26 @@ public class EnemyDrop extends Sprite implements BoxCollidable {
     }
 
     public void update() {
+        float frameTime = MainGame.getInstance().frameTime;
+
+        /* 애니메이션 */
+        elapsedTimeForChangeImg += frameTime;
+        if(elapsedTimeForChangeImg >= changeImgInterval) {
+            bitmap = BitmapPool.get(R.mipmap.enemy_drop_2);
+            elapsedTimeForChangeImg -= changeImgInterval;
+        }
+        else {
+            bitmap = BitmapPool.get(R.mipmap.enemy_drop_1);
+        }
+
+        /* 떨어짐 */
+        dy = Metrics.size(R.dimen.drop_enemy_speed);
+
+        float dy = this.dy * frameTime;
+
+        dstRect.offset(0, dy);
+        y += dy;
+
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.enemy_radius);
         boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);

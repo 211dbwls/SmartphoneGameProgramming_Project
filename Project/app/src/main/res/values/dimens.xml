@@ -8,13 +8,16 @@
     <dimen name="jump_block_height_radius">6dp</dimen>
     <dimen name="move_lr_block_width_radius">60dp</dimen>
     <dimen name="move_lr_block_height_radius">15dp</dimen>
+    <dimen name="move_lr_block_speed">30dp</dimen>
+
+    <dimen name="enemy_radius">15dp</dimen>
+    <item name="enemy_change_interval" type="dimen" format="float">0.2</item>
 
     <dimen name="fix_enemy_width">15dp</dimen>
     <dimen name="fix_enemy_height">10dp</dimen>
-    <dimen name="enemy_radius">15dp</dimen>
+
+    <dimen name="drop_enemy_speed">60dp</dimen>
 
     <dimen name="star_radius">20dp</dimen>
-    <dimen name="move_lr_block_speed">30dp</dimen>
 
-    <item name="fix_enemy_change_interval" type="dimen" format="float">0.2</item>
 </resources>
