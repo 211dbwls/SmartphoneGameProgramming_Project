@@ -1,4 +1,4 @@
-package com.example.jellyking.game.item;
+package com.example.jellyking.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -8,18 +8,26 @@ import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.framework.Sprite;
 
-public class ItemJumpOne extends Sprite implements BoxCollidable {
+public class Items  extends Sprite implements BoxCollidable {
+    protected static int[] bitmapIds =  {
+            R.mipmap.item_jump_one, R.mipmap.item_jump_infinite
+    };
+
+    protected int itemType;
+
     protected RectF boundingBox = new RectF();  // boundingBox
 
-    public ItemJumpOne(float x, float y) {
-        super(x, y, R.dimen.block_radius, R.mipmap.item_jump_one);
+    public Items(float x, float y, int bitmapId, int itemNum) {
+        super(x, y, R.dimen.block_radius, bitmapIds[bitmapId]);
+
+        itemType = itemNum;
     }
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 
-    public void update(){
+    public void update() {
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.block_radius);
         boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y + widthRadius);

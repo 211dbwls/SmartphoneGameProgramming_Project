@@ -21,9 +21,6 @@ import com.example.jellyking.game.block.BlockMoveUD;
 import com.example.jellyking.game.block.BlockStraightLeft;
 import com.example.jellyking.game.block.BlockStraightRight;
 
-import com.example.jellyking.game.item.ItemJumpInfinite;
-import com.example.jellyking.game.item.ItemJumpOne;
-
 import java.util.ArrayList;
 
 public class MainGame {
@@ -51,16 +48,9 @@ public class MainGame {
     private BlockStraightRight blockStraightRight;  // blockStraightRight.
     private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.
 
-    //private EnemyFix enemyFix;  // enemyFix.
-    //private EnemyDrop enemyDrop;  // enemyDrop.
-    //private EnemyMove enemyMove;  // enemyMove.
-    //private EnemyMoveLR enemyMoveLR;  // enemyMoveLR.
     private Enemies enemies;
-
-    private ItemJumpOne itemJumpOne;  // itemJumpOne.
-    private ItemJumpInfinite itemJumpInfinite;  // itemJumpInfinite.
-
-    private Star star;  // star.
+    private Items items;
+    private Star star;
 
     StageInfo stage = new StageInfo();
 
@@ -172,14 +162,14 @@ public class MainGame {
                     case 41:  // itemJumpOne
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        itemJumpOne = new ItemJumpOne(stageX, stageY);
-                        gameObjects.add(itemJumpOne);
+                        items = new Items(stageX, stageY, 0, 1);
+                        gameObjects.add(items);
                         break;
                     case 42:  // itemJumpInfinite
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        itemJumpInfinite = new ItemJumpInfinite(stageX, stageY);
-                        gameObjects.add(itemJumpInfinite);
+                        items = new Items(stageX, stageY, 1, 2);
+                        gameObjects.add(items);
                         break;
                     case 51:  // Star
                         stageX = Metrics.width / 26 * (3 + j);
@@ -369,6 +359,7 @@ public class MainGame {
                                 jellyKing.death();
                                 break;
                             }
+                            break;
                         case 4:  // MoveLREnemy
                             if (CollisionHelper.collides(enemies.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : MoveLREnemy(Head)");
@@ -384,18 +375,21 @@ public class MainGame {
                     }
                 }
                 /* Item */
-                /*else if(o2 instanceof ItemJumpOne) {  // JumpOneItem인 경우
-                    ItemJumpOne jumpOneItem = (ItemJumpOne) o2;
-                    if (CollisionHelper.collides(jumpOneItem, jellyKing)) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : JumpOneItem");
-                        break;
-                    }
-                }
-                else if(o2 instanceof ItemJumpInfinite) {  // JumpInfiniteItem인 경우
-                    ItemJumpInfinite jumpInfiniteItem = (ItemJumpInfinite) o2;
-                    if (CollisionHelper.collides(jumpInfiniteItem, jellyKing)) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : JumpInfiniteItem");
-                        break;
+                /*else if(o2 instanceof Items) {  // JumpOneItem인 경우
+                    Items items = (Items) o2;
+                    switch (items.itemType) {
+                        case 1:  // JumpOneItem
+                            if (CollisionHelper.collides(items.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : JumpOneItem");
+                                break;
+                            }
+                            break;
+                        case 2:  // JumpInfiniteItem
+                            if (CollisionHelper.collides(items.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : JumpInfiniteItem");
+                                break;
+                            }
+                            break;
                     }
                 }*/
                 /* Star */
