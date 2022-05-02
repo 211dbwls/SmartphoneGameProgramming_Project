@@ -187,6 +187,10 @@ public class JellyKing extends Sprite implements BoxCollidable {
        }
     }
 
+    public void death() {
+        MainGame.getInstance().remove(this);
+    }
+
     @Override
     public RectF getBoundingRect() {
         return boundingBox;

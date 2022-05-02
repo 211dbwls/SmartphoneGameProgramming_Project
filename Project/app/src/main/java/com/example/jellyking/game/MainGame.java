@@ -359,7 +359,7 @@ public class MainGame {
                     EnemyFix fixEnemy = (EnemyFix) o2;
                     if (CollisionHelper.collides(fixEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : FixEnemy");
-                        // jellyking.death();
+                        jellyKing.death();
                         break;
                     }
                 }
@@ -367,7 +367,7 @@ public class MainGame {
                     EnemyDrop dropEnemy = (EnemyDrop) o2;
                     if (CollisionHelper.collides(dropEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : DropEnemy");
-                        // jellyking.death();
+                        jellyKing.death();
                         break;
                     }
                 }
@@ -375,7 +375,7 @@ public class MainGame {
                     EnemyMove moveEnemy = (EnemyMove) o2;
                     if (CollisionHelper.collides(moveEnemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : MoveEnemy");
-                        // jellyking.death();
+                        jellyKing.death();
                         break;
                     }
                 }
