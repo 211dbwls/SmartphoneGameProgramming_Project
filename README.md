@@ -109,7 +109,7 @@
         * 이동 및 점프
       * 게임 내에서 class가 책임지는 핵심 코드
         ```
-       public void update() {
+        public void update() {
         float frameTime = MainGame.getInstance().frameTime;
 
         dx = Metrics.size(R.dimen.jellyking_move_speed);
