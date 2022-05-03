@@ -223,13 +223,9 @@
         moveWidth += dx;
 
         /* boundingBox */
-        float widthRadius = Metrics.size(R.dimen.jellyking_radius);
-        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius);
-        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
-        boundingBoxFoot.set(x - widthRadius, y + widthRadius / 2, x + widthRadius, y + widthRadius);
-        boundingBoxLeft.set(x - widthRadius, y - widthRadius / 2, x - widthRadius / 2, y + widthRadius / 2);
-        boundingBoxRight.set(x + widthRadius / 2, y - widthRadius / 2, x + widthRadius, y + widthRadius / 2);
-    }
+        ...
+      } 
+       ```
    * Blocks 
      * class 정보
        | 종류 | 동작 | 상호작용 |
@@ -242,7 +238,7 @@
        | 직진 블록(왼쪽, 오른쪽) |  | 충돌 시, 방향에 따라 플레이어 직진 이동 |  
      * 게임 내에서 class가 책임지는 핵심 코드
        ```
-       public void update() {
+      public void update() {
         float frameTime = MainGame.getInstance().frameTime;
 
         /* 애니메이션 */
@@ -260,7 +256,7 @@
 
         /* boundingBox */
         ...
-       }
+      }
        ```
    * Enemies 
      * class 정보
@@ -272,7 +268,7 @@
        | 좌우이동 적 | 좌우로 지정된 거리를 이동함 | 플레이어가 적의 머리를 밟은 경우 적 사망 & 그 외 충돌할 경우 플레이어 사망 | 
      * 게임 내에서 class가 책임지는 핵심 코드
        ```
-       public void update() {
+      public void update() {
         float frameTime = MainGame.getInstance().frameTime;
 
         /* 애니메이션 */
@@ -301,8 +297,8 @@
 
         /* boundingBox */
         ...
-     }
-     ```
+      }
+       ```     
    * Items
    * Star
  * 발표 동영상
