@@ -108,7 +108,7 @@
        * 터치 길이에 따라 이동 거리 변경
      * 게임 내에서 class가 책임지는 핵심 코드
        ```
-       public void update() {
+      public void update() {
         float frameTime = MainGame.getInstance().frameTime;
 
         dx = Metrics.size(R.dimen.jellyking_move_speed);
@@ -229,8 +229,7 @@
         boundingBoxFoot.set(x - widthRadius, y + widthRadius / 2, x + widthRadius, y + widthRadius);
         boundingBoxLeft.set(x - widthRadius, y - widthRadius / 2, x - widthRadius / 2, y + widthRadius / 2);
         boundingBoxRight.set(x + widthRadius / 2, y - widthRadius / 2, x + widthRadius, y + widthRadius / 2);
-     }
-     ```
+    }
    * Blocks 
      * class 정보
        | 종류 | 동작 | 상호작용 |
