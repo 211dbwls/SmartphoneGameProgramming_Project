@@ -304,5 +304,5 @@
    * Items
    * Star
  * 발표 동영상
-   * [발표_동영상_링크] (...)
+   * [발표_동영상_링크] (https://youtu.be/HM-c1UXFpkU)
 
