@@ -67,8 +67,8 @@
    |-------------------|-------------------|-------------------|
    | 리소스 수집 | 필요한 리소스 모두 수집 완료 | 100% | 
    | 스테이지 기본 틀 구현 | 스테이지 5개 모두 구현 완료 | 100% |
-   | 플레이어 캐릭터 이동 구현 | 점프 구현 수정 필요 | 80% | 
-   | 블록 구현 | 움직임, 애니메이션, 충돌 체크 및 처리 구현 완료 | 100% | 
+   | 플레이어 캐릭터 이동 구현 | 점프 구현 및 이동 속도 수정 필요 | 80% | 
+   | 블록 구현 | 충돌 처리 수정 필요 | 80% | 
    | 적 구현 | 움직임, 애니메이션, 충돌 체크 및 처리 구현 완료 | 100% | 
    | 아이템 구현 | 충돌 체크 및 처리 구현 필요 | 20% |  
    | 별 구현 | | 0% | 
@@ -82,7 +82,7 @@
    * 4주차(04/24 일 - 04/30 토)
    ![commit 0418-0424](https://user-images.githubusercontent.com/65964035/166151739-d4553238-15d8-4a69-a04b-e161aeb45ac9.PNG)
    * 5주차(05/01 일 - 5/03 화)
-   
+   ![commit 0425-](https://user-images.githubusercontent.com/65964035/166416640-7e889ee3-adbd-4d3a-95bf-0d85c014f43e.PNG)
    * 주별 commit수
      | 주차 | commit수 |
      |-------------------|-------------------|
@@ -90,7 +90,7 @@
      | 2주차(4/11 - 4/17) | 12 |
      | 3주차(4/18 - 4/24) | 24 | 
      | 4주차(4/25 - 5/01) | 18 | 
-     | 5주차(5/02 - 5/03) |  |   
+     | 5주차(5/02 - 5/03) | 28 |   
  * 변경사항
    * 적 3종류 -> 적 4종류
      | 종류 | 내용 |
@@ -104,8 +104,9 @@
  * MainGame에 등장하는 game object
     * JellyKing
      * class 정보
-       * 터치 위치에 따라 이동 방향 변경
-       * 터치 길이에 따라 이동 거리 변경
+       * 터치 위치에 따라 이동 방향 설정
+       * 터치 길이에 따라 이동 거리 설정
+       * 이동 및 점프
      * 게임 내에서 class가 책임지는 핵심 코드
        ```
        public void update() {
@@ -125,34 +126,34 @@
             touchTime = 0;
         }
 
-        /* 직진 블록 */
-        if(collisionStraightLeftBlock == true) {  // 왼쪽으로 직진하는 블록과 충돌했을 경우
+        /* 직진 블록과 충돌한 경우 */
+        if(collisionStraightLeftBlock == true) {
             if(dx >= 0) {  // 왼쪽으로 이동
                 dx = -dx;
             }
             dy = collisionStraightLeftBlockY - y;  // 충돌 위치로 y 고정
 
-            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
-                collisionStraightLeftBlock = false;
-            }
             if(touch == true) {  // 이동 중 터치했을 경우
                 collisionStraightLeftBlock = false;
                 dy = this.dy * frameTime;
             }
+            else if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightLeftBlock = false;
+            }
         }
-        if(collisionStraightRightBlock == true) {  // 오른쪽으로 직진하는 블록과 충돌했을 경우
+        else if(collisionStraightRightBlock == true) {
             dy = collisionStraightRightBlockY - y;  // 충돌 위치로 y 고정
 
-            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
-                collisionStraightRightBlock = false;
-            }
             if(touch == true) {  // 이동 중 터치했을 경우
                 collisionStraightRightBlock = false;
                 dy = this.dy * frameTime;
             }
+            else if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightRightBlock = false;
+            }
         }
 
-        /* 점프 블록 */
+        /* 점프 블록과 충돌한 경우 */
         if(collisionJumpBlock == true) {
             jumpHeightLimit = JUMP_HEIGHT_LIMIT_LONG;
             collisionJumpBlock = false;
@@ -173,8 +174,9 @@
             }
         }
 
-        /* 터치시 이동 */
+        /* 터치 */
         if(touch == true)  {  // 터치한 경우
+            /* 터치 시간에 따라 이동 거리 설정 */
             if(touchTime > 0.5f) {  // 터치 시간이 긴 경우
                 moveWidthLimit = MOVE_WIDTH_LIMIT_LONG;  // 이동 거리 늘림
             }
@@ -182,10 +184,7 @@
                 moveWidthLimit = MOVE_WIDTH_LIMIT_SHORT;  // 이동 거리 짧게
             }
 
-            if(move == false) {
-                moveWidth = 0.0f;
-            }
-            else {
+            if(move == true) {  // 이동하는 경우
                 if (moveRight == true) {  // 오른쪽으로 이동하는 경우
                     if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
                         move = false;  // 이동 멈춤.
@@ -212,6 +211,9 @@
                     }
                 }
             }
+            else {
+                moveWidth = 0.0f;
+            }
         }
         else if(touch == false && collisionStraightLeftBlock == false && collisionStraightRightBlock == false){  // 터치하지 않았을 경우
             dx = 0;  // 이동하지 않음
@@ -230,12 +232,12 @@
      * class 정보
        | 종류 | 동작 | 상호작용 |
        |-------------------|-------------------|-------------------|
-       | 일반 블록 | | 충돌 시, 플레이어 점프 | 
-       | 부서지는 블록 | | 충돌 시, 플레이어 점프한 후 블록 사라짐 |
-       | 전기 블록 | | 충돌 시, 플레이어 사라짐 | 
-       | 점프 블록 | | 충돌 시, 플레이어 점프 높이 증가 </br> 점프 블록 이미지 변경 | 
-       | 이동 블록(좌우, 상하) | 좌우, 상하로 이동 | 충돌 시, 플레이어 점프 | 
-       | 직진 블록(왼쪽, 오른쪽) |  | 충돌 시, 방향에 따라 플레이어 직진 이동 |  
+       | 일반 블록 | | 플레이어 아랫부분과 블록 윗부분 충돌 시, 플레이어 점프 </br> 플레이어 윗부분과 블록 아랫부분 충돌 시, 플레이어 아래로 떨어짐 </br> 플레이어 옆부분과 블록 옆부분 충돌 시, 플레이어 전진 불가 | 
+       | 부서지는 블록 | | 플레이어 아랫부분과 블록 윗부분 충돌 시, 플레이어 점프한 후 블록 사라짐 |
+       | 전기 블록 | | 플레이어와 충돌 시, 플레이어 사라짐 | 
+       | 점프 블록 | | 플레이어 아랫부분과 블록 윗부분 충돌 시, 플레이어 점프 높이 증가 </br> 점프 블록 이미지 변경 | 
+       | 이동 블록(좌우, 상하) | 좌우, 상하로 이동 | 플레이어 아랫부분과 블록 윗부분 충돌 시, 플레이어 점프 | 
+       | 직진 블록(왼쪽, 오른쪽) |  | 플레이어와 충돌 시, 방향에 따라 플레이어 직진 이동 |  
      * 게임 내에서 class가 책임지는 핵심 코드
        ```
        public void update() {
@@ -262,10 +264,10 @@
      * class 정보
        | 종류 | 동작 | 상호작용 |
        |-------------------|-------------------|-------------------|
-       | 고정 적 | 지정된 위치에서 돌아가는 애니메이션 실행됨 | 충돌 시, 플레이어 사망 | 
-       | 추락 적 | 일정 시간마다 위에서 아래로 떨어짐 </br> 돌아가는 애니메이션 실행됨 | 충돌 시, 플레이어 사망 |
-       | 상하이동 적 | 위아래로 지정된 거리를 이동함 </br> 표정 변하는 애니메이션 실행됨 | 충돌 시, 플레이어 사망 | 
-       | 좌우이동 적 | 좌우로 지정된 거리를 이동함 | 플레이어가 적의 머리를 밟은 경우 적 사망 </br> 그 외 충돌할 경우 플레이어 사망 | 
+       | 고정 적 | 지정된 위치에서 돌아가는 애니메이션 실행됨 | 플레이어 아랫부분과 적 윗부분 충돌 시, 플레이어 사망 | 
+       | 추락 적 | 일정 시간마다 위에서 아래로 떨어짐 </br> 돌아가는 애니메이션 실행됨 | 플레이어와 충돌 시, 플레이어 사망 |
+       | 상하이동 적 | 위아래로 지정된 거리를 이동함 </br> 표정 변하는 애니메이션 실행됨 | 플레이어와 충돌 시, 플레이어 사망 | 
+       | 좌우이동 적 | 좌우로 지정된 거리를 이동함 | 플레이어 아랫부분과 적 윗부분 충돌 시, 적 사망 </br> 그 외 플레이어와 충돌 시, 플레이어 사망 | 
      * 게임 내에서 class가 책임지는 핵심 코드
        ```
        public void update() {
