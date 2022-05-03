@@ -59,7 +59,7 @@ public class MainGame {
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage5Info;
+        int[][] stageNum = stage.stage4Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -130,7 +130,7 @@ public class MainGame {
                     case 32:  // DropEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemies = new Enemies(stageX, stageY, 0, 0, 3, 2);
+                        enemies = new Enemies(stageX, stageY, 0, 0, 2, 2);
                         gameObjects.add(enemies);
                         break;
                     case 33:  // MoveEnemy
@@ -142,7 +142,7 @@ public class MainGame {
                     case 34:  // MoveLREnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        enemies = new Enemies(stageX, stageY, 0, 0, 6, 4);
+                        enemies = new Enemies(stageX, stageY, 0, 0, 7, 4);
                         gameObjects.add(enemies);
                         break;
                     case 41:  // itemJumpOne

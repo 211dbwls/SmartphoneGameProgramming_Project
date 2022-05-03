@@ -15,6 +15,7 @@
 
     <dimen name="enemy_radius">15dp</dimen>
     <item name="enemy_change_interval" type="dimen" format="float">0.2</item>
+    <item name="enemy_rebirth_interval" type="dimen" format="float">0.2</item>
 
     <dimen name="fix_enemy_width">15dp</dimen>
     <dimen name="fix_enemy_height">10dp</dimen>

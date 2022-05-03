@@ -14,7 +14,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
 
     protected static int[] bitmapIds =  {
             R.mipmap.enemy_fix_1, R.mipmap.enemy_fix_2,
-            R.mipmap.enemy_drop_1, R.mipmap.enemy_drop_2,
+            R.mipmap.enemy_drop_1, R.mipmap.enemy_drop_2, R.mipmap.enemy_drop_3,
             R.mipmap.enemy_move_1, R.mipmap.enemy_move_2,
             R.mipmap.enemy_move_lr
     };
@@ -30,10 +30,10 @@ public class Enemies  extends Sprite implements BoxCollidable {
     protected int height;
     protected int enemyType;
 
-    protected int bitmapId1, bitmapId2;
+    protected int bitmapId1, bitmapId2, bitmapId3;
     protected float dx, dy;
     protected float limitX, limitY;
-    protected boolean moveUp, moveRight;
+    protected boolean moveUp, moveRight, death;
 
     protected RectF boundingBox = new RectF();  // boundingBox
     protected RectF boundingBoxHead = new RectF();
@@ -59,16 +59,18 @@ public class Enemies  extends Sprite implements BoxCollidable {
             case 2:  // DropEnemy
                 bitmapId1 = bitmapIds[2];
                 bitmapId2 = bitmapIds[3];
+                bitmapId3 = bitmapIds[4];
                 limitY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 8);
+                death = false;
                 break;
             case 3:  // MoveUDEnemy
-                bitmapId1 = bitmapIds[4];
-                bitmapId2 = bitmapIds[5];
+                bitmapId1 = bitmapIds[5];
+                bitmapId2 = bitmapIds[6];
                 limitY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 8);
                 moveUp = false;
                 break;
             case 4:  // MoveLREnemy
-                bitmapId1 = bitmapIds[6];
+                bitmapId1 = bitmapIds[7];
                 limitX = Metrics.width / 26 * (3 + 15);
                 moveRight = false;
                 break;
@@ -78,7 +80,9 @@ public class Enemies  extends Sprite implements BoxCollidable {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, null, dstRect, null);
+        if(enemyType != 4 && death == false) {
+            canvas.drawBitmap(bitmap, null, dstRect, null);
+        }
     }
 
     public void update() {
@@ -121,8 +125,18 @@ public class Enemies  extends Sprite implements BoxCollidable {
 
         float dy = this.dy * frameTime;
 
-        if(y > limitY) {
-            MainGame.getInstance().remove(this);
+        if(death == true) {
+            if(dy > 0) {
+                dy = -dy;
+            }
+            if(y < startY) {
+                death = false;
+            }
+        }
+        else {
+            if(y > limitY) {  // 다 떨어졌을 경우
+                death = true;
+            }
         }
 
         dstRect.offset(0, dy);
