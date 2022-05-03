@@ -12,14 +12,6 @@ import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
 import com.example.jellyking.framework.GameView;
 import com.example.jellyking.framework.Metrics;
-import com.example.jellyking.game.block.Block;
-import com.example.jellyking.game.block.BlockBroken;
-import com.example.jellyking.game.block.BlockElectric;
-import com.example.jellyking.game.block.BlockJump;
-import com.example.jellyking.game.block.BlockMoveLR;
-import com.example.jellyking.game.block.BlockMoveUD;
-import com.example.jellyking.game.block.BlockStraightLeft;
-import com.example.jellyking.game.block.BlockStraightRight;
 
 import java.util.ArrayList;
 
@@ -39,15 +31,16 @@ public class MainGame {
     /* gameObjects */
     private JellyKing jellyKing;  // player.
 
-    private Block block;  // block.
+    /*private Block block;  // block.
     private BlockBroken blockBroken;  // blockBroken.
     private BlockElectric blockElectric;  // blockElectric.
     private BlockJump blockJump;  // blockJump.
     private BlockMoveLR blockMoveLR;  // blockMoveLR.
     private BlockMoveUD blockMoveUD;  // blockMoveUD.
     private BlockStraightRight blockStraightRight;  // blockStraightRight.
-    private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.
+    private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.*/
 
+    private Blocks blocks;
     private Enemies enemies;
     private Items items;
     private Star star;
@@ -67,13 +60,13 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage1StartPointX;
-        float y = stage.stage1StartPointY;
+        float x = stage.stage2StartPointX;
+        float y = stage.stage2StartPointY;
         jellyKing = new JellyKing(x, y);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage1Info;
+        int[][] stageNum = stage.stage5Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -90,50 +83,50 @@ public class MainGame {
                     case 21:  // Block
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        block = new Block(stageX, stageY);
-                        gameObjects.add(block);
+                        blocks = new Blocks(stageX, stageY, 0, 0, 0, 1);
+                        gameObjects.add(blocks);
                         break;
                     case 22:  // BrokenBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockBroken = new BlockBroken(stageX, stageY);
-                        gameObjects.add(blockBroken);
+                        blocks = new Blocks(stageX, stageY, 0, 0, 1, 2);
+                        gameObjects.add(blocks);
                         break;
                     case 23:  // ElectricBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockElectric = new BlockElectric(stageX, stageY);
-                        gameObjects.add(blockElectric);
+                        blocks = new Blocks(stageX, stageY, 0, 0, 2, 3);
+                        gameObjects.add(blocks);
                         break;
                     case 24:  // JumpBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockJump = new BlockJump(stageX, stageY);
-                        gameObjects.add(blockJump);
+                        blocks = new Blocks(stageX, stageY, 0, 1, 4, 4);
+                        gameObjects.add(blocks);
                         break;
                     case 25:  // StraightLeftBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockStraightLeft = new BlockStraightLeft(stageX, stageY);
-                        gameObjects.add(blockStraightLeft);
+                        blocks = new Blocks(stageX, stageY, 0, 0, 6, 7);
+                        gameObjects.add(blocks);
                         break;
                     case 26:  // StraightRightBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockStraightRight = new BlockStraightRight(stageX, stageY);
-                        gameObjects.add(blockStraightRight);
+                        blocks = new Blocks(stageX, stageY, 0, 0, 7, 8);
+                        gameObjects.add(blocks);
                         break;
                     case 27:  // MoveLRBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockMoveLR = new BlockMoveLR(stageX, stageY);
-                        gameObjects.add(blockMoveLR);
+                        blocks = new Blocks(stageX, stageY, 2, 3, 5, 5);
+                        gameObjects.add(blocks);
                         break;
                     case 28:  // MoveUDBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        blockMoveUD = new BlockMoveUD(stageX, stageY);
-                        gameObjects.add(blockMoveUD);
+                        blocks = new Blocks(stageX, stageY, 0, 0, 0, 6);
+                        gameObjects.add(blocks);
                         break;
                     case 31:  // FixEnemy
                         stageX = Metrics.width / 26 * (3 + j);
@@ -255,118 +248,114 @@ public class MainGame {
 
             for(GameObject o2 : gameObjects) {
                 /* Block */
-                if(o2 instanceof Block) {  // Block인 경우
-                    Block block = (Block) o2;
-                    if(CollisionHelper.collides(block.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
-                        Log.d(TAG, "Collision : Block(Foot)");
-                        jellyKing.jumpUp = false;  // 떨어지도록
-                        break;
-                    }
-                    if(CollisionHelper.collides(block.getBoundingRectLeft(), jellyKing.getBoundingRectRight())) {
-                        Log.d(TAG, "Collision : Block(Left)");
-                        jellyKing.setMoveDirection(false, true);  // 반대 방향으로 튕기도록
-                        break;
-                    }
-                    if(CollisionHelper.collides(block.getBoundingRectRight(), jellyKing.getBoundingRectLeft())) {
-                        Log.d(TAG, "Collision : Block(Right)");
-                        jellyKing.setMoveDirection(true, false);  // 반대 방향으로 튕기도록
-                        break;
-                    }
-                    if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {
-                        Log.d(TAG, "Collision : Block(Head)");
-                        jellyKing.jumpUp = true;   // 점프하도록
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockBroken) {  // BrokenBlock인 경우
-                    BlockBroken brokenBlock = (BlockBroken) o2;
-                    if(CollisionHelper.collides(brokenBlock.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
-                        Log.d(TAG, "Collision : BrokenBlock(Foot)");
-                        jellyKing.jumpUp = false;   // 떨어지도록
-                        break;
-                    }
-                    if(CollisionHelper.collides(brokenBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())
-                            || CollisionHelper.collides(brokenBlock.getBoundingRectHead(), jellyKing.getBoundingRectLeft())
-                            || CollisionHelper.collides(brokenBlock.getBoundingRectHead(), jellyKing.getBoundingRectRight()) ) {
-                        Log.d(TAG, "Collision : BrokenBlock(Head)");
-                        jellyKing.jumpUp = true;   // 점프하도록
-                        remove(brokenBlock);
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockElectric) {  // ElectricBlock인 경우
-                    BlockElectric electricBlock = (BlockElectric) o2;
-                    if (CollisionHelper.collides(electricBlock.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : ElectricBlock");
-                        remove(jellyKing);
-                        // jellyKing Death
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockJump) {  // JumpBlock인 경우
-                    BlockJump jumpBlock = (BlockJump) o2;
-                    if (CollisionHelper.collides(jumpBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : JumpBlock");
-                        jellyKing.collisionJumpBlock = true;
-                        jellyKing.jumpUp = true;   // 점프하도록
-                        jumpBlock.collision = true;
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockStraightLeft) {  // StraightLeftBlock인 경우
-                    BlockStraightLeft straightLeftBlock = (BlockStraightLeft) o2;
-                    if (CollisionHelper.collides(straightLeftBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : StraightLeftBlock");
-                        jellyKing.collisionStraightLeftBlock = true;  // 왼쪽으로 이동하도록
-                        jellyKing.collisionStraightLeftBlockY = straightLeftBlock.y;
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockStraightRight) {  // StraightRightBlock인 경우
-                    BlockStraightRight straightRightBlock = (BlockStraightRight) o2;
-                    if (CollisionHelper.collides(straightRightBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : StraightRightBlock");
-                        jellyKing.collisionStraightRightBlock = true;  // 오른쪽으로 이동하도록
-                        jellyKing.collisionStraightRightBlockY = straightRightBlock.y;
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockMoveLR) {  // MoveLRBlock인 경우
-                    BlockMoveLR moveLRBlock = (BlockMoveLR) o2;
-                    if (CollisionHelper.collides(moveLRBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : MoveLRBlock");
-                        jellyKing.jumpUp = true;   // 점프하도록
-                        break;
-                    }
-                }
-                else if(o2 instanceof BlockMoveUD) {  // MoveUDBlock인 경우
-                    BlockMoveUD moveUDBlock = (BlockMoveUD) o2;
-                    if (CollisionHelper.collides(moveUDBlock.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
-                        Log.d(TAG, "Collision : MoveUDBlock");
-                        jellyKing.jumpUp = true;   // 점프하도록
-                        break;
+                if(o2 instanceof Blocks) {  // Block인 경우
+                    Blocks block = (Blocks) o2;
+                    switch (block.blockType) {
+                        case 1:  // Block
+                            if(CollisionHelper.collides(block.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
+                                Log.d(TAG, "Collision : Block(Foot)");
+                                jellyKing.jumpUp = false;  // 떨어지도록
+                                break;
+                            }
+                            if(CollisionHelper.collides(block.getBoundingRectLeft(), jellyKing.getBoundingRectRight())) {
+                                Log.d(TAG, "Collision : Block(Left)");
+                                jellyKing.setMoveDirection(false, true);  // 반대 방향으로 튕기도록
+                                break;
+                            }
+                            if(CollisionHelper.collides(block.getBoundingRectRight(), jellyKing.getBoundingRectLeft())) {
+                                Log.d(TAG, "Collision : Block(Right)");
+                                jellyKing.setMoveDirection(true, false);  // 반대 방향으로 튕기도록
+                                break;
+                            }
+                            if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {
+                                Log.d(TAG, "Collision : Block(Head)");
+                                jellyKing.jumpUp = true;   // 점프하도록
+                                break;
+                            }
+                            break;
+                        case 2:  // BrokenBlock
+                            if(CollisionHelper.collides(block.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {
+                                Log.d(TAG, "Collision : BrokenBlock(Foot)");
+                                jellyKing.jumpUp = false;   // 떨어지도록
+                                break;
+                            }
+                            if(CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())
+                                    || CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectLeft())
+                                    || CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectRight()) ) {
+                                Log.d(TAG, "Collision : BrokenBlock(Head)");
+                                jellyKing.jumpUp = true;   // 점프하도록
+                                remove(block);
+                                break;
+                            }
+                            break;
+                        case 3:  // ElectricBlock
+                            if (CollisionHelper.collides(block.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : ElectricBlock");
+                                jellyKing.death();
+                                break;
+                            }
+                            break;
+                        case 4:  // JumpBlock
+                            if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : JumpBlock");
+                                jellyKing.collisionJumpBlock = true;
+                                jellyKing.jumpUp = true;   // 점프하도록
+                                block.jumpBlockCollision = true;
+                                break;
+                            }
+                            break;
+                        case 5:  // MoveLRBlock
+                            if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : MoveLRBlock");
+                                jellyKing.jumpUp = true;   // 점프하도록
+                                break;
+                            }
+                            break;
+                        case 6:  // MoveUDBlock
+                            if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : MoveUDBlock");
+                                jellyKing.jumpUp = true;   // 점프하도록
+                                break;
+                            }
+                            break;
+                        case 7:  // StraightLeftBlock
+                            if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : StraightLeftBlock");
+                                jellyKing.collisionStraightLeftBlock = true;  // 왼쪽으로 이동하도록
+                                jellyKing.collisionStraightLeftBlockY = block.startY;
+                                break;
+                            }
+                            break;
+                        case 8:  // StraightRightBlock
+                            if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : StraightRightBlock");
+                                jellyKing.collisionStraightRightBlock = true;  // 오른쪽으로 이동하도록
+                                jellyKing.collisionStraightRightBlockY = block.startY;
+                                break;
+                            }
+                            break;
                     }
                 }
                 /* Enemy */
                 else if(o2 instanceof Enemies) {  // Enemy인 경우
-                    Enemies enemies = (Enemies) o2;
-                    switch (enemies.enemyType) {
+                    Enemies enemy = (Enemies) o2;
+                    switch (enemy.enemyType) {
                         case 1:  // FixEnemy
                         case 2:  // DropEnemy
                         case 3:  // MoveUDEnemy
-                            if (CollisionHelper.collides(enemies.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                            if (CollisionHelper.collides(enemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : Enemy(FixEnemy, DropEnemy, MoveUDEnemy)");
                                 jellyKing.death();
                                 break;
                             }
                             break;
                         case 4:  // MoveLREnemy
-                            if (CollisionHelper.collides(enemies.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
+                            if (CollisionHelper.collides(enemy.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : MoveLREnemy(Head)");
-                                enemies.death();
+                                enemy.death();
                                 break;
                             }
-                            if (CollisionHelper.collides(enemies.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                            if (CollisionHelper.collides(enemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : MoveLREnemy");
                                 jellyKing.death();
                                 break;
@@ -376,16 +365,16 @@ public class MainGame {
                 }
                 /* Item */
                 /*else if(o2 instanceof Items) {  // JumpOneItem인 경우
-                    Items items = (Items) o2;
-                    switch (items.itemType) {
+                    Items item = (Items) o2;
+                    switch (item.itemType) {
                         case 1:  // JumpOneItem
-                            if (CollisionHelper.collides(items.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                            if (CollisionHelper.collides(item.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpOneItem");
                                 break;
                             }
                             break;
                         case 2:  // JumpInfiniteItem
-                            if (CollisionHelper.collides(items.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                            if (CollisionHelper.collides(item.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpInfiniteItem");
                                 break;
                             }
