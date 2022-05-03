@@ -103,12 +103,12 @@
             맵에 다양함을 주기 위해 상하이동 적을 그냥 떨어지는 적과 위아래로 반복해 움직이는 적 2종류로 나눔.
  * MainGame에 등장하는 game object
     * JellyKing
-     * class 정보
-       * 터치 위치에 따라 이동 방향 설정
-       * 터치 길이에 따라 이동 거리 설정
-       * 이동 및 점프
-     * 게임 내에서 class가 책임지는 핵심 코드
-       ```
+      * class 정보
+        * 터치 위치에 따라 이동 방향 설정
+        * 터치 길이에 따라 이동 거리 설정
+        * 이동 및 점프
+      * 게임 내에서 class가 책임지는 핵심 코드
+        ```
        public void update() {
         float frameTime = MainGame.getInstance().frameTime;
 
@@ -227,7 +227,7 @@
         /* boundingBox */
         ...
        } 
-       ```
+        ```
    * Blocks 
      * class 정보
        | 종류 | 동작 | 상호작용 |
