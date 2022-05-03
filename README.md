@@ -68,12 +68,12 @@
    | 리소스 수집 | 필요한 리소스 모두 수집 완료 | 100% | 
    | 스테이지 기본 틀 구현 | 스테이지 5개 모두 구현 완료 | 100% |
    | 플레이어 캐릭터 이동 구현 | 점프 구현 수정 필요 | 80% | 
-   | 블록 구현 | 충돌 처리 수정 필요 | 80% | 
+   | 블록 구현 | 움직임, 애니메이션, 충돌 체크 및 처리 구현 완료 | 100% | 
    | 적 구현 | 움직임, 애니메이션, 충돌 체크 및 처리 구현 완료 | 100% | 
    | 아이템 구현 | 충돌 체크 및 처리 구현 필요 | 20% |  
-   | 별 구현 | 0% | 
-   | 게임 시작 및 종료 구현 | 0% |
-   | 사운드 및 UI 구현 | 0% |  
+   | 별 구현 | | 0% | 
+   | 게임 시작 및 종료 구현 | | 0% |
+   | 사운드 및 UI 구현 | | 0% |  
  * git commit
    * 2주차(04/10 일 - 04/16 토)
    ![commit 0404-0410](https://user-images.githubusercontent.com/65964035/166151705-2c4d7461-5016-4a54-8fb0-fb58225b7ca6.PNG)
@@ -102,14 +102,210 @@
    * 이유 : 좌우이동 적을 넘고 지나가기에는 점프 높이와 거리에 한계가 있어, 밟을 경우 적이 죽는 설정을 추가함.
             맵에 다양함을 주기 위해 상하이동 적을 그냥 떨어지는 적과 위아래로 반복해 움직이는 적 2종류로 나눔.
  * MainGame에 등장하는 game object
-   * Blocks 
-     * class 구성 정보(그림, 동작 등)
-     * 상호작용 정보
+    * JellyKing
+     * class 정보
+       * 터치 위치에 따라 이동 방향 변경
+       * 터치 길이에 따라 이동 거리 변경
      * 게임 내에서 class가 책임지는 핵심 코드
-   * Enemies
+       ```
+       public void update() {
+        float frameTime = MainGame.getInstance().frameTime;
+
+        dx = Metrics.size(R.dimen.jellyking_move_speed);
+        dy = Metrics.size(R.dimen.jellyking_jump_speed);
+
+        float dx = this.dx * frameTime;
+        float dy = this.dy * frameTime;
+
+        /* 터치 시간 구하기 */
+        if(touch == true) {  // 터치 중인 경우
+            touchTime += frameTime;
+        }
+        else {  // 터치가 끝났을 경우
+            touchTime = 0;
+        }
+
+        /* 직진 블록 */
+        if(collisionStraightLeftBlock == true) {  // 왼쪽으로 직진하는 블록과 충돌했을 경우
+            if(dx >= 0) {  // 왼쪽으로 이동
+                dx = -dx;
+            }
+            dy = collisionStraightLeftBlockY - y;  // 충돌 위치로 y 고정
+
+            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightLeftBlock = false;
+            }
+            if(touch == true) {  // 이동 중 터치했을 경우
+                collisionStraightLeftBlock = false;
+                dy = this.dy * frameTime;
+            }
+        }
+        if(collisionStraightRightBlock == true) {  // 오른쪽으로 직진하는 블록과 충돌했을 경우
+            dy = collisionStraightRightBlockY - y;  // 충돌 위치로 y 고정
+
+            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightRightBlock = false;
+            }
+            if(touch == true) {  // 이동 중 터치했을 경우
+                collisionStraightRightBlock = false;
+                dy = this.dy * frameTime;
+            }
+        }
+
+        /* 점프 블록 */
+        if(collisionJumpBlock == true) {
+            jumpHeightLimit = JUMP_HEIGHT_LIMIT_LONG;
+            collisionJumpBlock = false;
+        }
+        else if(collisionJumpBlock == false && jumpUp == false){
+            jumpHeightLimit = JUMP_HEIGHT_LIMIT_SHORT;
+        }
+
+        /* 점프 */
+        if(jumpUp == true) {  // 위로 이동 중인 경우
+            jumpHeight += dy;
+            if (jumpHeight > jumpHeightLimit) {  // 위에 닿았을 경우
+                jumpHeight = 0;
+                jumpUp = false;  // 아래로 이동하도록
+            }
+            if(dy > 0) {
+                dy = -dy;
+            }
+        }
+
+        /* 터치시 이동 */
+        if(touch == true)  {  // 터치한 경우
+            if(touchTime > 0.5f) {  // 터치 시간이 긴 경우
+                moveWidthLimit = MOVE_WIDTH_LIMIT_LONG;  // 이동 거리 늘림
+            }
+            else {  // 터치 시간이 짧은 경우
+                moveWidthLimit = MOVE_WIDTH_LIMIT_SHORT;  // 이동 거리 짧게
+            }
+
+            if(move == false) {
+                moveWidth = 0.0f;
+            }
+            else {
+                if (moveRight == true) {  // 오른쪽으로 이동하는 경우
+                    if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
+                        move = false;  // 이동 멈춤.
+                        if(collisionBlock == true) {
+                            dx = Metrics.size(R.dimen.jellyking_move_speed);
+                            moveRight = true;
+                            moveWidth = 0.0f;
+                            collisionBlock = false;
+                        }
+                    }
+                }
+                else {  // 왼쪽으로 이동하는 경우
+                    if (moveWidth < 0) {  // 이동 거리를 도달했을 경우
+                        move = false;
+                        if(collisionBlock == true) {
+                            dx = -(Metrics.size(R.dimen.jellyking_move_speed));
+                            moveRight = false;
+                            moveWidth = moveWidthLimit;
+                            collisionBlock = false;
+                        }
+                    }
+                    if(dx > 0) {
+                        dx = -dx;
+                    }
+                }
+            }
+        }
+        else if(touch == false && collisionStraightLeftBlock == false && collisionStraightRightBlock == false){  // 터치하지 않았을 경우
+            dx = 0;  // 이동하지 않음
+        }
+
+        dstRect.offset(dx, dy);
+        x += dx;
+        y += dy;
+        moveWidth += dx;
+
+        /* boundingBox */
+        float widthRadius = Metrics.size(R.dimen.jellyking_radius);
+        boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius);
+        boundingBoxHead.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius / 2);
+        boundingBoxFoot.set(x - widthRadius, y + widthRadius / 2, x + widthRadius, y + widthRadius);
+        boundingBoxLeft.set(x - widthRadius, y - widthRadius / 2, x - widthRadius / 2, y + widthRadius / 2);
+        boundingBoxRight.set(x + widthRadius / 2, y - widthRadius / 2, x + widthRadius, y + widthRadius / 2);
+     }
+     ```
+   * Blocks 
+     * class 정보
+       | 종류 | 동작 | 상호작용 |
+       |-------------------|-------------------|-------------------|
+       | 일반 블록 | | 충돌 시, 플레이어 점프 | 
+       | 부서지는 블록 | | 충돌 시, 플레이어 점프한 후 블록 사라짐 |
+       | 전기 블록 | | 충돌 시, 플레이어 사라짐 | 
+       | 점프 블록 | | 충돌 시, 플레이어 점프 높이 증가 & 점프 블록 이미지 변경 | 
+       | 이동 블록(좌우, 상하) | 좌우, 상하로 이동 | 충돌 시, 플레이어 점프 | 
+       | 직진 블록(왼쪽, 오른쪽) |  | 충돌 시, 방향에 따라 플레이어 직진 이동 |  
+     * 게임 내에서 class가 책임지는 핵심 코드
+       ```
+       public void update() {
+        float frameTime = MainGame.getInstance().frameTime;
+
+        /* 애니메이션 */
+        switch (blockType) {
+            case 4:  // JumpBlock
+                jumpBlockCollision(frameTime, jumpBlockCollision);
+                break;
+            case 5:  // MoveLRBlock
+                moveLR(frameTime);
+                break;
+            case 6:  // MoveUDBlock
+                moveUD(frameTime);
+                break;
+        }
+
+        /* boundingBox */
+        ...
+       }
+       ```
+   * Enemies 
+     * class 정보
+       | 종류 | 동작 | 상호작용 |
+       |-------------------|-------------------|-------------------|
+       | 고정 적 | 지정된 위치에서 돌아가는 애니메이션 실행됨 | 충돌 시, 플레이어 사망 | 
+       | 추락 적 | 일정 시간마다 위에서 아래로 떨어짐 & 돌아가는 애니메이션 실행됨 | 충돌 시, 플레이어 사망 |
+       | 상하이동 적 | 위아래로 지정된 거리를 이동함 & 표정 변하는 애니메이션 실행됨 | 충돌 시, 플레이어 사망 | 
+       | 좌우이동 적 | 좌우로 지정된 거리를 이동함 | 플레이어가 적의 머리를 밟은 경우 적 사망 & 그 외 충돌할 경우 플레이어 사망 | 
+     * 게임 내에서 class가 책임지는 핵심 코드
+       ```
+       public void update() {
+        float frameTime = MainGame.getInstance().frameTime;
+
+        /* 애니메이션 */
+        if(enemyType != 4) {  // FixEnemy, DropEnemy, MoveUDEnemy
+            elapsedTimeForChangeImg += frameTime;
+            if (elapsedTimeForChangeImg >= changeImgInterval) {
+                bitmap = BitmapPool.get(bitmapId1);
+                elapsedTimeForChangeImg -= changeImgInterval;
+            } else {
+                bitmap = BitmapPool.get(bitmapId2);
+            }
+        }
+
+        /* 움직임 */
+        switch (enemyType) {
+            case 2:  // DropEnemy
+                drop(frameTime);
+                break;
+            case 3:  // MoveUDEnemy
+                moveUD(frameTime);
+                break;
+            case 4:  // MoveLREnemy
+                moveLR(frameTime);
+                break;
+        }
+
+        /* boundingBox */
+        ...
+     }
+     ```
    * Items
    * Star
-   * JellyKing
  * 발표 동영상
    * [발표_동영상_링크] (...)
 
