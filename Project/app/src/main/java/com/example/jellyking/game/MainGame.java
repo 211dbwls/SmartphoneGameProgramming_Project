@@ -29,17 +29,7 @@ public class MainGame {
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     /* gameObjects */
-    private JellyKing jellyKing;  // player.
-
-    /*private Block block;  // block.
-    private BlockBroken blockBroken;  // blockBroken.
-    private BlockElectric blockElectric;  // blockElectric.
-    private BlockJump blockJump;  // blockJump.
-    private BlockMoveLR blockMoveLR;  // blockMoveLR.
-    private BlockMoveUD blockMoveUD;  // blockMoveUD.
-    private BlockStraightRight blockStraightRight;  // blockStraightRight.
-    private BlockStraightLeft blockStraightLeft;  // blockStraightLeft.*/
-
+    private JellyKing jellyKing;
     private Blocks blocks;
     private Enemies enemies;
     private Items items;
@@ -63,6 +53,9 @@ public class MainGame {
         float x = stage.stage2StartPointX;
         float y = stage.stage2StartPointY;
         jellyKing = new JellyKing(x, y);
+        //float testX = Metrics.width / 26 * (3 + 21);
+        //float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1);
+        //jellyKing = new JellyKing(testX, testY);
         gameObjects.add(jellyKing);
 
         /* Stage */
@@ -185,11 +178,9 @@ public class MainGame {
 
                 float x = event.getX();
                 if(x > Metrics.width / 2) {  // 오른쪽 터치
-                    jellyKing.collisionStraightLeftBlock = false;
                     jellyKing.setMoveDirection(true, false);
                 }
                 else {  // 왼쪽 터치
-                    jellyKing.collisionStraightLeftBlock = false;
                     jellyKing.setMoveDirection(false, false);
                 }
                 return true;
@@ -264,7 +255,7 @@ public class MainGame {
                             }
                             if(CollisionHelper.collides(block.getBoundingRectRight(), jellyKing.getBoundingRectLeft())) {
                                 Log.d(TAG, "Collision : Block(Right)");
-                                jellyKing.setMoveDirection(true, false);  // 반대 방향으로 튕기도록
+                                jellyKing.setMoveDirection(true, true);  // 반대 방향으로 튕기도록
                                 break;
                             }
                             if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {
@@ -300,7 +291,7 @@ public class MainGame {
                                 Log.d(TAG, "Collision : JumpBlock");
                                 jellyKing.collisionJumpBlock = true;
                                 jellyKing.jumpUp = true;   // 점프하도록
-                                block.jumpBlockCollision = true;
+                                block.jumpBlockCollision = true;  // 블록 애니메이션
                                 break;
                             }
                             break;
@@ -341,10 +332,21 @@ public class MainGame {
                     Enemies enemy = (Enemies) o2;
                     switch (enemy.enemyType) {
                         case 1:  // FixEnemy
+                            if (CollisionHelper.collides(enemy.getBoundingRectFoot(), jellyKing.getBoundingRectHead())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : Enemy(FixEnemy Foot)");
+                                jellyKing.jumpUp = false;  // 떨어지도록
+                                break;
+                            }
+                            if (CollisionHelper.collides(enemy.getBoundingRectHead(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
+                                Log.d(TAG, "Collision : Enemy(FixEnemy)");
+                                jellyKing.death();
+                                break;
+                            }
+                            break;
                         case 2:  // DropEnemy
                         case 3:  // MoveUDEnemy
                             if (CollisionHelper.collides(enemy.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
-                                Log.d(TAG, "Collision : Enemy(FixEnemy, DropEnemy, MoveUDEnemy)");
+                                Log.d(TAG, "Collision : Enemy(DropEnemy, MoveUDEnemy)");
                                 jellyKing.death();
                                 break;
                             }

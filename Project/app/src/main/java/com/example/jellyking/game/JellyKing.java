@@ -82,12 +82,20 @@ public class JellyKing extends Sprite implements BoxCollidable {
             if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
                 collisionStraightLeftBlock = false;
             }
+            if(touch == true) {  // 이동 중 터치했을 경우
+                collisionStraightLeftBlock = false;
+                dy = this.dy * frameTime;
+            }
         }
         if(collisionStraightRightBlock == true) {  // 오른쪽으로 직진하는 블록과 충돌했을 경우
             dy = collisionStraightRightBlockY - y;  // 충돌 위치로 y 고정
 
             if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
                 collisionStraightRightBlock = false;
+            }
+            if(touch == true) {  // 이동 중 터치했을 경우
+                collisionStraightRightBlock = false;
+                dy = this.dy * frameTime;
             }
         }
 
@@ -102,7 +110,6 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
         /* 점프 */
         if(jumpUp == true) {  // 위로 이동 중인 경우
-            // Log.d(TAG, "jumpHeight: " + jumpHeight + " dy:" +  dy);
             jumpHeight += dy;
             if (jumpHeight > jumpHeightLimit) {  // 위에 닿았을 경우
                 jumpHeight = 0;

@@ -37,6 +37,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
 
     protected RectF boundingBox = new RectF();  // boundingBox
     protected RectF boundingBoxHead = new RectF();
+    protected RectF boundingBoxFoot = new RectF();
 
     private float elapsedTimeForChangeImg;
     private float changeImgInterval = 1.0f / 2;
@@ -112,6 +113,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
         float heightRadius = Metrics.size(radiusSizes[height]);
         boundingBox.set(x - widthRadius, y - heightRadius, x + widthRadius, y + heightRadius);
         boundingBoxHead.set(x - widthRadius, y - heightRadius, x + widthRadius, y - heightRadius / 2);
+        boundingBoxFoot.set(x - widthRadius, y + heightRadius / 2, x + widthRadius, y + heightRadius);
     }
 
     public void drop(float frameTime) {
@@ -191,7 +193,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
 
     @Override
     public RectF getBoundingRectFoot() {
-        return null;
+        return boundingBoxFoot;
     }
 
     @Override
