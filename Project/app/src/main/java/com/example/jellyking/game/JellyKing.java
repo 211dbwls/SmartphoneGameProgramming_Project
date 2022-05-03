@@ -72,34 +72,34 @@ public class JellyKing extends Sprite implements BoxCollidable {
             touchTime = 0;
         }
 
-        /* 직진 블록 */
-        if(collisionStraightLeftBlock == true) {  // 왼쪽으로 직진하는 블록과 충돌했을 경우
+        /* 직진 블록과 충돌한 경우 */
+        if(collisionStraightLeftBlock == true) {
             if(dx >= 0) {  // 왼쪽으로 이동
                 dx = -dx;
             }
             dy = collisionStraightLeftBlockY - y;  // 충돌 위치로 y 고정
 
-            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
-                collisionStraightLeftBlock = false;
-            }
             if(touch == true) {  // 이동 중 터치했을 경우
                 collisionStraightLeftBlock = false;
                 dy = this.dy * frameTime;
             }
+            else if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightLeftBlock = false;
+            }
         }
-        if(collisionStraightRightBlock == true) {  // 오른쪽으로 직진하는 블록과 충돌했을 경우
+        else if(collisionStraightRightBlock == true) {
             dy = collisionStraightRightBlockY - y;  // 충돌 위치로 y 고정
 
-            if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
-                collisionStraightRightBlock = false;
-            }
             if(touch == true) {  // 이동 중 터치했을 경우
                 collisionStraightRightBlock = false;
                 dy = this.dy * frameTime;
             }
+            else if(collisionBlock == true) {  // 벽돌과 충돌했을 경우
+                collisionStraightRightBlock = false;
+            }
         }
 
-        /* 점프 블록 */
+        /* 점프 블록과 충돌한 경우 */
         if(collisionJumpBlock == true) {
             jumpHeightLimit = JUMP_HEIGHT_LIMIT_LONG;
             collisionJumpBlock = false;
@@ -120,8 +120,9 @@ public class JellyKing extends Sprite implements BoxCollidable {
             }
         }
 
-        /* 터치시 이동 */
+        /* 터치 */
         if(touch == true)  {  // 터치한 경우
+            /* 터치 시간에 따라 이동 거리 설정 */
             if(touchTime > 0.5f) {  // 터치 시간이 긴 경우
                 moveWidthLimit = MOVE_WIDTH_LIMIT_LONG;  // 이동 거리 늘림
             }
@@ -129,10 +130,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
                 moveWidthLimit = MOVE_WIDTH_LIMIT_SHORT;  // 이동 거리 짧게
             }
 
-            if(move == false) {
-                moveWidth = 0.0f;
-            }
-            else {
+            if(move == true) {  // 이동하는 경우
                 if (moveRight == true) {  // 오른쪽으로 이동하는 경우
                     if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
                         move = false;  // 이동 멈춤.
@@ -158,6 +156,9 @@ public class JellyKing extends Sprite implements BoxCollidable {
                         dx = -dx;
                     }
                 }
+            }
+            else {
+                moveWidth = 0.0f;
             }
         }
         else if(touch == false && collisionStraightLeftBlock == false && collisionStraightRightBlock == false){  // 터치하지 않았을 경우

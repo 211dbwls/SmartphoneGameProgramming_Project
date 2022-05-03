@@ -80,7 +80,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
     }
 
     public void draw(Canvas canvas) {
-        if(enemyType != 4 && death == false) {
+        if(enemyType != 2 || (enemyType == 2 && death == false)) {
             canvas.drawBitmap(bitmap, null, dstRect, null);
         }
     }
