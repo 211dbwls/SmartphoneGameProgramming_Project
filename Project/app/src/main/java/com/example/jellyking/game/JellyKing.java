@@ -18,7 +18,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     private static final float JUMP_HEIGHT_LIMIT_SHORT = 70.0f;
     private static final float JUMP_HEIGHT_LIMIT_LONG = 140.0f;
 
-    private float dx, dy;
+    private float dx = Metrics.size(R.dimen.jellyking_move_speed);
+    private float dy = Metrics.size(R.dimen.jellyking_jump_speed);
 
     private float jumpHeight = 0.0f;
     private float jumpHeightLimit = JUMP_HEIGHT_LIMIT_SHORT;
@@ -57,9 +58,6 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     public void update() {
         float frameTime = MainGame.getInstance().frameTime;
-
-        dx = Metrics.size(R.dimen.jellyking_move_speed);
-        dy = Metrics.size(R.dimen.jellyking_jump_speed);
 
         float dx = this.dx * frameTime;
         float dy = this.dy * frameTime;
@@ -193,6 +191,10 @@ public class JellyKing extends Sprite implements BoxCollidable {
            moveRight = false;
            moveWidth = moveWidthLimit;
        }
+    }
+
+    public void setJumpTwice(boolean infinite) {
+
     }
 
     public void death() {

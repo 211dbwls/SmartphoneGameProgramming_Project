@@ -50,16 +50,16 @@ public class MainGame {
         gameObjects.clear();
 
         /* Player */
-        float x = stage.stage1StartPointX;
-        float y = stage.stage1StartPointY;
-        jellyKing = new JellyKing(x, y);
-        //float testX = Metrics.width / 26 * (3 + 21);
-        //float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1);
-        //jellyKing = new JellyKing(testX, testY);
+        //float x = stage.stage1StartPointX;
+        //float y = stage.stage1StartPointY;
+        //jellyKing = new JellyKing(x, y);
+        float testX = Metrics.width / 26 * (3 + 8);
+        float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 2);
+        jellyKing = new JellyKing(testX, testY);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage1Info;
+        int[][] stageNum = stage.stage4Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -366,23 +366,27 @@ public class MainGame {
                     }
                 }
                 /* Item */
-                /*else if(o2 instanceof Items) {  // JumpOneItem인 경우
+                else if(o2 instanceof Items) {  // JumpOneItem인 경우
                     Items item = (Items) o2;
                     switch (item.itemType) {
                         case 1:  // JumpOneItem
                             if (CollisionHelper.collides(item.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpOneItem");
+                                remove(item);  // 아이템 삭제
+                                jellyKing.setJumpTwice(false);
                                 break;
                             }
                             break;
                         case 2:  // JumpInfiniteItem
                             if (CollisionHelper.collides(item.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpInfiniteItem");
+                                remove(item);  // 아이템 삭제
+                                jellyKing.setJumpTwice(true);
                                 break;
                             }
                             break;
                     }
-                }*/
+                }
                 /* Star */
                 /*else if(o2 instanceof Star) {  // Star인 경우
                     Star star = (Star) o2;
