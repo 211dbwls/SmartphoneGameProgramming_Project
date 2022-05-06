@@ -53,13 +53,13 @@ public class MainGame {
         //float x = stage.stage1StartPointX;
         //float y = stage.stage1StartPointY;
         //jellyKing = new JellyKing(x, y);
-        float testX = Metrics.width / 26 * (3 + 8);
-        float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 2);
+        float testX = Metrics.width / 26 * (3 + 2);
+        float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
         jellyKing = new JellyKing(testX, testY);
         gameObjects.add(jellyKing);
 
         /* Stage */
-        int[][] stageNum = stage.stage4Info;
+        int[][] stageNum = stage.stage1Info;
         setStage(stageNum);
 
         /* CollisionPaint */
@@ -388,13 +388,14 @@ public class MainGame {
                     }
                 }
                 /* Star */
-                /*else if(o2 instanceof Star) {  // Star인 경우
+                else if(o2 instanceof Star) {  // Star인 경우
                     Star star = (Star) o2;
-                    if (CollisionHelper.collides(star, jellyKing)) {  // 충돌했을 경우
+                    if (CollisionHelper.collides(star.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : Star");
+                        remove(star);  // 별 삭제
                         break;
                     }
-                }*/
+                }
             }
         }
     }
