@@ -12,31 +12,34 @@ public class StageInfo {
     51 : Star
      */
     float startX, startY;
+    int maxStar;
 
     public StageInfo(int stageNum) {
         switch (stageNum) {
             case 1:
                 startX = Metrics.width / 26 * (3 + 19);  // 2288.0
                 startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1);  // 360.0
+                maxStar = 4;
                 break;
             case 2:
                 startX = Metrics.width / 26 * (3 + 19);  // 2288.0
                 startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
+                maxStar = 1;
                 break;
             case 3:
                 startX = Metrics.width / 26 * (3 + 1);  // 416.0
                 startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
-
+                maxStar = 8;
                 break;
             case 4:
                 startX = Metrics.width / 26 * (3 + 0);  // 312.0
                 startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
-
+                maxStar = 2;
                 break;
             case 5:
                 startX = Metrics.width / 26 * (3 + 13);  // 1664.0
                 startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 7 / 2);  // 669.0
-
+                maxStar = 4;
                 break;
         }
     }

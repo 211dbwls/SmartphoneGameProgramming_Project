@@ -28,6 +28,8 @@ public class MainGame {
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
 
+    StageInfo stage;
+
     /* gameObjects */
     private JellyKing jellyKing;
     private Blocks blocks;
@@ -35,7 +37,8 @@ public class MainGame {
     private Items items;
     private Star star;
 
-    StageInfo stage;
+    private int maxStarCount;
+    private int starCount;
 
     public float frameTime;
 
@@ -86,6 +89,10 @@ public class MainGame {
         //float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
         //jellyKing = new JellyKing(testX, testY);
         gameObjects.add(jellyKing);
+
+        /* 모아야 할 별 개수 */
+        maxStarCount = stage.maxStar;  // 모아야 할 별 개수
+        starCount = 0;  // 모은 별 개수
 
         /* CollisionPaint */
         collisionPaint = new Paint();
