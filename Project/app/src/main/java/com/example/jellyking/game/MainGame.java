@@ -35,7 +35,7 @@ public class MainGame {
     private Items items;
     private Star star;
 
-    StageInfo stage = new StageInfo();
+    StageInfo stage;
 
     public float frameTime;
 
@@ -49,18 +49,43 @@ public class MainGame {
     public void init() {
         gameObjects.clear();
 
-        /* Player */
-        //float x = stage.stage1StartPointX;
-        //float y = stage.stage1StartPointY;
-        //jellyKing = new JellyKing(x, y);
-        float testX = Metrics.width / 26 * (3 + 2);
-        float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
-        jellyKing = new JellyKing(testX, testY);
-        gameObjects.add(jellyKing);
+        int stageNum = 5;
 
         /* Stage */
-        int[][] stageNum = stage.stage1Info;
-        setStage(stageNum);
+        stage = new StageInfo(stageNum);
+
+        int[][] stageInfo;
+        switch (stageNum) {
+            case 1:
+                stageInfo = stage.stage1Info;
+                setStage(stageInfo);
+                break;
+            case 2:
+                stageInfo = stage.stage2Info;
+                setStage(stageInfo);
+                break;
+            case 3:
+                stageInfo = stage.stage3Info;
+                setStage(stageInfo);
+                break;
+            case 4:
+                stageInfo = stage.stage4Info;
+                setStage(stageInfo);
+                break;
+            case 5:
+                stageInfo = stage.stage5Info;
+                setStage(stageInfo);
+                break;
+        }
+
+        /* Player */
+        float x = stage.startX;
+        float y = stage.startY;
+        jellyKing = new JellyKing(x, y);
+        //float testX = Metrics.width / 26 * (3 + 2);
+        //float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
+        //jellyKing = new JellyKing(testX, testY);
+        gameObjects.add(jellyKing);
 
         /* CollisionPaint */
         collisionPaint = new Paint();
@@ -68,11 +93,11 @@ public class MainGame {
         collisionPaint.setColor(Color.RED);
     }
 
-    public void setStage(int[][] stageNum) {
+    public void setStage(int[][] stageInfo) {
         float stageX, stageY;
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 22; j++) {
-                switch (stageNum[i][j]) {
+                switch (stageInfo[i][j]) {
                     case 21:  // Block
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);

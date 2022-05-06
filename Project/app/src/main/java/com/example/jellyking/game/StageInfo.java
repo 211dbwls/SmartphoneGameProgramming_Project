@@ -11,9 +11,36 @@ public class StageInfo {
     41 :JumpOneItem | 42 : JumpInfiniteItem
     51 : Star
      */
+    float startX, startY;
 
-    float stage1StartPointX = Metrics.width / 26 * (3 + 19);  // 2288.0
-    float stage1StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1);  // 360.0
+    public StageInfo(int stageNum) {
+        switch (stageNum) {
+            case 1:
+                startX = Metrics.width / 26 * (3 + 19);  // 2288.0
+                startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1);  // 360.0
+                break;
+            case 2:
+                startX = Metrics.width / 26 * (3 + 19);  // 2288.0
+                startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
+                break;
+            case 3:
+                startX = Metrics.width / 26 * (3 + 1);  // 416.0
+                startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
+
+                break;
+            case 4:
+                startX = Metrics.width / 26 * (3 + 0);  // 312.0
+                startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
+
+                break;
+            case 5:
+                startX = Metrics.width / 26 * (3 + 13);  // 1664.0
+                startY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 7 / 2);  // 669.0
+
+                break;
+        }
+    }
+
     int[][] stage1Info = {
             {21, 10, 10, 10, 10, 10, 10, 10, 10, 10, 21, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 21},
             {21, 10, 10, 10, 10, 10, 10, 10, 10, 10, 21, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 21},
@@ -27,8 +54,6 @@ public class StageInfo {
             {21, 21, 21, 31, 31, 21, 21, 22, 24, 21, 22, 22, 22, 22, 21, 31, 22, 31, 21, 21, 21, 21}
     };
 
-    float stage2StartPointX = Metrics.width / 26 * (3 + 19);  // 2288.0
-    float stage2StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
     int[][] stage2Info = {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 21},
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 21},
@@ -42,8 +67,6 @@ public class StageInfo {
             {31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 21, 21, 21, 21, 21}
     };
 
-    float stage3StartPointX = Metrics.width / 26 * (3 + 1);  // 416.0
-    float stage3StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
     int[][] stage3Info = {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 41, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
@@ -57,8 +80,6 @@ public class StageInfo {
             {31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31}
     };
 
-    float stage4StartPointX = Metrics.width / 26 * (3 + 0);  // 312.0
-    float stage4StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 1 / 2);  // 360.0
     int[][] stage4Info = {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 32, 10, 10, 10, 32, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
@@ -72,8 +93,6 @@ public class StageInfo {
             {10, 10, 31, 31, 31, 31, 31, 10, 10, 10, 10, 10, 10, 10, 10, 10, 31, 31, 31, 31, 31, 10}
     };
 
-    float stage5StartPointX = Metrics.width / 26 * (3 + 13);  // 1664.0
-    float stage5StartPointY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 7 / 2);  // 669.0
     int[][] stage5Info = {
             {10, 10, 23, 10, 23, 10, 23, 10, 23, 10, 10, 10, 10, 22, 22, 22, 22, 22, 10, 10, 10, 10},
             {10, 10, 23, 10, 23, 10, 23, 10, 23, 10, 10, 10, 10, 25, 23, 23, 23, 23, 10, 10, 10, 10},
