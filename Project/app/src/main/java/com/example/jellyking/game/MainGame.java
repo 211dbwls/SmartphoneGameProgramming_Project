@@ -29,6 +29,7 @@ public class MainGame {
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     StageInfo stage;
+    public int stageNum;
 
     /* gameObjects */
     private JellyKing jellyKing;
@@ -51,8 +52,6 @@ public class MainGame {
 
     public void init() {
         gameObjects.clear();
-
-        int stageNum = 5;
 
         /* Stage */
         stage = new StageInfo(stageNum);
