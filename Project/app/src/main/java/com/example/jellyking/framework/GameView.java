@@ -55,6 +55,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
 
         long now = currentTimeNanos;  // 현재 시간 저장.
+        if(lastTimeNanos == 0) {
+            lastTimeNanos = now;
+        }
+
         int elapsed = (int) (now - lastTimeNanos);  // 흐른 시간.
         if (elapsed != 0) {  // 흐른 시간이 있는 경우.
             framesPerSecond = 1_000_000_000 / elapsed;
@@ -93,6 +97,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public void resumeGame() {  // 게임 다시 시작하는 함수.
         if(initialized && !running) {
             running = true;
+            lastTimeNanos = 0;
+
             Choreographer.getInstance().postFrameCallback(this);
 
             Log.d(TAG, "Resuming game");
