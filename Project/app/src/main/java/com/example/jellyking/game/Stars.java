@@ -8,10 +8,10 @@ import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.Metrics;
 import com.example.jellyking.framework.Sprite;
 
-public class Star extends Sprite implements BoxCollidable {
+public class Stars extends Sprite implements BoxCollidable {
     protected RectF boundingBox = new RectF();  // boundingBox
 
-    public Star(float x, float y) {
+    public Stars(float x, float y) {
         super(x, y, R.dimen.star_radius, R.mipmap.star);
     }
 

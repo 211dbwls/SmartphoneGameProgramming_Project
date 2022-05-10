@@ -26,7 +26,10 @@ public class MainGame {
         return singleton;
     }
 
-    private ArrayList<GameObject> gameObjects = new ArrayList<>();
+    protected ArrayList<ArrayList<GameObject>> layers;
+    public enum Layer {
+        bg, object, player, COUNT
+    }
 
     StageInfo stage;
     public int stageNum;
@@ -36,7 +39,7 @@ public class MainGame {
     private Blocks blocks;
     private Enemies enemies;
     private Items items;
-    private Star star;
+    private Stars stars;
 
     private int maxStarCount;
     private int starCount;
@@ -51,7 +54,7 @@ public class MainGame {
     }
 
     public void init() {
-        gameObjects.clear();
+        initLayers(Layer.COUNT.ordinal());
 
         /* Stage */
         stage = new StageInfo(stageNum);
@@ -87,7 +90,7 @@ public class MainGame {
         //float testX = Metrics.width / 26 * (3 + 2);
         //float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
         //jellyKing = new JellyKing(testX, testY);
-        gameObjects.add(jellyKing);
+        add(Layer.player, jellyKing);
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
@@ -108,96 +111,103 @@ public class MainGame {
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 0, 0, 1);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 22:  // BrokenBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 0, 1, 2);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 23:  // ElectricBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 0, 2, 3);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 24:  // JumpBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 1, 4, 4);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 25:  // StraightLeftBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 0, 6, 7);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 26:  // StraightRightBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 0, 7, 8);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 27:  // MoveLRBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 2, 3, 5, 5);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 28:  // MoveUDBlock
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         blocks = new Blocks(stageX, stageY, 0, 0, 0, 6);
-                        gameObjects.add(blocks);
+                        add(Layer.object, blocks);
                         break;
                     case 31:  // FixEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i) + 18;
                         enemies = new Enemies(stageX, stageY, 1, 2, 0, 1);
-                        gameObjects.add(enemies);
+                        add(Layer.object, enemies);
                         break;
                     case 32:  // DropEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         enemies = new Enemies(stageX, stageY, 0, 0, 2, 2);
-                        gameObjects.add(enemies);
+                        add(Layer.object, enemies);
                         break;
                     case 33:  // MoveEnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         enemies = new Enemies(stageX, stageY, 0, 0, 5, 3);
-                        gameObjects.add(enemies);
+                        add(Layer.object, enemies);
                         break;
                     case 34:  // MoveLREnemy
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         enemies = new Enemies(stageX, stageY, 0, 0, 7, 4);
-                        gameObjects.add(enemies);
+                        add(Layer.object, enemies);
                         break;
                     case 41:  // itemJumpOne
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         items = new Items(stageX, stageY, 0, 1);
-                        gameObjects.add(items);
+                        add(Layer.object, items);
                         break;
                     case 42:  // itemJumpInfinite
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
                         items = new Items(stageX, stageY, 1, 2);
-                        gameObjects.add(items);
+                        add(Layer.object, items);
                         break;
                     case 51:  // Star
                         stageX = Metrics.width / 26 * (3 + j);
                         stageY = Metrics.height / 13 * 3 + (Metrics.height / 13 * i);
-                        star = new Star(stageX, stageY);
-                        gameObjects.add(star);
+                        stars = new Stars(stageX, stageY);
+                        add(Layer.object, stars);
                         break;
                     default:
                         break;
                 }
             }
+        }
+    }
+
+    public void initLayers(int count) {  // layer 초기화
+        layers = new ArrayList<>();
+        for(int i = 0;i < count;i++) {
+            layers.add(new ArrayList<>());
         }
     }
 
@@ -223,30 +233,32 @@ public class MainGame {
     }
 
     public void draw(Canvas canvas) {
-        for (GameObject gobj : gameObjects) {
-            gobj.draw(canvas);
+        for (ArrayList<GameObject> gameObjects : layers) {
+            for (GameObject gobj : gameObjects) {
+                gobj.draw(canvas);
 
-            if(gobj instanceof BoxCollidable) {  // 바운딩 박스 그리기.
-                RectF box = ((BoxCollidable) gobj).getBoundingRect();
-                RectF boxHead = ((BoxCollidable) gobj).getBoundingRectHead();
-                RectF boxFoot = ((BoxCollidable) gobj).getBoundingRectFoot();
-                RectF boxLeft = ((BoxCollidable) gobj).getBoundingRectLeft();
-                RectF boxRight = ((BoxCollidable) gobj).getBoundingRectRight();
+                if (gobj instanceof BoxCollidable) {  // 바운딩 박스 그리기.
+                    RectF box = ((BoxCollidable) gobj).getBoundingRect();
+                    RectF boxHead = ((BoxCollidable) gobj).getBoundingRectHead();
+                    RectF boxFoot = ((BoxCollidable) gobj).getBoundingRectFoot();
+                    RectF boxLeft = ((BoxCollidable) gobj).getBoundingRectLeft();
+                    RectF boxRight = ((BoxCollidable) gobj).getBoundingRectRight();
 
-                if(box != null) {
-                    canvas.drawRect(box, collisionPaint);
-                }
-                if(boxHead != null) {
-                    canvas.drawRect(boxHead, collisionPaint);
-                }
-                if(boxFoot != null) {
-                    canvas.drawRect(boxFoot, collisionPaint);
-                }
-                if(boxLeft != null) {
-                    canvas.drawRect(boxLeft, collisionPaint);
-                }
-                if(boxRight != null) {
-                    canvas.drawRect(boxRight, collisionPaint);
+                    if (box != null) {
+                        canvas.drawRect(box, collisionPaint);
+                    }
+                    if (boxHead != null) {
+                        canvas.drawRect(boxHead, collisionPaint);
+                    }
+                    if (boxFoot != null) {
+                        canvas.drawRect(boxFoot, collisionPaint);
+                    }
+                    if (boxLeft != null) {
+                        canvas.drawRect(boxLeft, collisionPaint);
+                    }
+                    if (boxRight != null) {
+                        canvas.drawRect(boxRight, collisionPaint);
+                    }
                 }
             }
         }
@@ -254,21 +266,26 @@ public class MainGame {
 
     public void update(int elapsedNanos) {
         frameTime = (float) (elapsedNanos / 1_000_000_000f);
-        for (GameObject gobj : gameObjects) {
-            gobj.update();
+        for (ArrayList<GameObject> gameObjects : layers) {
+            for(GameObject gobj : gameObjects) {
+                gobj.update();
+            }
         }
 
         checkCollision();
     }
 
     private void checkCollision() {
-        for(GameObject o1 : gameObjects) {
+        ArrayList<GameObject> player = layers.get(Layer.player.ordinal());
+        ArrayList<GameObject> objects = layers.get(Layer.object.ordinal());
+
+        for(GameObject o1 : player) {
             if(!(o1 instanceof JellyKing)) {  // JellyKing이 아닌 경우 무시.
                 continue;
             }
             JellyKing jellyKing = (JellyKing) o1;
 
-            for(GameObject o2 : gameObjects) {
+            for(GameObject o2 : objects) {
                 /* Block */
                 if(o2 instanceof Blocks) {  // Block인 경우
                     Blocks block = (Blocks) o2;
@@ -419,8 +436,8 @@ public class MainGame {
                     }
                 }
                 /* Star */
-                else if(o2 instanceof Star) {  // Star인 경우
-                    Star star = (Star) o2;
+                else if(o2 instanceof Stars) {  // Star인 경우
+                    Stars star = (Stars) o2;
                     if (CollisionHelper.collides(star.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : Star");
                         remove(star);  // 별 삭제
@@ -431,10 +448,11 @@ public class MainGame {
         }
     }
 
-    public void add(GameObject gameObject) {
+    public void add(Layer layer, GameObject gameObject) {
         GameView.view.post(new Runnable() {
             @Override
             public void run() {
+                ArrayList<GameObject> gameObjects = layers.get(layer.ordinal());
                 gameObjects.add(gameObject);
             }
         });
@@ -444,12 +462,24 @@ public class MainGame {
         GameView.view.post(new Runnable() {
             @Override
             public void run() {
-                gameObjects.remove(gameObject);
+                for(ArrayList<GameObject> gameObjects : layers) {
+                    boolean removed = gameObjects.remove(gameObject);
+
+                    if(!removed) {
+                        continue;
+                    }
+
+                    break;
+                }
             }
         });
     }
 
     public int objectCount() {
-        return gameObjects.size();
+        int count = 0;
+        for(ArrayList<GameObject> gameObjects : layers) {
+            count += gameObjects.size();
+        }
+        return count;
     }
 }
