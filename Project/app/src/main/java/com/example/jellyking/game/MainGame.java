@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
+import com.example.jellyking.app.StageActivity;
 import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
@@ -32,6 +33,7 @@ public class MainGame {
         bg, object, player, controller, COUNT
     }
 
+    /* stage */
     StageInfo stage;
     public int stageNum;
 

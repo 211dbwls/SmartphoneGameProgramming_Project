@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id="@+id/stage1"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
@@ -19,31 +20,39 @@
             android:onClick="onBtnStage1"
             />
         <Button
+            android:id="@+id/stage2"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/hud2"
+            android:background="@mipmap/icon_locked"
+            android:enabled="false"
             android:onClick="onBtnStage2"
             />
         <Button
+            android:id="@+id/stage3"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/hud3"
+            android:background="@mipmap/icon_locked"
+            android:enabled="false"
             android:onClick="onBtnStage3"
             />
         <Button
+            android:id="@+id/stage4"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/hud4"
+            android:background="@mipmap/icon_locked"
+            android:enabled="false"
             android:onClick="onBtnStage4"
             />
         <Button
+            android:id="@+id/stage5"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/hud5"
+            android:background="@mipmap/icon_locked"
+            android:enabled="false"
             android:onClick="onBtnStage5"
             />
     </LinearLayout>
