@@ -48,6 +48,8 @@ public class MainGame {
 
     public float frameTime;
 
+    public int clearStageNum = 3;  // 클리어한 스테이지
+
     /* CollisionPaint */
     private Paint collisionPaint;
 
@@ -240,7 +242,9 @@ public class MainGame {
 
     public void stageClear() {
         stageNum += 1;
-        // stageNum > 5
+
+        // if(stageNum > 5) {
+        // 스테이지 5를 성공한 경우, 스테이지 선택화면으로 가도록.
         init();
     }
 

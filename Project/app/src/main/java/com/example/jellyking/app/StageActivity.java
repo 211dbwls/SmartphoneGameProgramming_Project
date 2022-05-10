@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jellyking.R;
 import com.example.jellyking.framework.GameView;
+import com.example.jellyking.game.JellyKing;
 import com.example.jellyking.game.MainGame;
 
 public class StageActivity extends AppCompatActivity {
@@ -25,28 +26,38 @@ public class StageActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-    }
 
-    public void changeButtonImage(int stage) {
         stage2Button = findViewById(R.id.stage2);
         stage3Button = findViewById(R.id.stage3);
         stage4Button = findViewById(R.id.stage4);
         stage5Button = findViewById(R.id.stage5);
 
-        switch (stage) {
+        switch (MainGame.getInstance().clearStageNum) {
             case 2:
                 stage2Button.setBackgroundResource(R.mipmap.hud2);
                 stage2Button.setEnabled(true);
                 break;
             case 3:
+                stage2Button.setBackgroundResource(R.mipmap.hud2);
+                stage2Button.setEnabled(true);
                 stage3Button.setBackgroundResource(R.mipmap.hud3);
                 stage3Button.setEnabled(true);
                 break;
             case 4:
+                stage2Button.setBackgroundResource(R.mipmap.hud2);
+                stage2Button.setEnabled(true);
+                stage3Button.setBackgroundResource(R.mipmap.hud3);
+                stage3Button.setEnabled(true);
                 stage4Button.setBackgroundResource(R.mipmap.hud4);
                 stage4Button.setEnabled(true);
                 break;
             case 5:
+                stage2Button.setBackgroundResource(R.mipmap.hud2);
+                stage2Button.setEnabled(true);
+                stage3Button.setBackgroundResource(R.mipmap.hud3);
+                stage3Button.setEnabled(true);
+                stage4Button.setBackgroundResource(R.mipmap.hud4);
+                stage4Button.setEnabled(true);
                 stage5Button.setBackgroundResource(R.mipmap.hud5);
                 stage5Button.setEnabled(true);
                 break;

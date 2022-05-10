@@ -48,7 +48,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
     protected RectF boundingBoxLeft = new RectF();
     protected RectF boundingBoxRight = new RectF();
 
-    public int starCount;
+    public int starCount;  // 획득한 별 갯수
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -201,6 +201,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     public void death() {
         MainGame.getInstance().remove(this);
+        MainGame.getInstance().init();  // 다시 시작.
     }
 
     @Override
