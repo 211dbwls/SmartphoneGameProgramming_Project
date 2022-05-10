@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.jellyking.R;
 import com.example.jellyking.framework.BoxCollidable;
 import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
@@ -94,6 +95,7 @@ public class MainGame {
 
         /* add */
         add(Layer.controller, new CollisionChecker());
+        add(Layer.bg, new Background(R.mipmap.background_colored_land));
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
