@@ -15,35 +15,35 @@
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/number1"
+            android:background="@mipmap/hud1"
             android:onClick="onBtnStage1"
             />
         <Button
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/number2"
+            android:background="@mipmap/hud2"
             android:onClick="onBtnStage2"
             />
         <Button
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/number3"
+            android:background="@mipmap/hud3"
             android:onClick="onBtnStage3"
             />
         <Button
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/number4"
+            android:background="@mipmap/hud4"
             android:onClick="onBtnStage4"
             />
         <Button
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@mipmap/number5"
+            android:background="@mipmap/hud5"
             android:onClick="onBtnStage5"
             />
     </LinearLayout>

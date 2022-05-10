@@ -42,8 +42,7 @@ public class MainGame {
     private Items items;
     private Stars stars;
 
-    private int maxStarCount;
-    private int starCount;
+    public int maxStarCount;
 
     public float frameTime;
 
@@ -99,7 +98,7 @@ public class MainGame {
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
-        starCount = 0;  // 모은 별 개수
+        jellyKing.starCount = 0;  // 모은 별 개수
 
         /* CollisionPaint */
         collisionPaint = new Paint();
@@ -235,6 +234,12 @@ public class MainGame {
                 return true;
         }
         return false;
+    }
+
+    public void stageClear() {
+        stageNum += 1;
+        // stageNum > 5
+        init();
     }
 
     public void draw(Canvas canvas) {

@@ -48,6 +48,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     protected RectF boundingBoxLeft = new RectF();
     protected RectF boundingBoxRight = new RectF();
 
+    public int starCount;
+
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
     }

@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
+import com.example.jellyking.R;
 import com.example.jellyking.game.MainGame;
 
 public class GameView extends View implements Choreographer.FrameCallback {
@@ -29,6 +31,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
         view = this;
     }
 
@@ -73,8 +76,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void initView() {
         MainGame.getInstance().init();
-        fpsPaint.setColor(Color.BLUE);
-        fpsPaint.setTextSize(100);
+
+        // fpsPaint.setColor(Color.BLUE);
+        // fpsPaint.setTextSize(100);
     }
 
     @Override
@@ -86,8 +90,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected void onDraw(Canvas canvas) {
         MainGame.getInstance().draw(canvas);
 
-        canvas.drawText("FPS:" + framesPerSecond, framesPerSecond * 10, 100, fpsPaint);
-        canvas.drawText("" + MainGame.getInstance().objectCount(), 10, 100, fpsPaint);
+        // canvas.drawText("FPS:" + framesPerSecond, framesPerSecond * 10, 100, fpsPaint);
+        // canvas.drawText("" + MainGame.getInstance().objectCount(), 10, 100, fpsPaint);
     }
 
     public void pauseGame() {  // 게임 멈추는 함수.
