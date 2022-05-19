@@ -1,14 +1,11 @@
 package com.example.jellyking.app;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.jellyking.R;
-import com.example.jellyking.framework.GameView;
+import com.example.jellyking.framework.view.GameView;
 import com.example.jellyking.game.MainGame;
 
 public class GameActivity extends AppCompatActivity {

@@ -1,8 +1,10 @@
-package com.example.jellyking.framework;
+package com.example.jellyking.framework.res;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.example.jellyking.framework.view.GameView;
 
 import java.util.HashMap;
 

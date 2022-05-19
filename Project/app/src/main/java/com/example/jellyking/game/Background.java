@@ -1,9 +1,7 @@
 package com.example.jellyking.game;
 
-import android.graphics.Canvas;
-
-import com.example.jellyking.framework.Metrics;
-import com.example.jellyking.framework.Sprite;
+import com.example.jellyking.framework.res.Metrics;
+import com.example.jellyking.framework.object.Sprite;
 
 public class Background extends Sprite {
     public Background(int bitmapResId) {

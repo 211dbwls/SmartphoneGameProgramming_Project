@@ -1,4 +1,4 @@
-package com.example.jellyking.framework;
+package com.example.jellyking.framework.interfaces;
 
 import android.graphics.RectF;
 

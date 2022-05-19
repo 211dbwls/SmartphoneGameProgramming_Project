@@ -1,8 +1,11 @@
-package com.example.jellyking.framework;
+package com.example.jellyking.framework.object;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.MotionEvent;
+
+import com.example.jellyking.framework.interfaces.Touchable;
+import com.example.jellyking.framework.res.BitmapPool;
 
 public class Button extends Sprite implements Touchable {
     private static final String TAG = Button.class.getSimpleName();

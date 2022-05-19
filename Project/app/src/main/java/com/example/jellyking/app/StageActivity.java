@@ -9,8 +9,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.GameView;
-import com.example.jellyking.game.JellyKing;
 import com.example.jellyking.game.MainGame;
 
 public class StageActivity extends AppCompatActivity {

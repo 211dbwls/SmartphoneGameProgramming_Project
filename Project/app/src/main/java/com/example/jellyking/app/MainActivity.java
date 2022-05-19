@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.GameView;
-import com.example.jellyking.game.MainGame;
 
 public class MainActivity extends AppCompatActivity {
 

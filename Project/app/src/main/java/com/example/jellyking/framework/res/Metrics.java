@@ -1,9 +1,9 @@
-package com.example.jellyking.framework;
+package com.example.jellyking.framework.res;
 
 import android.content.res.Resources;
 import android.util.TypedValue;
 
-import com.example.jellyking.framework.GameView;
+import com.example.jellyking.framework.view.GameView;
 
 public class Metrics {
     public static int width;

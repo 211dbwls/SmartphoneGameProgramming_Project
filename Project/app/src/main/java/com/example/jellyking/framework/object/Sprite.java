@@ -1,12 +1,12 @@
-package com.example.jellyking.framework;
+package com.example.jellyking.framework.object;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import com.example.jellyking.framework.BitmapPool;
-import com.example.jellyking.framework.GameObject;
-import com.example.jellyking.framework.Metrics;
+import com.example.jellyking.framework.interfaces.GameObject;
+import com.example.jellyking.framework.res.BitmapPool;
+import com.example.jellyking.framework.res.Metrics;
 
 public class Sprite implements GameObject {
     protected Bitmap bitmap;

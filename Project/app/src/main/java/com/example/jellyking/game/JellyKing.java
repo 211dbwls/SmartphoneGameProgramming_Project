@@ -2,12 +2,11 @@ package com.example.jellyking.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.BoxCollidable;
-import com.example.jellyking.framework.Metrics;
-import com.example.jellyking.framework.Sprite;
+import com.example.jellyking.framework.interfaces.BoxCollidable;
+import com.example.jellyking.framework.res.Metrics;
+import com.example.jellyking.framework.object.Sprite;
 
 public class JellyKing extends Sprite implements BoxCollidable {
     private static final String TAG = JellyKing.class.getSimpleName();

@@ -1,6 +1,6 @@
 package com.example.jellyking.game;
 
-import com.example.jellyking.framework.Metrics;
+import com.example.jellyking.framework.res.Metrics;
 
 
 public class StageInfo {

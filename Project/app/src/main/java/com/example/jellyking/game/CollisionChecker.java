@@ -3,8 +3,8 @@ package com.example.jellyking.game;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import com.example.jellyking.framework.CollisionHelper;
-import com.example.jellyking.framework.GameObject;
+import com.example.jellyking.framework.util.CollisionHelper;
+import com.example.jellyking.framework.interfaces.GameObject;
 
 import java.util.ArrayList;
 

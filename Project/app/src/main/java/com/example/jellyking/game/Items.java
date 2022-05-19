@@ -4,9 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.BoxCollidable;
-import com.example.jellyking.framework.Metrics;
-import com.example.jellyking.framework.Sprite;
+import com.example.jellyking.framework.interfaces.BoxCollidable;
+import com.example.jellyking.framework.res.Metrics;
+import com.example.jellyking.framework.object.Sprite;
 
 public class Items  extends Sprite implements BoxCollidable {
     protected static int[] bitmapIds =  {

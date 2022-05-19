@@ -1,19 +1,17 @@
-package com.example.jellyking.framework;
+package com.example.jellyking.framework.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
-import com.example.jellyking.R;
+import com.example.jellyking.framework.res.Metrics;
 import com.example.jellyking.game.MainGame;
 
 public class GameView extends View implements Choreographer.FrameCallback {
