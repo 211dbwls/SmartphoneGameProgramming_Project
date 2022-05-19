@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import com.example.jellyking.R;
 import com.example.jellyking.app.StageActivity;
 import com.example.jellyking.framework.BoxCollidable;
+import com.example.jellyking.framework.Button;
 import com.example.jellyking.framework.CollisionHelper;
 import com.example.jellyking.framework.GameObject;
 import com.example.jellyking.framework.GameView;
@@ -30,7 +31,7 @@ public class MainGame {
 
     protected ArrayList<ArrayList<GameObject>> layers;
     public enum Layer {
-        bg, object, player, controller, COUNT
+        bg, object, player, touchUi, controller, COUNT
     }
 
     /* stage */
@@ -48,10 +49,14 @@ public class MainGame {
 
     public float frameTime;
 
-    public int clearStageNum = 3;  // 클리어한 스테이지
+    public int clearStageNum;  // 클리어한 스테이지
 
     /* CollisionPaint */
     private Paint collisionPaint;
+
+    public float size(float unit) {
+        return Metrics.height / 9.5f * unit;
+    }
 
     public static void clear() {
         singleton = null;
@@ -99,6 +104,23 @@ public class MainGame {
         /* add */
         add(Layer.controller, new CollisionChecker());
         add(Layer.bg, new Background(R.mipmap.background_colored_land));
+
+        /* 버튼 */
+        float btn_x = size(1.5f);
+        float btn_y = size(8.75f);
+        float btn_w = size(8.0f / 3.0f);
+        float btn_h = size(1.0f);
+        /*add(Layer.touchUi.ordinal(), new Button(btn_x, btn_y, btn_w, btn_h, R.mipmap.icon_pause, R.mipmap.icon_pause,
+                new Button.Callback() {
+                    @Override
+                    public boolean onTouch(Button.Action action) {
+                        if (action != Button.Action.pressed) {
+                            return false;
+                        }
+
+                        return true;
+                    }
+                }));*/
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
