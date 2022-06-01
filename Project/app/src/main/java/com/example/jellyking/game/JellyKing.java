@@ -49,6 +49,10 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     public int starCount;  // 획득한 별 갯수
 
+    private enum State {
+        idle, jump, doubleJump
+    }
+
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
     }
@@ -132,24 +136,25 @@ public class JellyKing extends Sprite implements BoxCollidable {
             if(move == true) {  // 이동하는 경우
                 if (moveRight == true) {  // 오른쪽으로 이동하는 경우
                     if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
-                        move = false;  // 이동 멈춤.
                         if(collisionBlock == true) {
-                            dx = Metrics.size(R.dimen.jellyking_move_speed);
                             moveRight = true;
                             moveWidth = 0.0f;
                             collisionBlock = false;
                         }
+                        move = false;  // 이동 멈춤.
+                    }
+                    if(dx < 0) {
+                        dx = -dx;
                     }
                 }
                 else {  // 왼쪽으로 이동하는 경우
                     if (moveWidth < 0) {  // 이동 거리를 도달했을 경우
-                        move = false;
                         if(collisionBlock == true) {
-                            dx = -(Metrics.size(R.dimen.jellyking_move_speed));
                             moveRight = false;
                             moveWidth = moveWidthLimit;
                             collisionBlock = false;
                         }
+                        move = false;
                     }
                     if(dx > 0) {
                         dx = -dx;
@@ -191,6 +196,9 @@ public class JellyKing extends Sprite implements BoxCollidable {
            dx = -(Metrics.size(R.dimen.jellyking_move_speed));
            moveRight = false;
            moveWidth = moveWidthLimit;
+       }
+       else {
+           moveRight = right;  // 충돌했을 경우,
        }
     }
 
