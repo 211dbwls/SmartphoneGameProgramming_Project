@@ -25,7 +25,7 @@
     <dimen name="move_enemy_speed">60dp</dimen>
 
     <dimen name="star_radius">20dp</dimen>
-    <dimen name="jellyjing_jump_power">400dp</dimen>
     <dimen name="gravity">900dp</dimen>
+    <dimen name="jellyking_jump_power">100dp</dimen>
 
 </resources>

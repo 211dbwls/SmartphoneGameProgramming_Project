@@ -271,7 +271,7 @@ public class MainGame {
             for (GameObject gobj : gameObjects) {
                 gobj.draw(canvas);
 
-                if (gobj instanceof BoxCollidable) {  // 바운딩 박스 그리기.
+                /*if (gobj instanceof BoxCollidable) {  // 바운딩 박스 그리기.
                     RectF box = ((BoxCollidable) gobj).getBoundingRect();
                     RectF boxHead = ((BoxCollidable) gobj).getBoundingRectHead();
                     RectF boxFoot = ((BoxCollidable) gobj).getBoundingRectFoot();
@@ -293,7 +293,7 @@ public class MainGame {
                     if (boxRight != null) {
                         canvas.drawRect(boxRight, collisionPaint);
                     }
-                }
+                }*/
             }
         }
     }
