@@ -4,11 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
 import com.example.jellyking.framework.interfaces.BoxCollidable;
 import com.example.jellyking.framework.interfaces.GameObject;
+import com.example.jellyking.framework.object.Button;
+import com.example.jellyking.framework.object.Sprite;
 import com.example.jellyking.framework.view.GameView;
 import com.example.jellyking.framework.res.Metrics;
 
@@ -103,20 +106,18 @@ public class MainGame {
 
         /* 버튼 */
         float btn_x = size(1.5f);
-        float btn_y = size(8.75f);
-        float btn_w = size(8.0f / 3.0f);
+        float btn_y = size(1.5f);
+        float btn_w = size(1.0f);
         float btn_h = size(1.0f);
-        /*add(Layer.touchUi.ordinal(), new Button(btn_x, btn_y, btn_w, btn_h, R.mipmap.icon_pause, R.mipmap.icon_pause,
-                new Button.Callback() {
-                    @Override
-                    public boolean onTouch(Button.Action action) {
-                        if (action != Button.Action.pressed) {
-                            return false;
-                        }
 
-                        return true;
-                    }
-                }));*/
+//        add(Layer.touchUi.ordinal(), new Button(btn_x, btn_y, btn_w, btn_h, R.mipmap.icon_pause, new Button.Callback() {
+//            @Override
+//            public boolean onTouch(Button.Action action) {
+//                if (action != Button.Action.pressed) return false;
+//                Log.d(TAG, "ui");
+//                return true;
+//            }
+//        }));
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
@@ -246,9 +247,11 @@ public class MainGame {
                 float x = event.getX();
                 if(x > Metrics.width / 2) {  // 오른쪽 터치
                     jellyKing.setMoveDirection(true, false);
+                    jellyKing.jumpingPoint = true;
                 }
                 else {  // 왼쪽 터치
                     jellyKing.setMoveDirection(false, false);
+                    jellyKing.jumpingPoint = true;
                 }
                 return true;
             case MotionEvent.ACTION_UP:

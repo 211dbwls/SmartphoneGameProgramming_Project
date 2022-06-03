@@ -1,6 +1,10 @@
 package com.example.jellyking.game;
 
+import android.animation.ValueAnimator;
 import android.graphics.Canvas;
+import android.graphics.Path;
+import android.graphics.PathMeasure;
+import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
 
@@ -9,14 +13,16 @@ import com.example.jellyking.framework.interfaces.BoxCollidable;
 import com.example.jellyking.framework.res.Metrics;
 import com.example.jellyking.framework.object.Sprite;
 
+import java.util.ArrayList;
+
 public class JellyKing extends Sprite implements BoxCollidable {
     private static final String TAG = JellyKing.class.getSimpleName();
 
-    private static final float MOVE_WIDTH_LIMIT_SHORT = 200.0f;
+    private static final float MOVE_WIDTH_LIMIT_SHORT = 300.0f;
     private static final float MOVE_WIDTH_LIMIT_LONG = 450.0f;
 
-    private static final float JUMP_HEIGHT_LIMIT_SHORT = 70.0f;
-    private static final float JUMP_HEIGHT_LIMIT_LONG = 200.0f;
+    private static final float JUMP_HEIGHT_LIMIT_SHORT = 80.0f;
+    private static final float JUMP_HEIGHT_LIMIT_LONG = 400.0f;
 
     private float dx = Metrics.size(R.dimen.jellyking_move_speed);
     private float dy = Metrics.size(R.dimen.jellyking_jump_speed);
@@ -29,6 +35,10 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     private final float jumpPower;
     private float jumpSpeed;
+    float t;
+    boolean jumpingPoint = false;
+
+    private float moveStartX, moveStartY;
 
     private float moveWidth = 0.0f;
     private float moveWidthLimit = MOVE_WIDTH_LIMIT_SHORT;
@@ -54,6 +64,15 @@ public class JellyKing extends Sprite implements BoxCollidable {
     protected RectF boundingBoxRight = new RectF();
 
     public int starCount;  // 획득한 별 갯수
+
+    private PointF jellyKingPos = new PointF();
+
+    class Point {
+        float x, y;
+    }
+
+    Point point1, point2, point3;
+    float pDx, pDy;
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -82,18 +101,41 @@ public class JellyKing extends Sprite implements BoxCollidable {
 //        }
 //
 //        /* 터치시 점프 및 이동 */
-//        if(touch == true)  {  // 터치한 경우
+//        if(touch == true) {  // 터치한 경우
 //            /* 터치 시간에 따라 이동 거리 설정 */
-//            if(touchTime > 0.5f) {  // 터치 시간이 긴 경우
+//            if (touchTime > 0.5f) {  // 터치 시간이 긴 경우
 //                moveWidthLimit = MOVE_WIDTH_LIMIT_LONG;  // 이동 거리 늘림
-//            }
-//            else {  // 터치 시간이 짧은 경우
+//            } else {  // 터치 시간이 짧은 경우
 //                moveWidthLimit = MOVE_WIDTH_LIMIT_SHORT;  // 이동 거리 짧게
 //            }
 //
-//            if(move == true) {  // 이동하는 경우
+//            if (move == true) {  // 이동하는 경우
 //                if (moveRight == true) {  // 오른쪽으로 이동하는 경우
-//                    if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
+//                    if (jumpingPoint == true) {   // 점프 처음할 때 점 구하기
+//                        Point point1 = new Point();
+//                        point1.x = moveStartX;
+//                        point1.y = moveStartY;
+//
+//                        Point point2 = new Point();
+//                        point2.x = moveStartX + moveWidthLimit / 2;
+//                        point2.y = moveStartY + jumpHeightLimit;
+//
+//                        Point point3 = new Point();
+//                        point3.x = moveStartX + moveWidthLimit;
+//                        point3.y = moveStartY;
+//
+//                        jumpingPoint = false;
+//                        t = 0;
+//                    }
+//
+//                    pDx = (float)(Math.pow((1 - t), 2) * point1.x + 2 * (1 - t) * t * point2.x + Math.pow(t, 2) * point3.x);
+//                    pDy = (float)(Math.pow((1 - t), 2) * point1.y + 2 * (1 - t) * t * point2.y + Math.pow(t, 2) * point3.y);
+//
+//                    t += 0.1;
+//                    if (t == 1) {  // 점프 끝났을 때
+//                        move = false;
+//                    }
+//                    /*if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
 //                        if(collisionBlock == true) {
 //                            moveRight = true;
 //                            moveWidth = 0.0f;
@@ -103,18 +145,18 @@ public class JellyKing extends Sprite implements BoxCollidable {
 //                    }
 //                    if(dx < 0) {
 //                        dx = -dx;
-//                    }
+//                    }*/
 //                }
 //                else {  // 왼쪽으로 이동하는 경우
 //                    if (moveWidth < 0) {  // 이동 거리를 도달했을 경우
-//                        if(collisionBlock == true) {
+//                        if (collisionBlock == true) {
 //                            moveRight = false;
 //                            moveWidth = moveWidthLimit;
 //                            collisionBlock = false;
 //                        }
 //                        move = false;
 //                    }
-//                    if(dx > 0) {
+//                    if (dx > 0) {
 //                        dx = -dx;
 //                    }
 //                }
@@ -145,8 +187,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
 //        dstRect.offset(dx, dy);
 //        moveWidth += dx;
 
-        float dx = this.dx * frameTime;
-        float dy = this.dy * frameTime;
+        float dx = this.dx * (float)2.5 * frameTime;
+        float dy = this.dy * (float)1.5 * frameTime;
 
         /* 터치 시간 구하기 */
         if(touch == true) {  // 터치 중인 경우
@@ -255,6 +297,11 @@ public class JellyKing extends Sprite implements BoxCollidable {
         y += dy;
         moveWidth += dx;
 
+        /* 떨어졌을 경우 죽도록 */
+        if(y > Metrics.height) {
+            death();
+        }
+
         /* boundingBox */
         float widthRadius = Metrics.size(R.dimen.jellyking_radius);
         boundingBox.set(x - widthRadius, y - widthRadius, x + widthRadius, y - widthRadius);
@@ -267,6 +314,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     public void setMoveDirection(boolean right, boolean collision) {
         move = true;
         collisionBlock = collision;
+        moveStartX = x;
+        moveStartY = y;
 
        if (right == true && collision == false) {  // 오른쪽 터치를 했을 경우
            dx = Metrics.size(R.dimen.jellyking_move_speed);
