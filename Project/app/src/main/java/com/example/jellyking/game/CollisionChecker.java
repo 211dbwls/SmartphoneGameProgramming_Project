@@ -100,6 +100,7 @@ public class CollisionChecker implements GameObject {
                             if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : StraightLeftBlock");
                                 jellyKing.collisionStraightLeftBlock = true;  // 왼쪽으로 이동하도록
+                                jellyKing.collisionStraightRightBlock = false;
                                 jellyKing.collisionStraightLeftBlockY = block.startY;
                                 break;
                             }
@@ -108,6 +109,7 @@ public class CollisionChecker implements GameObject {
                             if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : StraightRightBlock");
                                 jellyKing.collisionStraightRightBlock = true;  // 오른쪽으로 이동하도록
+                                jellyKing.collisionStraightLeftBlock = false;
                                 jellyKing.collisionStraightRightBlockY = block.startY;
                                 break;
                             }

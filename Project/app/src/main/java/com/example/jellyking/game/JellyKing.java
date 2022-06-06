@@ -214,6 +214,10 @@ public class JellyKing extends Sprite implements BoxCollidable {
             }
         }
         else if(collisionStraightRightBlock == true) {
+            dx = this.dx * (float)3.5 * frameTime;
+            if(dx < 0) {  // 오른쪽으로 이동
+                dx = -dx;
+            }
             dy = collisionStraightRightBlockY - y;  // 충돌 위치로 y 고정
 
             if(touch == true) {  // 이동 중 터치했을 경우
