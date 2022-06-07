@@ -85,7 +85,7 @@ public class Blocks  extends Sprite implements BoxCollidable {
     }
 
     public void update() {
-        float frameTime = MainGame.getInstance().frameTime;
+        float frameTime = MainScene.get().frameTime;
 
         /* 애니메이션 */
         switch (blockType) {

@@ -3,32 +3,29 @@ package com.example.jellyking.game;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.interfaces.BoxCollidable;
+import com.example.jellyking.framework.game.Sound;
 import com.example.jellyking.framework.interfaces.GameObject;
-import com.example.jellyking.framework.object.Button;
-import com.example.jellyking.framework.object.Sprite;
 import com.example.jellyking.framework.view.GameView;
 import com.example.jellyking.framework.res.Metrics;
 
 import java.util.ArrayList;
 
-public class MainGame {
-    private static final String TAG = MainGame.class.getSimpleName();
+public class MainScene extends Scene{
+    public static final String PARAM_STAGE_INDEX = "stage_index";
 
-    private static MainGame singleton;
-    public static MainGame getInstance() {
+    private static final String TAG = MainScene.class.getSimpleName();
+
+    private static MainScene singleton;
+    public static MainScene get() {
         if (singleton == null) {
-            singleton = new MainGame();
+            singleton = new MainScene();
         }
         return singleton;
     }
 
-    protected ArrayList<ArrayList<GameObject>> layers;
     public enum Layer {
         bg, object, player, touchUi, controller, COUNT
     }
@@ -46,12 +43,7 @@ public class MainGame {
 
     public int maxStarCount;
 
-    public float frameTime;
-
     public int clearStageNum;  // 클리어한 스테이지
-
-    /* CollisionPaint */
-    private Paint collisionPaint;
 
     public float size(float unit) {
         return Metrics.height / 9.5f * unit;
@@ -59,6 +51,10 @@ public class MainGame {
 
     public static void clear() {
         singleton = null;
+    }
+
+    public void setMapIndex(int mapIndex) {
+        stageNum = mapIndex;
     }
 
     public void init() {
@@ -122,11 +118,6 @@ public class MainGame {
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
         jellyKing.starCount = 0;  // 모은 별 개수
-
-        /* CollisionPaint */
-        collisionPaint = new Paint();
-        collisionPaint.setStyle(Paint.Style.STROKE);
-        collisionPaint.setColor(Color.RED);
     }
 
     public void setStage(int[][] stageInfo) {
@@ -231,13 +222,6 @@ public class MainGame {
         }
     }
 
-    public void initLayers(int count) {  // layer 초기화
-        layers = new ArrayList<>();
-        for(int i = 0;i < count;i++) {
-            layers.add(new ArrayList<>());
-        }
-    }
-
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action) {
@@ -263,51 +247,11 @@ public class MainGame {
 
     public void stageClear() {
         stageNum += 1;
+        clearStageNum = stageNum;
+        if(stageNum > 5) { // 스테이지 5를 성공한 경우, 스테이지 선택화면으로 가도록
 
-        // if(stageNum > 5) {
-        // 스테이지 5를 성공한 경우, 스테이지 선택화면으로 가도록.
+        }
         init();
-    }
-
-    public void draw(Canvas canvas) {
-        for (ArrayList<GameObject> gameObjects : layers) {
-            for (GameObject gobj : gameObjects) {
-                gobj.draw(canvas);
-
-                /*if (gobj instanceof BoxCollidable) {  // 바운딩 박스 그리기.
-                    RectF box = ((BoxCollidable) gobj).getBoundingRect();
-                    RectF boxHead = ((BoxCollidable) gobj).getBoundingRectHead();
-                    RectF boxFoot = ((BoxCollidable) gobj).getBoundingRectFoot();
-                    RectF boxLeft = ((BoxCollidable) gobj).getBoundingRectLeft();
-                    RectF boxRight = ((BoxCollidable) gobj).getBoundingRectRight();
-
-                    if (box != null) {
-                        canvas.drawRect(box, collisionPaint);
-                    }
-                    if (boxHead != null) {
-                        canvas.drawRect(boxHead, collisionPaint);
-                    }
-                    if (boxFoot != null) {
-                        canvas.drawRect(boxFoot, collisionPaint);
-                    }
-                    if (boxLeft != null) {
-                        canvas.drawRect(boxLeft, collisionPaint);
-                    }
-                    if (boxRight != null) {
-                        canvas.drawRect(boxRight, collisionPaint);
-                    }
-                }*/
-            }
-        }
-    }
-
-    public void update(int elapsedNanos) {
-        frameTime = (float) (elapsedNanos / 1_000_000_000f);
-        for (ArrayList<GameObject> gameObjects : layers) {
-            for(GameObject gobj : gameObjects) {
-                gobj.update();
-            }
-        }
     }
 
     public ArrayList<GameObject> objectsAt(Layer layer) {
@@ -315,37 +259,26 @@ public class MainGame {
     }
 
     public void add(Layer layer, GameObject gameObject) {
-        GameView.view.post(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<GameObject> gameObjects = layers.get(layer.ordinal());
-                gameObjects.add(gameObject);
-            }
-        });
+        add(layer.ordinal(), gameObject);
     }
 
-    public void remove(GameObject gameObject) {
-        GameView.view.post(new Runnable() {
-            @Override
-            public void run() {
-                for(ArrayList<GameObject> gameObjects : layers) {
-                    boolean removed = gameObjects.remove(gameObject);
-
-                    if(!removed) {
-                        continue;
-                    }
-
-                    break;
-                }
-            }
-        });
+    @Override
+    public void start() {
+        Sound.playMusic(R.raw.bgm);
     }
 
-    public int objectCount() {
-        int count = 0;
-        for(ArrayList<GameObject> gameObjects : layers) {
-            count += gameObjects.size();
-        }
-        return count;
+    @Override
+    public void pause() {
+        Sound.pauseMusic();
+    }
+
+    @Override
+    public void resume() {
+        Sound.resumeMusic();
+    }
+
+    @Override
+    public void end() {
+        Sound.stopMusic();
     }
 }

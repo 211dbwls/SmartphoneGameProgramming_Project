@@ -9,7 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jellyking.R;
-import com.example.jellyking.game.MainGame;
+import com.example.jellyking.game.MainScene;
 
 public class StageActivity extends AppCompatActivity {
     Button stage2Button;
@@ -30,7 +30,7 @@ public class StageActivity extends AppCompatActivity {
         stage4Button = findViewById(R.id.stage4);
         stage5Button = findViewById(R.id.stage5);
 
-        switch (MainGame.getInstance().clearStageNum) {
+        switch (MainScene.get().clearStageNum) {
             case 2:
                 stage2Button.setBackgroundResource(R.mipmap.hud2);
                 stage2Button.setEnabled(true);
@@ -63,31 +63,31 @@ public class StageActivity extends AppCompatActivity {
     }
 
     public void onBtnStage1(View view) {
-        MainGame.getInstance().stageNum = 1;
+        MainScene.get().stageNum = 1;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
     public void onBtnStage2(View view) {
-        MainGame.getInstance().stageNum = 2;
+        MainScene.get().stageNum = 2;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
     public void onBtnStage3(View view) {
-        MainGame.getInstance().stageNum = 3;
+        MainScene.get().stageNum = 3;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
     public void onBtnStage4(View view) {
-        MainGame.getInstance().stageNum = 4;
+        MainScene.get().stageNum = 4;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
     public void onBtnStage5(View view) {
-        MainGame.getInstance().stageNum = 5;
+        MainScene.get().stageNum = 5;
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }

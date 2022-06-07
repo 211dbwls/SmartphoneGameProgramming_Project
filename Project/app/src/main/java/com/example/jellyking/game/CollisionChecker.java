@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class CollisionChecker implements GameObject {
     private static final String TAG = CollisionChecker.class.getSimpleName();
 
-    MainGame game = MainGame.getInstance();
+    MainScene game = MainScene.get();
 
     @Override
     public void update() {
-        ArrayList<GameObject> player = game.objectsAt(MainGame.Layer.player);
-        ArrayList<GameObject> objects = game.objectsAt(MainGame.Layer.object);
+        ArrayList<GameObject> player = game.objectsAt(MainScene.Layer.player);
+        ArrayList<GameObject> objects = game.objectsAt(MainScene.Layer.object);
 
         for(GameObject o1 : player) {
             if(!(o1 instanceof JellyKing)) {  // JellyKing이 아닌 경우 무시.

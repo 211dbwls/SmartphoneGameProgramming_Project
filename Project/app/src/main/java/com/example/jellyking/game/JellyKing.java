@@ -1,19 +1,13 @@
 package com.example.jellyking.game;
 
-import android.animation.ValueAnimator;
 import android.graphics.Canvas;
-import android.graphics.Path;
-import android.graphics.PathMeasure;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.example.jellyking.R;
 import com.example.jellyking.framework.interfaces.BoxCollidable;
 import com.example.jellyking.framework.res.Metrics;
 import com.example.jellyking.framework.object.Sprite;
-
-import java.util.ArrayList;
 
 public class JellyKing extends Sprite implements BoxCollidable {
     private static final String TAG = JellyKing.class.getSimpleName();
@@ -86,7 +80,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
     }
 
     public void update() {
-        float frameTime = MainGame.getInstance().frameTime;
+        float frameTime = MainScene.get().frameTime;
 
 //        float dx = this.dx * frameTime;
 //        float dy = jumpSpeed * frameTime;
@@ -341,8 +335,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
     }
 
     public void death() {
-        MainGame.getInstance().remove(this);
-        MainGame.getInstance().init();  // 다시 시작.
+        MainScene.get().remove(this);
+        MainScene.get().init();  // 다시 시작.
     }
 
     @Override

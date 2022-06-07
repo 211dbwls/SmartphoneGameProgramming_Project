@@ -86,7 +86,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
     }
 
     public void update() {
-        float frameTime = MainGame.getInstance().frameTime;
+        float frameTime = MainScene.get().frameTime;
 
         /* 애니메이션 */
         if(enemyType != 4) {  // FixEnemy, DropEnemy, MoveUDEnemy
@@ -191,7 +191,7 @@ public class Enemies  extends Sprite implements BoxCollidable {
 
     public void death() {
         if(enemyType == 4) {  // MoveLREnemy
-            MainGame.getInstance().remove(this);
+            MainScene.get().remove(this);
         }
     }
 

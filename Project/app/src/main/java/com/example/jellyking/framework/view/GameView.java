@@ -12,7 +12,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.example.jellyking.framework.res.Metrics;
-import com.example.jellyking.game.MainGame;
+import com.example.jellyking.game.MainScene;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     public static GameView view;
@@ -64,7 +64,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (elapsed != 0) {  // 흐른 시간이 있는 경우.
             framesPerSecond = 1_000_000_000 / elapsed;
             lastTimeNanos = now;  // 지난 시간 저장.
-            MainGame game = MainGame.getInstance();
+            MainScene game = MainScene.get();
             game.update(elapsed);
             invalidate();
         }
@@ -73,7 +73,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void initView() {
-        MainGame.getInstance().init();
+        MainScene.get().init();
 
         // fpsPaint.setColor(Color.BLUE);
         // fpsPaint.setTextSize(100);
@@ -81,12 +81,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return MainGame.getInstance().onTouchEvent(event);
+        return MainScene.get().onTouchEvent(event);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        MainGame.getInstance().draw(canvas);
+        MainScene.get().draw(canvas);
 
         // canvas.drawText("FPS:" + framesPerSecond, framesPerSecond * 10, 100, fpsPaint);
         // canvas.drawText("" + MainGame.getInstance().objectCount(), 10, 100, fpsPaint);

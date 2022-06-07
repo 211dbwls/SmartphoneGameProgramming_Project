@@ -1,12 +1,14 @@
 package com.example.jellyking.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jellyking.framework.view.GameView;
-import com.example.jellyking.game.MainGame;
+import com.example.jellyking.game.MainScene;
+import com.example.jellyking.game.Scene;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -14,6 +16,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MainScene game = MainScene.get();
         setContentView(new GameView(this, null));
 
         ActionBar actionBar = getSupportActionBar();
@@ -35,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         GameView.view = null;
-        MainGame.clear();
+        MainScene.clear();
 
         super.onDestroy();
     }
