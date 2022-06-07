@@ -16,8 +16,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MainScene game = MainScene.get();
         setContentView(new GameView(this, null));
+
+        // MainScene game = MainScene.get();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

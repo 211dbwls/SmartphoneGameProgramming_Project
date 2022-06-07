@@ -3,6 +3,8 @@ package com.example.jellyking.game;
 import android.graphics.Canvas;
 import android.util.Log;
 
+import com.example.jellyking.R;
+import com.example.jellyking.framework.game.Sound;
 import com.example.jellyking.framework.util.CollisionHelper;
 import com.example.jellyking.framework.interfaces.GameObject;
 
@@ -161,6 +163,7 @@ public class CollisionChecker implements GameObject {
                         case 1:  // JumpOneItem
                             if (CollisionHelper.collides(item.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpOneItem");
+                                Sound.playEffect(R.raw.item);
                                 game.remove(item);  // 아이템 삭제
                                 jellyKing.setJumpTwice(false);
                                 break;
@@ -169,6 +172,7 @@ public class CollisionChecker implements GameObject {
                         case 2:  // JumpInfiniteItem
                             if (CollisionHelper.collides(item.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpInfiniteItem");
+                                Sound.playEffect(R.raw.item);
                                 game.remove(item);  // 아이템 삭제
                                 jellyKing.setJumpTwice(true);
                                 break;
@@ -181,6 +185,7 @@ public class CollisionChecker implements GameObject {
                     Stars star = (Stars) o2;
                     if (CollisionHelper.collides(star.getBoundingRect(), jellyKing.getBoundingRect())) {  // 충돌했을 경우
                         Log.d(TAG, "Collision : Star");
+                        Sound.playEffect(R.raw.star);
                         jellyKing.starCount += 1;  // 획득한 별 갯수 추가
                         game.remove(star);  // 별 삭제
                         if(jellyKing.starCount == game.maxStarCount) {  // 별 다 모았을 경우, 스테이지 클리어
