@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.game.Sound;
+import com.example.jellyking.framework.res.Sound;
 import com.example.jellyking.framework.util.CollisionHelper;
 import com.example.jellyking.framework.interfaces.GameObject;
 

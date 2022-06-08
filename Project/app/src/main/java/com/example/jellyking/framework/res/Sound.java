@@ -1,4 +1,4 @@
-package com.example.jellyking.framework.game;
+package com.example.jellyking.framework.res;
 
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;

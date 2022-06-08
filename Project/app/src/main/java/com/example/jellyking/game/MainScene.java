@@ -1,15 +1,11 @@
 package com.example.jellyking.game;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
-import com.example.jellyking.framework.game.Sound;
+import com.example.jellyking.framework.res.Sound;
 import com.example.jellyking.framework.interfaces.GameObject;
-import com.example.jellyking.framework.view.GameView;
 import com.example.jellyking.framework.res.Metrics;
 
 import java.util.ArrayList;
