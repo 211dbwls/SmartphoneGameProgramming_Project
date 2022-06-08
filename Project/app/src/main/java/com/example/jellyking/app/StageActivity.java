@@ -20,6 +20,7 @@ public class StageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_stage);
 
         ActionBar actionBar = getSupportActionBar();
@@ -30,35 +31,21 @@ public class StageActivity extends AppCompatActivity {
         stage4Button = findViewById(R.id.stage4);
         stage5Button = findViewById(R.id.stage5);
 
-        switch (MainScene.get().clearStageNum) {
-            case 2:
-                stage2Button.setBackgroundResource(R.mipmap.hud2);
-                stage2Button.setEnabled(true);
-                break;
-            case 3:
-                stage2Button.setBackgroundResource(R.mipmap.hud2);
-                stage2Button.setEnabled(true);
-                stage3Button.setBackgroundResource(R.mipmap.hud3);
-                stage3Button.setEnabled(true);
-                break;
-            case 4:
-                stage2Button.setBackgroundResource(R.mipmap.hud2);
-                stage2Button.setEnabled(true);
-                stage3Button.setBackgroundResource(R.mipmap.hud3);
-                stage3Button.setEnabled(true);
-                stage4Button.setBackgroundResource(R.mipmap.hud4);
-                stage4Button.setEnabled(true);
-                break;
-            case 5:
-                stage2Button.setBackgroundResource(R.mipmap.hud2);
-                stage2Button.setEnabled(true);
-                stage3Button.setBackgroundResource(R.mipmap.hud3);
-                stage3Button.setEnabled(true);
-                stage4Button.setBackgroundResource(R.mipmap.hud4);
-                stage4Button.setEnabled(true);
-                stage5Button.setBackgroundResource(R.mipmap.hud5);
-                stage5Button.setEnabled(true);
-                break;
+        if(MainScene.get().stage1Clear == true) {
+            stage2Button.setBackgroundResource(R.mipmap.hud2);
+            stage2Button.setEnabled(true);
+        }
+        if(MainScene.get().stage2Clear == true){
+            stage3Button.setBackgroundResource(R.mipmap.hud3);
+            stage3Button.setEnabled(true);
+        }
+        if(MainScene.get().stage3Clear == true) {
+            stage4Button.setBackgroundResource(R.mipmap.hud4);
+            stage4Button.setEnabled(true);
+        }
+        if(MainScene.get().stage4Clear == true) {
+            stage5Button.setBackgroundResource(R.mipmap.hud5);
+            stage5Button.setEnabled(true);
         }
     }
 

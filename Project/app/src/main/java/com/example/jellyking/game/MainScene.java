@@ -3,6 +3,7 @@ package com.example.jellyking.game;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
@@ -14,8 +15,6 @@ import com.example.jellyking.framework.res.Metrics;
 import java.util.ArrayList;
 
 public class MainScene extends Scene{
-    public static final String PARAM_STAGE_INDEX = "stage_index";
-
     private static final String TAG = MainScene.class.getSimpleName();
 
     private static MainScene singleton;
@@ -43,7 +42,11 @@ public class MainScene extends Scene{
 
     public int maxStarCount;
 
-    public int clearStageNum;  // 클리어한 스테이지
+    public boolean stage1Clear = false;  // 클리어한 스테이지
+    public boolean stage2Clear = false;
+    public boolean stage3Clear = false;
+    public boolean stage4Clear = false;
+    public boolean stage5Clear = false;
 
     public float size(float unit) {
         return Metrics.height / 9.5f * unit;
@@ -51,10 +54,6 @@ public class MainScene extends Scene{
 
     public static void clear() {
         singleton = null;
-    }
-
-    public void setMapIndex(int mapIndex) {
-        stageNum = mapIndex;
     }
 
     public void init() {
@@ -91,9 +90,6 @@ public class MainScene extends Scene{
         float x = stage.startX;
         float y = stage.startY;
         jellyKing = new JellyKing(x, y);
-        //float testX = Metrics.width / 26 * (3 + 2);
-        //float testY = Metrics.height / 13 * 3 + (Metrics.height / 13 * 0);
-        //jellyKing = new JellyKing(testX, testY);
         add(Layer.player, jellyKing);
 
         /* add */
@@ -118,6 +114,8 @@ public class MainScene extends Scene{
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
         jellyKing.starCount = 0;  // 모은 별 개수
+
+        start();
     }
 
     public void setStage(int[][] stageInfo) {
@@ -246,8 +244,28 @@ public class MainScene extends Scene{
     }
 
     public void stageClear() {
+        switch (stageNum)
+        {
+            case 1:
+                stage1Clear = true;
+                break;
+            case 2:
+                stage2Clear = true;
+                break;
+            case 3:
+                stage3Clear = true;
+                break;
+            case 4:
+                stage4Clear = true;
+                break;
+            case 5:
+                stage5Clear = true;
+                break;
+            default:
+                break;
+        }
         stageNum += 1;
-        clearStageNum = stageNum;
+
         if(stageNum > 5) { // 스테이지 5를 성공한 경우, 스테이지 선택화면으로 가도록
 
         }
@@ -264,6 +282,7 @@ public class MainScene extends Scene{
 
     @Override
     public void start() {
+        Log.d(TAG, "start");
         Sound.playMusic(R.raw.bgm);
     }
 
