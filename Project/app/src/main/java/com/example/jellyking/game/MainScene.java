@@ -263,7 +263,7 @@ public class MainScene extends Scene{
         stageNum += 1;
 
         if(stageNum > 5) { // 스테이지 5를 성공한 경우, 스테이지 선택화면으로 가도록
-
+            end();
         }
         init();
     }

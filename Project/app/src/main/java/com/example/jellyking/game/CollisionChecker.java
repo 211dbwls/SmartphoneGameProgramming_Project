@@ -168,7 +168,8 @@ public class CollisionChecker implements GameObject {
                                 Log.d(TAG, "Collision : JumpOneItem");
                                 Sound.playEffect(R.raw.item);
                                 game.remove(item);  // 아이템 삭제
-                                jellyKing.setJumpTwice(false);
+                                jellyKing.jumpItem = true;
+                                jellyKing.jumpItemInfinity = false;
                                 break;
                             }
                             break;
@@ -177,7 +178,8 @@ public class CollisionChecker implements GameObject {
                                 Log.d(TAG, "Collision : JumpInfiniteItem");
                                 Sound.playEffect(R.raw.item);
                                 game.remove(item);  // 아이템 삭제
-                                jellyKing.setJumpTwice(true);
+                                jellyKing.jumpItem = true;
+                                jellyKing.jumpItemInfinity = false;
                                 break;
                             }
                             break;

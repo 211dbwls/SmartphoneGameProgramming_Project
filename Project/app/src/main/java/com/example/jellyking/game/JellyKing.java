@@ -60,14 +60,8 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     public int starCount;  // 획득한 별 갯수
 
-    private PointF jellyKingPos = new PointF();
-
-    class Point {
-        float x, y;
-    }
-
-    Point point1, point2, point3;
-    float pDx, pDy;
+    boolean jumpItem;
+    boolean jumpItemInfinity;
 
     public JellyKing(float x, float y) {
         super(x, y, R.dimen.jellyking_radius, R.mipmap.jellyking_pink);  // jellyKing 생성
@@ -82,105 +76,6 @@ public class JellyKing extends Sprite implements BoxCollidable {
 
     public void update() {
         float frameTime = MainScene.get().frameTime;
-
-//        float dx = this.dx * frameTime;
-//        float dy = jumpSpeed * frameTime;
-//        jumpSpeed += gravity * frameTime;
-//
-//        /* 터치 시간 구하기 */
-//        if(touch == true) {  // 터치 중인 경우
-//            touchTime += frameTime;
-//        }
-//        else {  // 터치가 끝났을 경우
-//            touchTime = 0;
-//        }
-//
-//        /* 터치시 점프 및 이동 */
-//        if(touch == true) {  // 터치한 경우
-//            /* 터치 시간에 따라 이동 거리 설정 */
-//            if (touchTime > 0.5f) {  // 터치 시간이 긴 경우
-//                moveWidthLimit = MOVE_WIDTH_LIMIT_LONG;  // 이동 거리 늘림
-//            } else {  // 터치 시간이 짧은 경우
-//                moveWidthLimit = MOVE_WIDTH_LIMIT_SHORT;  // 이동 거리 짧게
-//            }
-//
-//            if (move == true) {  // 이동하는 경우
-//                if (moveRight == true) {  // 오른쪽으로 이동하는 경우
-//                    if (jumpingPoint == true) {   // 점프 처음할 때 점 구하기
-//                        Point point1 = new Point();
-//                        point1.x = moveStartX;
-//                        point1.y = moveStartY;
-//
-//                        Point point2 = new Point();
-//                        point2.x = moveStartX + moveWidthLimit / 2;
-//                        point2.y = moveStartY + jumpHeightLimit;
-//
-//                        Point point3 = new Point();
-//                        point3.x = moveStartX + moveWidthLimit;
-//                        point3.y = moveStartY;
-//
-//                        jumpingPoint = false;
-//                        t = 0;
-//                    }
-//
-//                    pDx = (float)(Math.pow((1 - t), 2) * point1.x + 2 * (1 - t) * t * point2.x + Math.pow(t, 2) * point3.x);
-//                    pDy = (float)(Math.pow((1 - t), 2) * point1.y + 2 * (1 - t) * t * point2.y + Math.pow(t, 2) * point3.y);
-//
-//                    t += 0.1;
-//                    if (t == 1) {  // 점프 끝났을 때
-//                        move = false;
-//                    }
-//                    /*if (moveWidth > moveWidthLimit) {   // 이동 거리를 도달했을 경우
-//                        if(collisionBlock == true) {
-//                            moveRight = true;
-//                            moveWidth = 0.0f;
-//                            collisionBlock = false;
-//                        }
-//                        move = false;  // 이동 멈춤.
-//                    }
-//                    if(dx < 0) {
-//                        dx = -dx;
-//                    }*/
-//                }
-//                else {  // 왼쪽으로 이동하는 경우
-//                    if (moveWidth < 0) {  // 이동 거리를 도달했을 경우
-//                        if (collisionBlock == true) {
-//                            moveRight = false;
-//                            moveWidth = moveWidthLimit;
-//                            collisionBlock = false;
-//                        }
-//                        move = false;
-//                    }
-//                    if (dx > 0) {
-//                        dx = -dx;
-//                    }
-//                }
-//            }
-//            else {  // 이동하지 않는 경우
-//                moveWidth = 0.0f;
-//            }
-//        }
-//        else if(touch == false && collisionStraightLeftBlock == false && collisionStraightRightBlock == false){  // 터치하지 않았을 경우
-//            /* 제자리 점프 */
-//            if(jumpUp == true) {  // 위로 이동 중인 경우
-//                dx = 0;  // 좌우로 이동하지 않도록
-//                jumpSpeed = -jumpPower;  // jumpSpeed 설정
-//                jumpHeight += dy;
-//                if (jumpHeight < -jumpHeightLimit) {  // 위에 닿았을 경우
-//                    jumpUp = false;  // 아래로 이동하도록
-//                }
-//            }
-//            else {
-//                dx = 0;  // 좌우로 이동하지 않도록
-//                jumpSpeed = jumpPower;
-//                jumpHeight += dy;
-//            }
-//        }
-//
-//        x += dx;
-//        y += dy;
-//        dstRect.offset(dx, dy);
-//        moveWidth += dx;
 
         float dx = this.dx * (float)2.5 * frameTime;
         float dy = this.dy * (float)1.5 * frameTime;
@@ -329,10 +224,6 @@ public class JellyKing extends Sprite implements BoxCollidable {
        else {
            moveRight = right;  // 충돌했을 경우,
        }
-    }
-
-    public void setJumpTwice(boolean infinite) {
-
     }
 
     public void death() {
