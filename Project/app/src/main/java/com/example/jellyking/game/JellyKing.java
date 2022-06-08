@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.example.jellyking.R;
+import com.example.jellyking.framework.game.Sound;
 import com.example.jellyking.framework.interfaces.BoxCollidable;
 import com.example.jellyking.framework.res.Metrics;
 import com.example.jellyking.framework.object.Sprite;
@@ -335,6 +336,7 @@ public class JellyKing extends Sprite implements BoxCollidable {
     }
 
     public void death() {
+        Sound.playEffect(R.raw.death);
         MainScene.get().remove(this);
         MainScene.get().init();  // 다시 시작.
     }

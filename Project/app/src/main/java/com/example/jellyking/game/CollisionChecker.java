@@ -78,6 +78,7 @@ public class CollisionChecker implements GameObject {
                         case 4:  // JumpBlock
                             if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : JumpBlock");
+                                Sound.playEffect(R.raw.jump);
                                 jellyKing.collisionJumpBlock = true;
                                 jellyKing.jumpUp = true;   // 점프하도록
                                 block.jumpBlockCollision = true;  // 블록 애니메이션
@@ -101,6 +102,7 @@ public class CollisionChecker implements GameObject {
                         case 7:  // StraightLeftBlock
                             if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : StraightLeftBlock");
+                                Sound.playEffect(R.raw.straightblock);
                                 jellyKing.collisionStraightLeftBlock = true;  // 왼쪽으로 이동하도록
                                 jellyKing.collisionStraightRightBlock = false;
                                 jellyKing.collisionStraightLeftBlockY = block.startY;
@@ -110,6 +112,7 @@ public class CollisionChecker implements GameObject {
                         case 8:  // StraightRightBlock
                             if (CollisionHelper.collides(block.getBoundingRectHead(), jellyKing.getBoundingRectFoot())) {  // 충돌했을 경우
                                 Log.d(TAG, "Collision : StraightRightBlock");
+                                Sound.playEffect(R.raw.straightblock);
                                 jellyKing.collisionStraightRightBlock = true;  // 오른쪽으로 이동하도록
                                 jellyKing.collisionStraightLeftBlock = false;
                                 jellyKing.collisionStraightRightBlockY = block.startY;
