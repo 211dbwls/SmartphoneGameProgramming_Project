@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
+import com.example.jellyking.framework.object.Button;
 import com.example.jellyking.framework.object.Sprite;
 import com.example.jellyking.framework.res.Sound;
 import com.example.jellyking.framework.interfaces.GameObject;
@@ -101,8 +102,22 @@ public class MainScene extends Scene{
         add(Layer.bgUi.ordinal(), new Sprite(Metrics.width - size(2.7f), Metrics.height - btn_y, size(0.8f), size(0.8f), R.mipmap.yellow_button));
         add(Layer.bgUi.ordinal(), new Sprite(Metrics.width - size(1.5f), Metrics.height - btn_y, size(0.8f), size(0.8f), R.mipmap.yellow_button));
 
-        add(Layer.ui.ordinal(), new Sprite(Metrics.width - size(2.7f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.pause));
-        add(Layer.ui.ordinal(), new Sprite(Metrics.width - size(1.5f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.door));
+        add(Layer.ui.ordinal(), new Button(Metrics.width - size(2.7f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.pause, R.mipmap.pause_p, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                Log.d(TAG, "pause");
+                pause();
+                return true;
+            }
+        }));
+        add(Layer.ui.ordinal(), new Button(Metrics.width - size(1.5f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.home, R.mipmap.home_p, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                Log.d(TAG, "home");
+                finish();
+                return true;
+            }
+        }));
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
@@ -217,16 +232,21 @@ public class MainScene extends Scene{
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                jellyKing.touch = true;
-
                 float x = event.getX();
-                if(x > Metrics.width / 2) {  // 오른쪽 터치
-                    jellyKing.setMoveDirection(true, false);
-                    jellyKing.jumpingPoint = true;
+                float y = event.getY();
+
+                if(y > Metrics.height / 2 - Metrics.height / 4) {
+                    jellyKing.touch = true;
+                    if (x > Metrics.width / 2) {  // 오른쪽 터치
+                        jellyKing.setMoveDirection(true, false);
+                        jellyKing.jumpingPoint = true;
+                    } else {  // 왼쪽 터치
+                        jellyKing.setMoveDirection(false, false);
+                        jellyKing.jumpingPoint = true;
+                    }
                 }
-                else {  // 왼쪽 터치
-                    jellyKing.setMoveDirection(false, false);
-                    jellyKing.jumpingPoint = true;
+                else {
+                    jellyKing.touch = false;
                 }
                 return true;
             case MotionEvent.ACTION_UP:
