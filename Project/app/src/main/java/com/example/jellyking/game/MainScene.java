@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
+import com.example.jellyking.framework.object.Sprite;
 import com.example.jellyking.framework.res.Sound;
 import com.example.jellyking.framework.interfaces.GameObject;
 import com.example.jellyking.framework.res.Metrics;
@@ -22,7 +23,7 @@ public class MainScene extends Scene{
     }
 
     public enum Layer {
-        bg, object, player, touchUi, controller, COUNT
+        bg, object, player, bgUi, ui, controller, COUNT
     }
 
     /* stage */
@@ -94,18 +95,14 @@ public class MainScene extends Scene{
 
         /* 버튼 */
         float btn_x = size(1.5f);
-        float btn_y = size(1.5f);
-        float btn_w = size(1.0f);
-        float btn_h = size(1.0f);
+        float btn_y = size(8.75f);
+        float btn_w = size(0.7f);
+        float btn_h = size(0.7f);
+        add(Layer.bgUi.ordinal(), new Sprite(Metrics.width - size(2.7f), Metrics.height - btn_y, size(0.8f), size(0.8f), R.mipmap.yellow_button));
+        add(Layer.bgUi.ordinal(), new Sprite(Metrics.width - size(1.5f), Metrics.height - btn_y, size(0.8f), size(0.8f), R.mipmap.yellow_button));
 
-//        add(Layer.touchUi.ordinal(), new Button(btn_x, btn_y, btn_w, btn_h, R.mipmap.icon_pause, new Button.Callback() {
-//            @Override
-//            public boolean onTouch(Button.Action action) {
-//                if (action != Button.Action.pressed) return false;
-//                Log.d(TAG, "ui");
-//                return true;
-//            }
-//        }));
+        add(Layer.ui.ordinal(), new Sprite(Metrics.width - size(2.7f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.pause));
+        add(Layer.ui.ordinal(), new Sprite(Metrics.width - size(1.5f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.door));
 
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
