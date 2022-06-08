@@ -14,6 +14,8 @@ public class StageInfo {
     float startX, startY;
     int maxStar;
 
+    public int stageOpenNum = 1;
+
     public StageInfo(int stageNum) {
         switch (stageNum) {
             case 1:

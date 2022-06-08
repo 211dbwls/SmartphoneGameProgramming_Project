@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jellyking.R;
 import com.example.jellyking.game.MainScene;
+import com.example.jellyking.game.Scene;
 
 public class StageActivity extends AppCompatActivity {
     Button stage2Button;
@@ -31,19 +32,19 @@ public class StageActivity extends AppCompatActivity {
         stage4Button = findViewById(R.id.stage4);
         stage5Button = findViewById(R.id.stage5);
 
-        if(MainScene.get().stage1Clear == true) {
+        if(MainScene.get().stageOpenNumS == 2) {
             stage2Button.setBackgroundResource(R.mipmap.hud2);
             stage2Button.setEnabled(true);
         }
-        if(MainScene.get().stage2Clear == true){
+        if(MainScene.get().stageOpenNumS == 3) {
             stage3Button.setBackgroundResource(R.mipmap.hud3);
             stage3Button.setEnabled(true);
         }
-        if(MainScene.get().stage3Clear == true) {
+        if(MainScene.get().stageOpenNumS == 4) {
             stage4Button.setBackgroundResource(R.mipmap.hud4);
             stage4Button.setEnabled(true);
         }
-        if(MainScene.get().stage4Clear == true) {
+        if(MainScene.get().stageOpenNumS == 5) {
             stage5Button.setBackgroundResource(R.mipmap.hud5);
             stage5Button.setEnabled(true);
         }

@@ -37,9 +37,54 @@ public class Scene {
         singleton = null;
     }
 
-    public void init() {
+    protected static ArrayList<Scene> sceneStack = new ArrayList<>();
+
+    public static void start(Scene scene) {
+        int lastIndex = sceneStack.size() - 1;
+        if (lastIndex >= 0) {
+            Scene top = sceneStack.remove(lastIndex);
+            Log.d(TAG, "Ending(in start): " + top);
+            top.end();
+            sceneStack.set(lastIndex, scene);
+        } else {
+            sceneStack.add(scene);
+        }
+        Log.d(TAG, "Starting(in start): " + scene);
+        scene.start();
     }
 
+    public static void push(Scene scene) {
+        int lastIndex = sceneStack.size() - 1;
+        if (lastIndex >= 0) {
+            Scene top = sceneStack.get(lastIndex);
+            Log.d(TAG, "Pausing: " + top);
+            top.pause();
+        }
+        sceneStack.add(scene);
+        Log.d(TAG, "Starting(in push): " + scene);
+        scene.start();
+    }
+
+    public static void popScene() {
+        int lastIndex = sceneStack.size() - 1;
+        if (lastIndex >= 0) {
+            Scene top = sceneStack.remove(lastIndex);
+            Log.d(TAG, "Ending(in pop): " + top);
+            top.end();
+        }
+        lastIndex--;
+        if (lastIndex >= 0) {
+            Scene top = sceneStack.get(lastIndex);
+            Log.d(TAG, "Resuming: " + top);
+            top.resume();
+        } else {
+            Log.e(TAG, "should end app in popScene()");
+        }
+    }
+
+    public void init() {
+    }
+    public boolean isTransparent() { return false; }
     public void start(){}
     public void pause(){}
     public void resume(){}
@@ -53,13 +98,21 @@ public class Scene {
     }
 
     public void draw(Canvas canvas) {
+        draw(canvas, sceneStack.size() - 1);
+    }
+
+    protected void draw(Canvas canvas, int index) {
+        Scene scene = sceneStack.get(index);
+        if (scene.isTransparent() && index > 0) {
+            draw(canvas, index - 1);
+        }
+        ArrayList<ArrayList<GameObject>> layers = scene.layers;
         for (ArrayList<GameObject> gameObjects : layers) {
             for (GameObject gobj : gameObjects) {
                 gobj.draw(canvas);
             }
         }
     }
-
     public void update(int elapsedNanos) {
         frameTime = (float) (elapsedNanos / 1_000_000_000f);
         for (ArrayList<GameObject> gameObjects : layers) {
@@ -97,6 +150,7 @@ public class Scene {
     }
 
     public int objectCount() {
+        if (layers == null) return 0;
         int count = 0;
         for(ArrayList<GameObject> gameObjects : layers) {
             count += gameObjects.size();
@@ -130,5 +184,9 @@ public class Scene {
 
     public void finish() {
         GameView.view.getActivity().finish();
+    }
+
+    public boolean handleBackKey() {
+        return false;
     }
 }

@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.example.jellyking.framework.res.Metrics;
 import com.example.jellyking.game.MainScene;
+import com.example.jellyking.game.Scene;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     public static GameView view;
@@ -118,5 +119,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
             context = ((ContextWrapper)context).getBaseContext();
         }
         return null;
+    }
+
+    public boolean onBackPressed() {
+        return Scene.getInstance().handleBackKey();
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.jellyking.R;
+import com.example.jellyking.app.StageActivity;
 import com.example.jellyking.framework.object.Button;
 import com.example.jellyking.framework.object.Sprite;
 import com.example.jellyking.framework.res.Sound;
@@ -30,6 +31,7 @@ public class MainScene extends Scene{
     /* stage */
     StageInfo stage;
     public int stageNum;
+    public int stageOpenNumS;
 
     /* gameObjects */
     private JellyKing jellyKing;
@@ -39,12 +41,6 @@ public class MainScene extends Scene{
     private Stars stars;
 
     public int maxStarCount;
-
-    public boolean stage1Clear = false;  // 클리어한 스테이지
-    public boolean stage2Clear = false;
-    public boolean stage3Clear = false;
-    public boolean stage4Clear = false;
-    public boolean stage5Clear = false;
 
     public float size(float unit) {
         return Metrics.height / 9.5f * unit;
@@ -84,6 +80,8 @@ public class MainScene extends Scene{
                 break;
         }
 
+        stageOpenNumS = stage.stageOpenNum;
+
         /* Player */
         float x = stage.startX;
         float y = stage.startY;
@@ -94,36 +92,17 @@ public class MainScene extends Scene{
         add(Layer.controller, new CollisionChecker());
         add(Layer.bg, new Background(R.mipmap.background_colored_land));
 
-        /* 버튼 */
-        float btn_x = size(1.5f);
-        float btn_y = size(8.75f);
-        float btn_w = size(0.7f);
-        float btn_h = size(0.7f);
-        add(Layer.bgUi.ordinal(), new Sprite(Metrics.width - size(2.7f), Metrics.height - btn_y, size(0.8f), size(0.8f), R.mipmap.yellow_button));
-        add(Layer.bgUi.ordinal(), new Sprite(Metrics.width - size(1.5f), Metrics.height - btn_y, size(0.8f), size(0.8f), R.mipmap.yellow_button));
-
-        add(Layer.ui.ordinal(), new Button(Metrics.width - size(2.7f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.pause, R.mipmap.pause_p, new Button.Callback() {
-            @Override
-            public boolean onTouch(Button.Action action) {
-                Log.d(TAG, "pause");
-                pause();
-                return true;
-            }
-        }));
-        add(Layer.ui.ordinal(), new Button(Metrics.width - size(1.5f), Metrics.height - btn_y, btn_w, btn_h, R.mipmap.home, R.mipmap.home_p, new Button.Callback() {
-            @Override
-            public boolean onTouch(Button.Action action) {
-                Log.d(TAG, "home");
-                finish();
-                return true;
-            }
-        }));
-
         /* 모아야 할 별 개수 */
         maxStarCount = stage.maxStar;  // 모아야 할 별 개수
         jellyKing.starCount = 0;  // 모은 별 개수
 
         start();
+    }
+
+    @Override
+    public boolean handleBackKey() {
+        push(PausedScene.get());
+        return true;
     }
 
     public void setStage(int[][] stageInfo) {
@@ -257,27 +236,10 @@ public class MainScene extends Scene{
     }
 
     public void stageClear() {
-        switch (stageNum)
-        {
-            case 1:
-                stage1Clear = true;
-                break;
-            case 2:
-                stage2Clear = true;
-                break;
-            case 3:
-                stage3Clear = true;
-                break;
-            case 4:
-                stage4Clear = true;
-                break;
-            case 5:
-                stage5Clear = true;
-                break;
-            default:
-                break;
-        }
         stageNum += 1;
+        if(stage.stageOpenNum <= stageNum) {
+            stage.stageOpenNum = stageNum;
+        }
 
         if(stageNum > 5) { // 스테이지 5를 성공한 경우, 스테이지 선택화면으로 가도록
             end();

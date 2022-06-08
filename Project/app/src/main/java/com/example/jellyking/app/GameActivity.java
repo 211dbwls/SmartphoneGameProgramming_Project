@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jellyking.framework.view.GameView;
 import com.example.jellyking.game.MainScene;
+import com.example.jellyking.game.PausedScene;
 import com.example.jellyking.game.Scene;
 
 public class GameActivity extends AppCompatActivity {
@@ -15,7 +16,11 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(new GameView(this, null));
+
+        MainScene game = MainScene.get();
+        Scene.push(game);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -40,4 +45,11 @@ public class GameActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (GameView.view.onBackPressed()) {
+            return;
+        }
+        super.onBackPressed();
+    }
 }
