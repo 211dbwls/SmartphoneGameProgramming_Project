@@ -1,7 +1,7 @@
 # 🎮 SmartphoneGameProgramming
 2022 1학기 스마트폰게임프로그래밍
 
-# Project - JELLYKING
+# 🍮 Project - JELLYKING
 ## 👩‍🏫 1차 발표 : 5주차 수요일 (3/30)
 * 게임 컨셉
   * 공 튀기기 게임
